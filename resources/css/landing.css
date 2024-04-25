@@ -815,3 +815,11 @@
           height: 600px;
       }
   }
+  
+  .hero-bg {
+    background-image: url('../../public/img/1.jpg');
+    background-size: cover; /* Atur agar gambar selalu menutupi seluruh bagian */
+    background-position: center; /* Posisikan gambar di tengah-tengah */
+    height: 600px; /* Sesuaikan tinggi bagian dengan kebutuhan Anda */
+    /* Tambahan gaya CSS lainnya sesuai kebutuhan Anda */
+  }

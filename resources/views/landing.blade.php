@@ -69,7 +69,7 @@
             <section class="section about" id="about" aria-level="about">
                 <div class="container">
                     <div class="about-banner img-holder" style="--width: 600; --height: 700;">
-                        <img src="images/abt-banner.jpg" width="600px" height="700px" loading="lazy" alt="" class="img-cover">
+                        <img src="img/abt-banner.jpg" width="600px" height="700px" loading="lazy" alt="" class="img-cover">
                     </div>
 
                     <div class="about-content">
@@ -89,7 +89,7 @@
                     </div>
 
                     <div class="about-banner img-holder" style="--width: 600; --height: 700;">
-                        <img src="images/abt-banner.jpg" width="300px" height="400px" loading="lazy" alt="" class="img-cover">
+                        <img src="img/abt-banner.jpg" width="300px" height="400px" loading="lazy" alt="" class="img-cover">
                     </div>
 
                 </div>
@@ -98,7 +98,7 @@
             <section class="section about" id="about" aria-level="about">
                 <div class="container">
                     <div class="about-banner img-holder" style="--width: 600; --height: 700;">
-                        <img src="images/abt-banner.jpg" width="600px" height="700px" loading="lazy" alt="" class="img-cover">
+                        <img src="img/abt-banner.jpg" width="600px" height="700px" loading="lazy" alt="" class="img-cover">
                     </div>
 
                     <div class="about-content">
