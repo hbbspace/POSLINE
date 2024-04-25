@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>POSLINE</title>
   <!--======== custom css link =========-->
-  <link rel="stylesheet" href="\laragon\www\POSLINE\resources\js\landing.js">
+  <link rel="stylesheet" href="../resources/css/landing.css">
   <!--========= google font link ========-->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -287,10 +287,10 @@
    </main>
     
   <!--========= custom js link =========-->
-  <script src="C:\laragon\www\POSLINE\resources\js\landing.js" defer></script>
+  <script src="../resources/js/landing.js" defer></script>
 
   <!--=========== ionicon link ==========-->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
-</html> 
+</html>

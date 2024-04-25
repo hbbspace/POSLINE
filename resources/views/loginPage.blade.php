@@ -4,7 +4,7 @@
    <head>
       <meta charset="utf-8">
       <title>Login Form Design | CodeLab</title>
-      <link rel="stylesheet" href="css/loginPage.css">
+      <link rel="stylesheet" href="../resources/css/loginPage.css">
    </head>
    <body>
       <div class="wrapper">
