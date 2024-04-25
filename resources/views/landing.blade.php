@@ -38,7 +38,7 @@
                 </ul>
             </nav>
 
-            <a href="#" class="btn btn-secondary">Login</a>
+            <a href="{{ url('/login') }}" class="btn btn-secondary">Login</a>
             <button class="nav-toggle-btn" aria-label="Toggle menu" data-nav-toggler>
                 <ion-icon name="menu-outline" aria-hidden="true" class="menu-icon"></ion-icon>
                 <ion-icon name="close-outline" aria-hidden="trur" class="close-icon"></ion-icon>
