@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>POSLINE</title>
   <!--======== custom css link =========-->
-  <link rel="stylesheet" href="../resources/css/landing.css">
+  @vite('resources/css/landing.css')
   <!--========= google font link ========-->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
