@@ -31,7 +31,7 @@ html,body{
   color: #fff;
   user-select: none;
   border-radius: 15px 15px 0 0;
-  background: linear-gradient(-135deg, #c850c0, #4158d0);
+  background: linear-gradient(-135deg, #c850c0, #9faefa);
 }
 .wrapper form{
   padding: 10px 30px 50px 30px;
