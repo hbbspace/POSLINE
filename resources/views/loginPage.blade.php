@@ -30,6 +30,7 @@
             </div>
             <div class="field">
                <input type="submit" value="Login">
+               <a href="{{ url('/home') }}">Langsungan!!</a>
             </div>
             {{-- <div class="signup-link">
                Not a member? <a href="#">Signup now</a>
