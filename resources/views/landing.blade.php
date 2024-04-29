@@ -14,7 +14,6 @@
 </head>
 <body>
     
-    
    <header class="header" data-header>
         <div class="container">
             <a href="" class="logo">
