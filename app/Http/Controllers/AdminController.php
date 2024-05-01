@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class WelcomeController extends Controller
+class AdminController extends Controller
 {
     public function index()
     {   
+        // session()->flush();
         $breadcrumb = (object) [
             'title' => 'Selamat Datang',
             'list' => ['Home', 'Welcome']
@@ -15,6 +16,6 @@ class WelcomeController extends Controller
 
         $activeMenu = 'dashboard';
 
-        return view('welcome', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
+        return view('admin', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
     }
 }

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->increments('user_id');
             $table->string('nik', 16);
             $table->string('password', 60);
+            $table->string('username', 50);
             // Tambahkan kolom lain sesuai kebutuhan
 
             // Tambahkan foreign key
