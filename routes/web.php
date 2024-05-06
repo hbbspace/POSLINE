@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [LandingController::class,'index']);
 Route::get('/forgotPassword', [forgotPassword::class,'index']);
-Route::get('/admin',[AdminController::class,'index']);
 
 Route::get('login', [AuthController::class, 'index'])->name('login');
 Route::get('register', [AuthController::class, 'register'])->name('register');
@@ -26,22 +25,26 @@ Route::post('proses_login', [AuthController::class, 'proses_login'])->name('pros
 Route::get('logout', [AuthController::class,'logout'])->name('logout');
 Route::post('proses_register', [AuthController::class, 'proses_register'])->name('proses_register');
 
+Route::get('/admin',[AdminController::class,'index']);
+Route::get('/user',[UserController::class,'index']);
+
+
+
 // kita atur juga untuk middleware menggunakan group pada routing
 // didalamnya terdapat group untuk mengecek kondisi login
 // jika user yang login merupakan admin maka akan diarahkan ke AdminController
 // jika user yang login merupakan manager maka akan diarahkan ke UserController
 
-Route::group(['Middleware' => ['auth:admin, user']], function() {
-    Route::group(['Middleware' => ['cek_login:1']], function() {
-        Route::resource('admin', AdminController::class);
-        Route::get('admin',[AdminController::class,'index']);
-        Route::get('/user/{id}', [AdminController::class, 'show']);
-    });
-    Route::group(['Middleware' => ['cek_login:2']], function() {
-        Route::resource('petugas', PetugasController::class);
-    });
-    Route::get('/user',[UserController::class,'index']);
-});
+// Route::group(['middleware' => ['auth','cek_login:1']], function() {
+//     Route::resource('admin', AdminController::class);
+//     Route::get('admin',[AdminController::class,'index']);
+//     Route::get('/user/{id}', [AdminController::class, 'show']);
+// });
+// Route::group(['middleware' => ['auth','cek_login:2']], function() {
+//         Route::resource('petugas', PetugasController::class);
+// });
+// Route::get('/user',[UserController::class,'index']);
+
 
 Route::group(['prefix' => 'dataUser'], function () {
     Route::get('/', [DataUserController::class, 'index']); // menampilkan halaman awal user

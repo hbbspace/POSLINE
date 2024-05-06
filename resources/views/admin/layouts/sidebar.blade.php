@@ -46,7 +46,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ url('/dataUser') }}" class="nav-link ">
+                <a href="{{ url('dataUser') }}" class="nav-link ">
                     <i class="nav-icon far fa-user"></i>
                     <p>Data User</p>
                 </a>

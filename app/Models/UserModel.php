@@ -14,9 +14,8 @@ class UserModel extends Authenticable
     protected $primaryKey = 'user_id';
 
     protected $fillable = [
-        'username',
-        'password',
         'nik',
+        'password',
     ];
 
     protected $hidden = [
