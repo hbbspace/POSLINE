@@ -1,92 +1,53 @@
-@extends('adminlte::auth.auth-page', ['auth_type' => 'login'])
-
-@section('adminlte_css_pre')
-    <link rel="stylesheet" href="{{ asset('vendor/icheck-bootstrap/icheck-bootstrap.min.css') }}">
-@stop
-
-@php( $login_url = View::getSection('login_url') ?? config('adminlte.login_url', 'login'))
-@php( $register_url = View::getSection('register_url') ?? config('adminlte.register_url', 'register'))
-@php( $password_reset_url = View::getSection('password_reset_url') ?? config('adminlte.password_reset_url', 'password/reset'))
-
-@if (config('adminlte.use_route_url', false))
-    @php( $login_url = $login_url ? route($login_url) : '' )
-    @php( $register_url = $register_url ? route($register_url) : '' )
-    @php( $password_reset_url = $password_reset_url ? route($password_reset_url) : '' )
-@else
-    @php( $login_url = $login_url ? url($login_url) : '')
-    @php( $register_url = $register_url ? url($register_url) : '')
-    @php( $password_reset_url = $password_reset_url ? url($password_reset_url) : '')
-@endif
-
-@section('auth_header', __('adminlte::adminlte.login_message'))
-
-@section('auth_body')
-    @error('login_gagal')
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        <span class="alert-inner--text"><strong>Warning!</strong> {{ $message }}</span>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    @enderror
-    <form action="{{url('proses_login')}}" method="post">
-        @csrf
-
-        {{-- Email field --}}
-        <div class="input-group mb-3">
-            <input type="text" name="username" class="form-control @error('username') is-invalid @enderror"
-                value="{{ old('username') }}" placeholder="Username" autofocus>
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-white">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    @vite('resources/css/app.css')
+    <title>POSLINE</title>
+</head>
+<body class="h-full">
             
-            <div class="input-group-append">
-                <div class="input-group-text">
-                    <span class="fas fa-envelope {{ config('adminlte.classes_auth_icon', '') }}"></span>
-                </div>
+        <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+            <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+            <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
+            <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Silahkan Login</h2>
             </div>
-
-            @error('username')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-        </div>
-
-        {{-- Password field --}}
-        <div class="input-group mb-3">
-            <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
-                    placeholder="{{ __('adminlte::adminlte.password') }}">
-            
-            <div class="input-group-append">
-                <div class="input-group-text">
-                    <span class="fas fa-lock {{ config('adminlte.classes_auth_icon', '') }}"></span>
-                </div>
-            </div>
-
-            @error('password')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-        </div>
-
-        {{-- Login field --}}
-        <div class="row">
-            <div class="col-7">
-                <div class="icheck-primary" title="{{__('adminlte::adminlte.remember_me_hint') }}">
-                    <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked': '' }}>
-                    
-                    <label for="remember">
-                        {{ __('adminlte::adminlte.remember_me') }}
-                    </label>
-                </div>
-            </div>  
-
-            <div class="col-5">
-                <button type=submit class="btn btn-block {{ config('adminlte.classes_auth_btn', 'btn-flat btn-primary') }}">
-                    <span class="fas fa-sign-in-alt"></span>
-                    {{ __('adminlte::adminlte.sign_in') }}
-                </button>
-            </div>
-        </div>
         
-    </form>
-@stop
+            <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+            <form class="space-y-6" action="{{ route('proses_login') }}" method="POST">
+                @csrf
+                <div>
+                <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Username</label>
+                <div class="mt-2">
+                    <input type="text" name="username" value="{{ old('username') }}" placeholder="Username" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" autofocus>
+                </div>
+                </div>
+        
+                <div>
+                <div class="flex items-center justify-between">
+                    <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
+                    <div class="text-sm">
+                    <a href="/forgotPassword" class="font-semibold text-indigo-600 hover:text-indigo-500">Lupa Password?</a>
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <input type="password" name="password" placeholder='*******' required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                </div>
+                </div>
+        
+                <div>
+                <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
+                </div>
+            </form>
+        
+            <p class="mt-10 text-center text-sm text-gray-500">
+                Not a member?
+                <a href="#" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Start a 14 day free trial</a>
+            </p>
+            </div>
+        </div>
+  
+</body>
+</html>

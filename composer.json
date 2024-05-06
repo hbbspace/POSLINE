@@ -9,6 +9,10 @@
         "jeroennoten/laravel-adminlte": "^3.11",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
+<<<<<<< HEAD
+=======
+        "yajra/laravel-datatables-buttons": "^11.0",
+>>>>>>> 20f515fe8072eaeb3130eb1776f457b132129692
         "yajra/laravel-datatables-oracle": "^11.1"
     },
     "require-dev": {

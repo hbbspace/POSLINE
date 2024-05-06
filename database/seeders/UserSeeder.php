@@ -15,13 +15,11 @@ class UserSeeder extends Seeder
     {
         DB::table('user')->insert([
             [
-                'nik' => '1234567890123456',
-                'username' => 'user1',
+                'username' => '1234567890123456',
                 'password' => bcrypt('123'),
             ],
             [
-                'nik' => '7890123456789012',
-                'username' => 'user2',
+                'username' => '7890123456789012',
                 'password' => bcrypt('123'),
             ],
         ]);

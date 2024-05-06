@@ -52,13 +52,9 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     { 
-        if(Auth::guard('admin')->check()){
-            $request->session()->flush();
-            Auth::logout();
-        } elseif(Auth::guard('user')->check()){
-            $request->session()->flush();
-            Auth::logout();
-        }
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        Auth::logout();
         return Redirect('login');
     }
 }

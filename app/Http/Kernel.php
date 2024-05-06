@@ -13,6 +13,7 @@ class Kernel extends HttpKernel
      *
      * @var array<int, class-string|string>
      */
+    
     protected $middleware = [
         // \App\Http\Middleware\TrustHosts::class,
         \App\Http\Middleware\TrustProxies::class,
@@ -66,5 +67,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         //tambahkan midddleware cek login
         'cek_login' => \App\Http\Middleware\cek_login::class,
+        'auth.user' => \App\Http\Middleware\RedirectIfNotAuthenticated::class,
     ];
 }

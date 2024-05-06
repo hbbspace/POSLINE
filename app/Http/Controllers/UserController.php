@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\UserDataTable;
+use App\Models\UserModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -11,11 +14,15 @@ class UserController extends Controller
         // session()->flush();
         $breadcrumb = (object) [
             'title' => 'Selamat Datang',
-            'list' => ['Home', 'Welcome']
+            'list' => ['Home', 'User']
         ];
 
-        $activeMenu = 'dashboard';
-
+        $page = (object) [
+            'title' => 'Daftar User yang terdaftar dalam sistem'
+        ];
+        $activeMenu = 'user/dataUser';
+        $dataUser = UserModel::all();
+        // return $dataTable->render('admin.dataUser.index');
         return view('User', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
     }
 }
