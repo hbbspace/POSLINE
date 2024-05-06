@@ -19,6 +19,7 @@ class AdminModel extends Authenticable
         'password',
         'nama_admin',
         'level',
+        'jk',
     ];
 
     protected $hidden = [

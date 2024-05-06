@@ -1,42 +1,44 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
 use App\Models\AdminModel;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
-class DataAdminController extends Controller
+class PetugasController extends Controller
 {
 
     public function index()
     {
         $breadcrumb = (object) [
-            'title' => 'Daftar Admin',
-            'list' => ['Home', 'Admin']
+            'title' => 'Daftar Petugas Posyandu',
+            'list' => ['Home', 'Petugas Posyandu']
         ];
 
         $page = (object) [
             'title' => 'Daftar Admin yang terdaftar dalam sistem'
         ];
 
-        $activeMenu = 'admin.dataAdmin';
+        $activeMenu = 'admin.dataPetugas';
         $admin = AdminModel::all();
-        return view('admin.dataAdmin.index', ['breadcrumb' => $breadcrumb, 'page' => $page,
+        return view('admin.dataPetugas.index', ['breadcrumb' => $breadcrumb, 'page' => $page,
             'admin' => $admin, 'activeMenu' => $activeMenu]);
     }
 
     public function create()
     {
         $breadcrumb = (object)[
-            'title' => 'Tambah Admin',
-            'list' => ['Home', 'Admin', 'Tambah']
+            'title' => 'Tambah Petugas Posyandu',
+            'list' => ['Home', 'Petugas Posyandu', 'Tambah']
         ];
         $page = (object)[
             'title' => 'Tambah Kategori Barang Baru'
         ];
         $admin = AdminModel::all();
-        $activeMenu = 'admin.dataAdmin';
-        return view('admin.dataAdmin.create', ['admin' => $admin, 'breadcrumb' => $breadcrumb,
+        $activeMenu = 'admin.dataPetugas';
+        return view('admin.dataPetugas.create', ['admin' => $admin, 'breadcrumb' => $breadcrumb,
             'page' => $page, 'activeMenu' => $activeMenu]);
     }
 
@@ -58,12 +60,13 @@ class DataAdminController extends Controller
             'level' => $request->level
         ]);
 
-        return redirect('/dataAdmin')->with('success', 'Data Admin berhasil disimpan');
+        return redirect('/dataPetugas')->with('success', 'Data Petugas Posyandu berhasil disimpan');
     }
 
     public function list(Request $request)
     {
-        $admins = AdminModel::select('admin_id', 'username', 'nama_admin', 'jk', 'level'); // Exclude 'password' field
+        $admins = AdminModel::select('admin_id', 'username', 'nama_admin', 'jk', 'level')
+        ->where('level',2); // Exclude 'password' field
 
         // Filter data user berdasarkan level_id
         if ($request->admin_id) {
@@ -73,9 +76,9 @@ class DataAdminController extends Controller
         return DataTables::of($admins)
             ->addIndexColumn() // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
             ->addColumn('aksi', function ($admin) { // menambahkan kolom aksi
-                $btn = '<a href="' . url('/dataAdmin/' . $admin->adminn_id) . '" class="btn btn-info btn-sm">Detail</a> ';
-                $btn .= '<a href="' . url('/dataAdmin/' . $admin->admin_id . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
-                $btn .= '<form class="d-inline-block" method="POST" action="' . url('/dataAdmin/' . $admin->admin_id) . '">'
+                $btn = '<a href="' . url('/dataPetugas/' . $admin->adminn_id) . '" class="btn btn-info btn-sm">Detail</a> ';
+                $btn .= '<a href="' . url('/dataPetugas/' . $admin->admin_id . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
+                $btn .= '<form class="d-inline-block" method="POST" action="' . url('/dataPetugas/' . $admin->admin_id) . '">'
                     . csrf_field() . method_field('DELETE') .
                     '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
                 return $btn;
@@ -89,17 +92,17 @@ class DataAdminController extends Controller
     {
         $admin = AdminModel::find($id);
         $breadcrumb = (object) [
-            'title' => 'Detail Data Admin',
-            'list' => ['Home', 'Admin', 'Detail']
+            'title' => 'Detail Data Petugas Posyandu',
+            'list' => ['Home', 'Petugas Posyandu', 'Detail']
         ];
 
         $page = (object) [
-            'title' => 'Detail Admin'
+            'title' => 'Detail Petugas Posyandu'
         ];
 
-        $activeMenu = 'admin.dataAdmin';
+        $activeMenu = 'admin.dataPetugas';
 
-        return view('admin.dataAdmin', ['breadcrumb' => $breadcrumb, 'page' => $page, 'admin' => $admin, 'activeMenu' => $activeMenu]);
+        return view('admin.dataPetugas', ['breadcrumb' => $breadcrumb, 'page' => $page, 'admin' => $admin, 'activeMenu' => $activeMenu]);
     }
 
     public function update(Request $request, String $id)
@@ -120,7 +123,7 @@ class DataAdminController extends Controller
             'level' => $request->level
         ]);
 
-        return redirect('/dataAdmin')->with('success', 'Data Admin berhasil diubah');
+        return redirect('/dataPetugas')->with('success', 'Data Petugas Posyandu berhasil diubah');
     }
 
     public function edit(String $id)
@@ -129,7 +132,7 @@ class DataAdminController extends Controller
         // $level = LevelModel::all();
 
         $breadcrumb = (object) [
-            'title' => 'Edit Data Admin',
+            'title' => 'Edit Data Petugas Posyandu',
             'list' => ['Home', 'Admin', 'Edit']
         ];
 
@@ -137,9 +140,9 @@ class DataAdminController extends Controller
             'title' => 'Edit Data Admin'
         ];
 
-        $activeMenu = 'admin.dataAdmin'; // set menu yang sedang aktif
+        $activeMenu = 'admin.dataPetugas'; // set menu yang sedang aktif
 
-        return view('admin.dataAdmin.edit', [
+        return view('admin.dataPetugas.edit', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'admin' => $admin,
@@ -153,15 +156,15 @@ class DataAdminController extends Controller
 
         // Untuk mengecek apakah data user dengan id yang dimaksud ada atau tidak
         if (!$check) {
-            return redirect('/dataAdmin')->with('error', 'Data Admin tidak ditemukan');
+            return redirect('/dataPetugas')->with('error', 'Data  Petugas Posyandu tidak ditemukan');
         }
 
         try {
             AdminModel::destroy($id);
-            return redirect('/dataAdmin')->with('success', 'Data Admin berhasil dihapus');
+            return redirect('/dataPetugas')->with('success', 'Data Petugas Posyandu berhasil dihapus');
         } catch (\Illuminate\Database\QueryException $e) {
             // Jika terjadi error ketika menghapus data, redirect kembali ke halaman dengan membawa pesan error
-            return redirect('/dataAdmin')->with('error', 'Data Admin gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+            return redirect('/dataPetugas')->with('error', 'Data Petugas Posyandu gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
         }
     }
 }

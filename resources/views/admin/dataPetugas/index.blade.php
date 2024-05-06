@@ -4,7 +4,7 @@
     <div class="card-header">
         <h3 class="card-title">{{ $page->title }}</h3>
         <div class="card-tools">
-            <a href="{{ url('admin/dataAdmin/create') }}" class="btn btn-sm btn-primary mt-1">Tambah</a>
+            <a href="{{ url('admin/dataPetugas/create') }}" class="btn btn-sm btn-primary mt-1">Tambah</a>
         </div>
     </div>
     <div class="card-body">
@@ -30,7 +30,7 @@
                 </div> --}}
             </div>
         </div>
-        <table class="table table-bordered table-striped table-hover table-sm" id="table_admin">
+        <table class="table table-bordered table-striped table-hover table-sm" id="table_petugas">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -53,11 +53,11 @@
 @push('js')
 <script>
     $(document).ready(function() {
-        var tableAdmin = $('#table_admin').DataTable({
+        var tableAdmin = $('#table_petugas').DataTable({
             processing: true,
             serverSide: true,
             ajax: {
-                "url": "{{ url('admin/dataAdmin/list') }}", // Menggunakan route dengan nama
+                "url": "{{ url('admin/dataPetugas/list') }}", // Menggunakan route dengan nama
                 "dataType": "json",
                 "type": "POST",
                 "data": function (d) {

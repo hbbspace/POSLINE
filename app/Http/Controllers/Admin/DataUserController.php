@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\DataTables\UserDataTable;
+use App\Http\Controllers\Controller;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
 

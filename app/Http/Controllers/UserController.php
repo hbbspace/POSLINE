@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\UserDataTable;
+
+use App\Http\Controllers\Controller;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

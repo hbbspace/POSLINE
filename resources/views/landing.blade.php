@@ -29,7 +29,7 @@
                         <a href="#" class="navbar-link" data-nav-link>About Us</a>
                     </li>
                     <li>
-                        <a href="#" class="navbar-link" data-nav-link>Artikel</a>
+                        <a href="#article" class="navbar-link" data-nav-link>Artikel</a>
                     </li>
                     <li>
                         <a href="#" class="navbar-link" data-nav-link>Contact</a>

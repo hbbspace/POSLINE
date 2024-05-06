@@ -55,7 +55,7 @@
             processing: true,
             serverSide : true,
             ajax: {
-                "url": "{{ url('dataKeluarga/list') }}",
+                "url": "{{ url('admin/dataKeluarga/list') }}",
                 "dataType": "json",
                 "type": "POST",
                 "data": function (d) {

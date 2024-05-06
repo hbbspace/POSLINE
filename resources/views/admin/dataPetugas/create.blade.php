@@ -9,7 +9,7 @@
                         <h4>Tambah Admin Baru</h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{ url('admin/dataAdmin') }}" method="POST">
+                        <form action="{{ url('admin/dataPetugas') }}" method="POST">
                             @csrf
                             <div class="mb-3">
                                 <label for="username" class="form-label">Username</label>

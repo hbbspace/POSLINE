@@ -2,14 +2,15 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DataUserController;
 use App\Http\Controllers\forgotPassword;
-use App\Http\Controllers\KeluargaController;
-use App\Http\Controllers\AnggotaKeluargaController;
-use App\Http\Controllers\DataAdminController;
+use App\Http\Controllers\Admin\DataUserController;
+use App\Http\Controllers\Admin\KeluargaController;
+use App\Http\Controllers\Admin\AnggotaKeluargaController;
+use App\Http\Controllers\Admin\DataAdminController;
+use App\Http\Controllers\DataUserController as ControllersDataUserController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\PetugasController;
+use App\Http\Controllers\Admin\PetugasController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
 use App\Models\AnggotaKeluargaModel;
@@ -46,47 +47,59 @@ Route::get('/user',[UserController::class,'index']);
 // Route::get('/user',[UserController::class,'index']);
 
 
-Route::group(['prefix' => 'dataUser'], function () {
-    Route::get('/', [DataUserController::class, 'index']); // menampilkan halaman awal user
-    Route::post('/list', [DataUserController::class, 'list']); // menampilkan data user dalam bentuk json untuk datatables
-    Route::get('/create', [DataUserController::class, 'create']); // menampilkan halaman form tambah user
-    Route::post('/', [DataUserController::class, 'store']); // menyimpan data user baru
-    Route::get('/{id}', [DataUserController::class, 'show']); // menampilkan detail user
-    Route::get('/{id}/edit', [DataUserController::class, 'edit']); // menampilkan halaman form edit user
-    Route::put('/{id}', [DataUserController::class, 'update']); // menyimpan perubahan data user
-    Route::delete('/{id}', [DataUserController::class, 'destroy']); // menghapus data user
-});
+Route::group(['prefix' => 'admin'], function () {
+    Route::group(['prefix' => 'dataUser'], function () {
+        Route::get('/', [DataUserController::class, 'index']); // menampilkan halaman awal user
+        Route::post('/list', [DataUserController::class, 'list']); // menampilkan data user dalam bentuk json untuk datatables
+        Route::get('/create', [DataUserController::class, 'create']); // menampilkan halaman form tambah user
+        Route::post('/', [DataUserController::class, 'store']); // menyimpan data user baru
+        Route::get('/{id}', [DataUserController::class, 'show']); // menampilkan detail user
+        Route::get('/{id}/edit', [DataUserController::class, 'edit']); // menampilkan halaman form edit user
+        Route::put('/{id}', [DataUserController::class, 'update']); // menyimpan perubahan data user
+        Route::delete('/{id}', [DataUserController::class, 'destroy']); // menghapus data user
+    });
 
-Route::group(['prefix' => 'dataKeluarga'], function () {
-    Route::get('/', [KeluargaController::class, 'index']); // menampilkan halaman awal user
-    Route::post('/list', [KeluargaController::class, 'list']); // menampilkan data user dalam bentuk json untuk datatables
-    Route::get('/create', [KeluargaController::class, 'create']); // menampilkan halaman form tambah user
-    Route::post('/', [KeluargaController::class, 'store']); // menyimpan data user baru
-    Route::get('/{no_kk}', [KeluargaController::class, 'show'])->name('admin.dataKeluarga.show'); // menampilkan detail user
-    Route::get('/{no_kk}/edit', [KeluargaController::class, 'edit'])->name('admin.dataKeluarga.edit'); // menampilkan halaman form edit user
-    Route::put('/{no_kk}', [KeluargaController::class, 'update'])->name('admin.dataKeluarga.update'); // menyimpan perubahan data user
-    Route::delete('/{no_kk}', [KeluargaController::class, 'destroy'])->name('admin.dataKeluarga.destroy'); // menghapus data user
-});
+    Route::group(['prefix' => 'dataKeluarga'], function () {
+        Route::get('/', [KeluargaController::class, 'index']); // menampilkan halaman awal user
+        Route::post('/list', [KeluargaController::class, 'list']); // menampilkan data user dalam bentuk json untuk datatables
+        Route::get('/create', [KeluargaController::class, 'create']); // menampilkan halaman form tambah user
+        Route::post('/', [KeluargaController::class, 'store']); // menyimpan data user baru
+        Route::get('/{no_kk}', [KeluargaController::class, 'show'])->name('admin.dataKeluarga.show'); // menampilkan detail user
+        Route::get('/{no_kk}/edit', [KeluargaController::class, 'edit'])->name('admin.dataKeluarga.edit'); // menampilkan halaman form edit user
+        Route::put('/{no_kk}', [KeluargaController::class, 'update'])->name('admin.dataKeluarga.update'); // menyimpan perubahan data user
+        Route::delete('/{no_kk}', [KeluargaController::class, 'destroy'])->name('admin.dataKeluarga.destroy'); // menghapus data user
+    });
 
-Route::group(['prefix' => 'dataAnggotaKeluarga'], function () {
-    Route::get('/', [AnggotaKeluargaController::class, 'index']);
-    Route::get('/create', [AnggotaKeluargaController::class, 'create']);
-    Route::post('/', [AnggotaKeluargaController::class, 'store']);
-    Route::get('/{id}', [AnggotaKeluargaController::class, 'show'])->name('admin.dataAnggotaKeluarga.show');
-    Route::get('/{id}/edit', [AnggotaKeluargaController::class, 'edit'])->name('admin.dataAnggotaKeluarga.edit');
-    Route::put('/{id}', [AnggotaKeluargaController::class, 'update'])->name('admin.dataAnggotaKeluarga.update');
-    Route::delete('/{id}', [AnggotaKeluargaController::class, 'destroy'])->name('admin.dataAnggotaKeluarga.destroy');
-    Route::post('/list', [AnggotaKeluargaController::class, 'list']);
-});
+    Route::group(['prefix' => 'dataAnggotaKeluarga'], function () {
+        Route::get('/', [AnggotaKeluargaController::class, 'index']);
+        Route::get('/create', [AnggotaKeluargaController::class, 'create']);
+        Route::post('/', [AnggotaKeluargaController::class, 'store']);
+        Route::get('/{id}', [AnggotaKeluargaController::class, 'show'])->name('admin.dataAnggotaKeluarga.show');
+        Route::get('/{id}/edit', [AnggotaKeluargaController::class, 'edit'])->name('admin.dataAnggotaKeluarga.edit');
+        Route::put('/{id}', [AnggotaKeluargaController::class, 'update'])->name('admin.dataAnggotaKeluarga.update');
+        Route::delete('/{id}', [AnggotaKeluargaController::class, 'destroy'])->name('admin.dataAnggotaKeluarga.destroy');
+        Route::post('/list', [AnggotaKeluargaController::class, 'list']);
+    });
 
-Route::group(['prefix' => 'dataAdmin'], function () {
-    Route::get('/', [DataAdminController::class, 'index']); // menampilkan halaman awal user
-    Route::post('/list', [DataAdminController::class, 'list']); // menampilkan data user dalam bentuk json untuk datatables
-    Route::get('/create', [DataAdminController::class, 'create']); // menampilkan halaman form tambah user
-    Route::post('/', [DataAdminController::class, 'store']); // menyimpan data user baru
-    Route::get('/{id}', [DataAdminController::class, 'show'])->name('admin.dataAdmin.show'); // menampilkan detail user
-    Route::get('/{id}/edit', [DataAdminController::class, 'edit'])->name('admin.dataAdmin.edit'); // menampilkan halaman form edit user
-    Route::put('/{id}', [DataAdminController::class, 'update'])->name('admin.dataAdmin.update'); // menyimpan perubahan data user
-    Route::delete('/{id}', [DataAdminController::class, 'destroy'])->name('admin.dataAdmin.destroy'); // menghapus data user
-});
+    Route::group(['prefix' => 'dataAdmin'], function () {
+        Route::get('/', [DataAdminController::class, 'index']); // menampilkan halaman awal user
+        Route::post('/list', [DataAdminController::class, 'list']); // menampilkan data user dalam bentuk json untuk datatables
+        Route::get('/create', [DataAdminController::class, 'create']); // menampilkan halaman form tambah user
+        Route::post('/', [DataAdminController::class, 'store']); // menyimpan data user baru
+        Route::get('/{id}', [DataAdminController::class, 'show'])->name('admin.dataAdmin.show'); // menampilkan detail user
+        Route::get('/{id}/edit', [DataAdminController::class, 'edit'])->name('admin.dataAdmin.edit'); // menampilkan halaman form edit user
+        Route::put('/{id}', [DataAdminController::class, 'update'])->name('admin.dataAdmin.update'); // menyimpan perubahan data user
+        Route::delete('/{id}', [DataAdminController::class, 'destroy'])->name('admin.dataAdmin.destroy'); // menghapus data user
+    });
 
+    Route::group(['prefix' => 'dataPetugas'], function () {
+        Route::get('/', [PetugasController::class, 'index']); // menampilkan halaman awal user
+        Route::post('/list', [PetugasController::class, 'list']); // menampilkan data user dalam bentuk json untuk datatables
+        Route::get('/create', [PetugasController::class, 'create']); // menampilkan halaman form tambah user
+        Route::post('/', [PetugasController::class, 'store']); // menyimpan data user baru
+        Route::get('/{id}', [PetugasController::class, 'show'])->name('admin.dataAdmin.show'); // menampilkan detail user
+        Route::get('/{id}/edit', [PetugasController::class, 'edit'])->name('admin.dataAdmin.edit'); // menampilkan halaman form edit user
+        Route::put('/{id}', [PetugasController::class, 'update'])->name('admin.dataAdmin.update'); // menyimpan perubahan data user
+        Route::delete('/{id}', [PetugasController::class, 'destroy'])->name('admin.dataAdmin.destroy'); // menghapus data user
+    });
+});
