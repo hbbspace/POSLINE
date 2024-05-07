@@ -12,7 +12,7 @@ class AdminController extends Controller
     
         // session()->flush();
         $breadcrumb = (object) [
-            'title' => 'Selamat Datang',
+            'title' => 'Selamat Datang ' . Auth::guard('admin')->user()->nama_admin,
             'list' => ['Home', 'Welcome']
         ];
 
