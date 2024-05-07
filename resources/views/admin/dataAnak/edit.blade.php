@@ -2,18 +2,18 @@
 
 {{-- Customize layout sections --}}
 
-@section('subtitle', 'Keluarga')
-@section('content_header_title', 'Keluarga')
+@section('subtitle', 'Anak')
+@section('content_header_title', 'Anak')
 @section('content_header_subtitle', 'Edit')
 
 @section('content')
     <div class="container">
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">Edit Data Anggota Keluarga</h3>
+                <h3 class="card-title">Edit Data Anak</h3>
             </div>
 
-            <form method="post" action="{{ url('admin/dataIbu', $anggota_keluarga->nik) }}">
+            <form method="post" action="{{ url('admin/dataAnak', $anggota_keluarga->nik) }}">
                 @csrf
                 @method('PUT')
 

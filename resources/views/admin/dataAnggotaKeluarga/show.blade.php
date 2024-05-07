@@ -5,22 +5,48 @@
 @section('content_header_subtitle', '')
 
 @section('content')
-    <div class="container">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Detail Anggota Keluarga</h3>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <strong>NIK:</strong> {{ $anggota_keluarga->nik }}<br>
-                        <strong>Nama:</strong> {{ $anggota_keluarga->nama }}<br>
-                        <strong>Tanggal Lahir:</strong> {{ $anggota_keluarga->tanggal_lahir }}<br>
-                        <strong>Jenis Kelamin:</strong> {{ $anggota_keluarga->jk }}<br>
-                        <strong>Status:</strong> {{ $anggota_keluarga->status }}<br>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="card card-outline card-primary">
+    <div class="card-header">
+        <h3 class="card-title">{{ $page->title }}</h3>
+        <div class="card-tools"></div>
     </div>
+    <div class="card-body">
+        @empty($anggota_keluarga)
+            <div class="alert alert-danger alert-dismissible">
+                <h5><i class="icon fas fa-ban"></i> Kesalahan!</h5>
+                Data yang Anda cari tidak ditemukan.
+            </div>
+        @else
+            <table class="table table-bordered table-striped table-hover table-sm">
+                <tr>
+                    <th>NIK</th>
+                    <td>{{ $anggota_keluarga->nik }}</td>
+                </tr>
+                <tr>
+                    <th>Nama</th>
+                    <td>{{ $anggota_keluarga->nama }}</td>
+                </tr>
+                <tr>
+                    <th>Tanggal Lahir</th>
+                    <td>{{ $anggota_keluarga->tanggal_lahir }}</td>
+                </tr>
+                <tr>
+                    <th>Jenis Kelamin</th>
+                    <td>{{ $anggota_keluarga->jk }}</td>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                    <td>{{ $anggota_keluarga->status }}</td>
+                </tr>
+            </table>
+        @endempty
+        <a href="{{ url('admin/dataIbu') }}" class="btn btn-sm btn-default mt-2">Kembali</a>
+    </div>
+</div>
 @endsection
+
+@push('css')
+@endpush
+
+@push('js')
+@endpush

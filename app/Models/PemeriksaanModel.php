@@ -7,5 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class PemeriksaanModel extends Model
 {
-    use HasFactory;
+    protected $table = 'pemeriksaan';
+    public $timestamps = false;
+    protected $primaryKey = 'pemeriksaan_id';
+
+    protected $fillable = [
+        'agenda',
+        'tanggal',
+        'tempat'
+    ];
 }

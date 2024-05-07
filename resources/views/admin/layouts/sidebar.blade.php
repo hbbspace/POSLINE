@@ -14,7 +14,7 @@
     <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item">
-                <a href="{{ url('/') }}" class="nav-link">
+                <a href="{{ url('/admin') }}" class="nav-link">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
                     <p>Dashboard</p>
                 </a>
@@ -23,19 +23,25 @@
             <li class="nav-item">
                 <a href="{{ url('admin/dataAdmin') }}" class="nav-link">
                     <i class="nav-icon far fa-user"></i>
-                    <p>Data Admin</p>
+                    <p>Data Super Admin</p>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{{ url('admin/dataKeluarga') }}" class="nav-link">
                     <i class="nav-icon far fa-user"></i>
-                    <p>Data Keluarga</p>
+                    <p>Data KK</p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ url('admin/dataAnggotaKeluarga') }}" class="nav-link">
+                <a href="{{ url('admin/dataIbu') }}" class="nav-link">
                     <i class="nav-icon far fa-user"></i>
-                    <p>Data Anggota Keluarga</p>
+                    <p>Data Orang Tua</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ url('admin/dataAnak') }}" class="nav-link">
+                    <i class="nav-icon far fa-user"></i>
+                    <p>Data Anak</p>
                 </a>
             </li>
             <li class="nav-item">
@@ -59,7 +65,7 @@
             </li>
             <li class="nav-header">Data Jadwal</li>
             <li class="nav-item">
-                <a href="{{ url('admin/stok') }}" class="nav-link  ">
+                <a href="{{ url('admin/jadwal') }}" class="nav-link  ">
                     <i class="nav-icon fas fa-cubes"></i>
                     <p>Jadwal</p>
                 </a>

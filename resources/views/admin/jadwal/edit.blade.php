@@ -10,21 +10,26 @@
     <div class="container">
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">Edit Data Keluarga</h3>
+                <h3 class="card-title">Edit Data Anggota Keluarga</h3>
             </div>
-            <form method="post" action="{{ route('admin.dataKeluarga.update', $keluarga->no_kk) }}">
+
+            <form method="post" action="{{ url('admin/jadwal', $jadwal_pemeriksaan->pemeriksaan_id) }}">
                 @csrf
                 @method('PUT')
 
                 <div class="card">
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="no_kk">Nomor Kartu Keluarga</label>
-                            <input type="text" class="form-control" id="no_kk" name="no_kk" value="{{ $keluarga->no_kk }}">
+                            <label for="agenda">agenda</label>
+                            <input type="text" class="form-control" id="agenda" name="agenda" value="{{  $jadwal_pemeriksaan->agenda }}">
                         </div>
                         <div class="form-group">
-                            <label for="alamat">Alamat</label>
-                            <input type="text" class="form-control" id="alamat" name="alamat" value="{{ $keluarga->alamat }}">
+                            <label for="tanggal">tanggal</label>
+                            <input type="text" class="form-control" id="tanggal" name="tanggal" value="{{  $jadwal_pemeriksaan->tanggal }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="tempat">Tanggal Lahir</label>
+                            <input type="date" class="form-control" id="tempat" name="tempat" value="{{  $jadwal_pemeriksaan->tempat }}">
                         </div>
                     </div>
 

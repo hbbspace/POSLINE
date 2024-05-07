@@ -4,7 +4,7 @@
     <div class="card-header">
         <h3 class="card-title">{{ $page->title }}</h3>
         <div class="card-tools">
-            <a href="{{ url('admin/dataIbu/create') }}" class="btn btn-sm btn-primary mt-1">Tambah</a>
+            <a href="{{ url('admin/dataAnak/create') }}" class="btn btn-sm btn-primary mt-1">Tambah</a>
         </div>
     </div>
     <div class="card-body">
@@ -30,7 +30,7 @@
                 </div>
             </div>
         </div>        
-        <table class="table table-bordered table-striped table-hover table-sm" id="table_ibu">
+        <table class="table table-bordered table-striped table-hover table-sm" id="table_anak">
             <thead>
                 <tr>
                     <th>No</th>
@@ -55,11 +55,11 @@
 @push('js')
 <script>
     $(document).ready(function() {
-        var dataKeluarga = $('#table_ibu').DataTable({
+        var dataKeluarga = $('#table_anak').DataTable({
             processing: true,
             serverSide : true,
             ajax: {
-                "url": "{{ url('admin/dataIbu/list') }}",
+                "url": "{{ url('admin/dataAnak/list') }}",
                 "dataType": "json",
                 "type": "POST",
                 "data": function (d) {
@@ -121,7 +121,7 @@
             ]
         });
         $('#no_kk').on('change', function() {
-            dataKeluarga.ajax.reload();
+            dataAnak.ajax.reload();
         });
     });
 </script>

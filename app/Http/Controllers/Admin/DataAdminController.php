@@ -59,7 +59,7 @@ class DataAdminController extends Controller
             'level' => $request->level
         ]);
 
-        return redirect('/dataAdmin')->with('success', 'Data Admin berhasil disimpan');
+        return redirect('admin/dataAdmin')->with('success', 'Data Admin berhasil disimpan');
     }
 
     public function list(Request $request)
@@ -75,9 +75,9 @@ class DataAdminController extends Controller
         return DataTables::of($admins)
             ->addIndexColumn() // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
             ->addColumn('aksi', function ($admin) { // menambahkan kolom aksi
-                $btn = '<a href="' . url('/dataAdmin/' . $admin->adminn_id) . '" class="btn btn-info btn-sm">Detail</a> ';
-                $btn .= '<a href="' . url('/dataAdmin/' . $admin->admin_id . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
-                $btn .= '<form class="d-inline-block" method="POST" action="' . url('/dataAdmin/' . $admin->admin_id) . '">'
+                $btn = '<a href="' . url('admin/dataAdmin/' . $admin->admin_id) . '" class="btn btn-info btn-sm">Detail</a> ';
+                $btn .= '<a href="' . url('admin/dataAdmin/' . $admin->admin_id . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
+                $btn .= '<form class="d-inline-block" method="POST" action="' . url('admin/dataAdmin/' . $admin->admin_id) . '">'
                     . csrf_field() . method_field('DELETE') .
                     '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
                 return $btn;
@@ -87,9 +87,9 @@ class DataAdminController extends Controller
             ->make(true);
     }
 
-    public function show(String $id)
+    public function show(String $admin_id)
     {
-        $admin = AdminModel::find($id);
+        $admin = AdminModel::find($admin_id);
         $breadcrumb = (object) [
             'title' => 'Detail Data Admin',
             'list' => ['Home', 'Admin', 'Detail']
@@ -101,7 +101,7 @@ class DataAdminController extends Controller
 
         $activeMenu = 'admin.dataAdmin';
 
-        return view('admin.dataAdmin', ['breadcrumb' => $breadcrumb, 'page' => $page, 'admin' => $admin, 'activeMenu' => $activeMenu]);
+        return view('admin.dataAdmin.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'admin' => $admin, 'activeMenu' => $activeMenu]);
     }
 
     public function update(Request $request, String $id)
@@ -122,7 +122,7 @@ class DataAdminController extends Controller
             'level' => $request->level
         ]);
 
-        return redirect('/dataAdmin')->with('success', 'Data Admin berhasil diubah');
+        return redirect('admin/dataAdmin')->with('success', 'Data Admin berhasil diubah');
     }
 
     public function edit(String $id)
@@ -155,15 +155,15 @@ class DataAdminController extends Controller
 
         // Untuk mengecek apakah data user dengan id yang dimaksud ada atau tidak
         if (!$check) {
-            return redirect('/dataAdmin')->with('error', 'Data Admin tidak ditemukan');
+            return redirect('admin/dataAdmin')->with('error', 'Data Admin tidak ditemukan');
         }
 
         try {
             AdminModel::destroy($id);
-            return redirect('/dataAdmin')->with('success', 'Data Admin berhasil dihapus');
+            return redirect('admin/dataAdmin')->with('success', 'Data Admin berhasil dihapus');
         } catch (\Illuminate\Database\QueryException $e) {
             // Jika terjadi error ketika menghapus data, redirect kembali ke halaman dengan membawa pesan error
-            return redirect('/dataAdmin')->with('error', 'Data Admin gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+            return redirect('admin/dataAdmin')->with('error', 'Data Admin gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
         }
     }
 }

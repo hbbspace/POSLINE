@@ -60,25 +60,25 @@ class PetugasController extends Controller
             'level' => $request->level
         ]);
 
-        return redirect('/dataPetugas')->with('success', 'Data Petugas Posyandu berhasil disimpan');
+        return redirect('admin/dataPetugas')->with('success', 'Data Petugas Posyandu berhasil disimpan');
     }
 
     public function list(Request $request)
     {
-        $admins = AdminModel::select('admin_id', 'username', 'nama_admin', 'jk', 'level')
+        $admin = AdminModel::select('admin_id', 'username', 'nama_admin', 'jk', 'level')
         ->where('level',2); // Exclude 'password' field
 
         // Filter data user berdasarkan level_id
         if ($request->admin_id) {
-            $admins->where('admin_id', $request->admin_id);
+            $admin->where('admin_id', $request->admin_id);
         }
 
-        return DataTables::of($admins)
+        return DataTables::of($admin)
             ->addIndexColumn() // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
             ->addColumn('aksi', function ($admin) { // menambahkan kolom aksi
-                $btn = '<a href="' . url('/dataPetugas/' . $admin->adminn_id) . '" class="btn btn-info btn-sm">Detail</a> ';
-                $btn .= '<a href="' . url('/dataPetugas/' . $admin->admin_id . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
-                $btn .= '<form class="d-inline-block" method="POST" action="' . url('/dataPetugas/' . $admin->admin_id) . '">'
+                $btn = '<a href="' . url('admin/dataPetugas/' . $admin->admin_id) . '" class="btn btn-info btn-sm">Detail</a> ';
+                $btn .= '<a href="' . url('admin/dataPetugas/' . $admin->admin_id . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
+                $btn .= '<form class="d-inline-block" method="POST" action="' . url('admin/dataPetugas/' . $admin->admin_id) . '">'
                     . csrf_field() . method_field('DELETE') .
                     '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
                 return $btn;
@@ -88,9 +88,9 @@ class PetugasController extends Controller
             ->make(true);
     }
 
-    public function show(String $id)
+    public function show(String $admin_id)
     {
-        $admin = AdminModel::find($id);
+        $admin = AdminModel::find($admin_id);
         $breadcrumb = (object) [
             'title' => 'Detail Data Petugas Posyandu',
             'list' => ['Home', 'Petugas Posyandu', 'Detail']
@@ -102,7 +102,7 @@ class PetugasController extends Controller
 
         $activeMenu = 'admin.dataPetugas';
 
-        return view('admin.dataPetugas', ['breadcrumb' => $breadcrumb, 'page' => $page, 'admin' => $admin, 'activeMenu' => $activeMenu]);
+        return view('admin.dataPetugas.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'admin' => $admin, 'activeMenu' => $activeMenu]);
     }
 
     public function update(Request $request, String $id)
@@ -123,7 +123,7 @@ class PetugasController extends Controller
             'level' => $request->level
         ]);
 
-        return redirect('/dataPetugas')->with('success', 'Data Petugas Posyandu berhasil diubah');
+        return redirect('admin/dataPetugas')->with('success', 'Data Petugas Posyandu berhasil diubah');
     }
 
     public function edit(String $id)
@@ -156,15 +156,15 @@ class PetugasController extends Controller
 
         // Untuk mengecek apakah data user dengan id yang dimaksud ada atau tidak
         if (!$check) {
-            return redirect('/dataPetugas')->with('error', 'Data  Petugas Posyandu tidak ditemukan');
+            return redirect('admin/dataPetugas')->with('error', 'Data  Petugas Posyandu tidak ditemukan');
         }
 
         try {
             AdminModel::destroy($id);
-            return redirect('/dataPetugas')->with('success', 'Data Petugas Posyandu berhasil dihapus');
+            return redirect('admin/dataPetugas')->with('success', 'Data Petugas Posyandu berhasil dihapus');
         } catch (\Illuminate\Database\QueryException $e) {
             // Jika terjadi error ketika menghapus data, redirect kembali ke halaman dengan membawa pesan error
-            return redirect('/dataPetugas')->with('error', 'Data Petugas Posyandu gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+            return redirect('admin/dataPetugas')->with('error', 'Data Petugas Posyandu gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
         }
     }
 }

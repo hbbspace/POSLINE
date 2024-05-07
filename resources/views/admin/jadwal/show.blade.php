@@ -1,5 +1,9 @@
 @extends('admin.layouts.template')
 
+@section('subtitle', 'Detail Jadwal Pemeriksaan')
+@section('content_header_title', 'Detail Jadwal Pemeriksaan')
+@section('content_header_subtitle', '')
+
 @section('content')
 <div class="card card-outline card-primary">
     <div class="card-header">
@@ -7,7 +11,7 @@
         <div class="card-tools"></div>
     </div>
     <div class="card-body">
-        @empty($admin)
+        @empty($jadwal_pemeriksaan)
             <div class="alert alert-danger alert-dismissible">
                 <h5><i class="icon fas fa-ban"></i> Kesalahan!</h5>
                 Data yang Anda cari tidak ditemukan.
@@ -15,37 +19,26 @@
         @else
             <table class="table table-bordered table-striped table-hover table-sm">
                 <tr>
-                    <th>ID</th>
-                    <td>{{ $admin->admin_id }}</td>
+                    <th>NIK</th>
+                    <td>{{ $jadwal_pemeriksaan->pemeriksaan_id }}</td>
                 </tr>
                 <tr>
-                    <th>Username</th>
-                    <td>{{ $admin->username }}</td>
+                    <th>Nama</th>
+                    <td>{{ $jadwal_pemeriksaan->agenda }}</td>
                 </tr>
                 <tr>
-                    <th>Password</th>
-                    <td>{{ $admin->password }}</td>
-                </tr>
-                <tr>
-                    <th>Nama Admin</th>
-                    <td>{{ $admin->nama_admin }}</td>
-                </tr>
-                <tr>
-                    <th>Jenis Kelamin</th>
-                    <td>{{ $admin->jk }}</td>
-                </tr>
-                <tr>
-                    <th>Level</th>
-                    <td>{{ $admin->level }}</td>
+                    <th>Tanggal Lahir</th>
+                    <td>{{ $jadwal_pemeriksaan->tanggal}}</td>
                 </tr>
             </table>
         @endempty
-        <a href="{{ url('admin/dataPetugas') }}" class="btn btn-sm btn-default mt-2">Kembali</a>
+        <a href="{{ url('admin/jadwal') }}" class="btn btn-sm btn-default mt-2">Kembali</a>
     </div>
 </div>
 @endsection
 
 @push('css')
 @endpush
+
 @push('js')
 @endpush

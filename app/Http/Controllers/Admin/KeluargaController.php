@@ -62,7 +62,7 @@ class KeluargaController extends Controller
             'alamat' => $request->alamat
         ]);
 
-        return redirect('/dataKeluarga')->with('success', 'Data kategori barang berhasil disimpan');
+        return redirect('admin/dataKeluarga')->with('success', 'Data kategori barang berhasil disimpan');
     }
 
     public function list(Request $request) 
@@ -91,7 +91,7 @@ class KeluargaController extends Controller
     {
         $keluarga = KeluargaModel::where('no_kk', $no_kk)->first();
         if (!$keluarga) {
-            return redirect('/dataKeluarga')->with('error', 'Data keluarga tidak ditemukan');
+            return redirect('admin/dataKeluarga')->with('error', 'Data keluarga tidak ditemukan');
         }
 
         $breadcrumb = (object) [
@@ -123,14 +123,14 @@ class KeluargaController extends Controller
         $keluarga = KeluargaModel::where('no_kk', $no_kk)->first();
 
         if (!$keluarga) {
-            return redirect('/dataKeluarga')->with('error', 'Data keluarga tidak ditemukan');
+            return redirect('admin/dataKeluarga')->with('error', 'Data keluarga tidak ditemukan');
         }
 
         $keluarga->no_kk = $request->no_kk;
         $keluarga->alamat = $request->alamat;
         $keluarga->save();
 
-        return redirect('/dataKeluarga')->with('success', 'Data keluarga berhasil diubah');
+        return redirect('admin/dataKeluarga')->with('success', 'Data keluarga berhasil diubah');
     }
 
     public function edit($no_kk)
@@ -138,7 +138,7 @@ class KeluargaController extends Controller
         $keluarga = KeluargaModel::where('no_kk', $no_kk)->first();
 
         if (!$keluarga) {
-            return redirect('/dataKeluarga')->with('error', 'Data keluarga tidak ditemukan');
+            return redirect('admin/dataKeluarga')->with('error', 'Data keluarga tidak ditemukan');
         }
 
         $breadcrumb = (object) [
@@ -165,15 +165,15 @@ class KeluargaController extends Controller
         $keluarga = KeluargaModel::where('no_kk', $no_kk)->first();
 
         if (!$keluarga) {
-            return redirect('/dataKeluarga')->with('error', 'Data Keluarga tidak ditemukan');
+            return redirect('admin/dataKeluarga')->with('error', 'Data Keluarga tidak ditemukan');
         }
 
         try {
             $keluarga->delete();
-            return redirect('/dataKeluarga')->with('success', 'Data Keluarga berhasil dihapus');
+            return redirect('admin/dataKeluarga')->with('success', 'Data Keluarga berhasil dihapus');
         } catch (\Illuminate\Database\QueryException $e) {
             // Jika terjadi error ketika menghapus data, redirect kembali ke halaman dengan membawa pesan error
-            return redirect('/dataKeluarga')->with('error', 'Data keluarga gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+            return redirect('admin/dataKeluarga')->with('error', 'Data keluarga gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
         }
     }
 }
