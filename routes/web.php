@@ -29,6 +29,7 @@ Route::get('logout', [AuthController::class,'logout'])->name('logout');
 Route::post('proses_register', [AuthController::class, 'proses_register'])->name('proses_register');
 
 Route::get('/admin',[AdminController::class,'index']);
+Route::get('/petugas',[PetugasController::class,'index']);
 Route::get('/user',[UserController::class,'index']);
 
 

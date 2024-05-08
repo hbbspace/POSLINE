@@ -13,6 +13,22 @@ class AuthController extends Controller
 {
     public function index()
     {
+        $user =Auth::user();
+
+        if($user != null){
+          
+            if($user->level_id == '1') {
+                return redirect()->intended('admin');
+            }
+           
+            else if($user->level_id == '2'){
+                return redirect()->intended('petugas');
+            }
+            else {
+                return redirect()->intended('user');
+            }
+        }
+        
         return view('login');
     }
 
@@ -28,7 +44,7 @@ class AuthController extends Controller
     
             if (Auth::guard('admin')->attempt($credential)) {
                 $admin = Auth::guard('admin')->user();
-    
+                
                 if ($admin) {
                     if ($admin->level == '1') {
                         return redirect()->intended('admin');
