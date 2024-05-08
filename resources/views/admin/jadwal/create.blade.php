@@ -8,39 +8,23 @@
     <div class="container">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Tambah Anggota Keluarga</h3>
+                <h3 class="card-title">Tambah Jadwal Baru</h3>
             </div>
-            <form method="post" action="{{ url('/dataAnggotaKeluarga') }}">
+            <form method="post" action="{{ url('/admin/jadwal') }}">
                 @csrf
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="no_kk">Nomor KK:</label>
-                        <input type="text" class="form-control" id="no_kk" name="no_kk" required>
+                        <label for="nama">Agenda:</label>
+                        <input type="text" class="form-control" id="agenda" name="agenda" required>
                     </div>
                     <div class="form-group">
-                        <label for="nik">NIK:</label>
-                        <input type="text" class="form-control" id="nik" name="nik" required>
+                        <label for="tanggal_lahir">Tanggal:</label>
+                        <input type="date" class="form-control" id="tanggal" name="tanggal" required>
                     </div>
                     <div class="form-group">
-                        <label for="nama">Nama:</label>
-                        <input type="text" class="form-control" id="nama" name="nama" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="tanggal_lahir">Tanggal Lahir:</label>
-                        <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="jk">Jenis Kelamin:</label>
-                        <select class="form-control" id="jk" name="jk" required>
-                            <option value="L">Laki-laki</option>
-                            <option value="P">Perempuan</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="status">Status:</label>
-                        <select class="form-control" id="status" name="status" required>
-                            <option value="ibu">Ibu</option>
-                            <option value="anak">Anak</option>
+                        <label for="status">Tempat:</label>
+                        <select class="form-control" id="tempat" name="tempat" required>
+                            <option value="Puskesmas RW 4 Lowokwaru">Puskesmas RW 4 Lowokwaru</option>
                         </select>
                     </div>
                 </div>
