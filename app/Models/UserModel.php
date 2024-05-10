@@ -12,13 +12,19 @@ class UserModel extends Authenticable
 
     protected $table = 'user';
     protected $primaryKey = 'user_id';
+    public $timestamps = false;
 
     protected $fillable = [
         'nik',
         'password',
+        'username',
     ];
 
     protected $hidden = [
         'password',
     ];
+    public function anggota_keluarga(): BelongsTo
+    {
+        return $this->belongsTo(AnggotaKeluargaModel::class, 'nik');
+    }
 }
