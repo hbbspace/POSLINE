@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PetugasController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\forgotPassword;
 use App\Http\Controllers\Admin\DataUserController;
@@ -12,7 +13,8 @@ use App\Http\Controllers\Admin\JadwalPemeriksaanController;
 use App\Http\Controllers\DataUserController as ControllersDataUserController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\Admin\PetugasController;
+use App\Http\Controllers\Admin\DataPetugasController;
+use App\Http\Controllers\Petugas\BalitaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
 use App\Models\AnggotaKeluargaModel;
@@ -107,14 +109,14 @@ Route::group(['prefix' => 'admin'], function () {
     });
 
     Route::group(['prefix' => 'dataPetugas'], function () {
-        Route::get('/', [PetugasController::class, 'index']); // menampilkan halaman awal user
-        Route::post('/list', [PetugasController::class, 'list']); // menampilkan data user dalam bentuk json untuk datatables
-        Route::get('/create', [PetugasController::class, 'create']); // menampilkan halaman form tambah user
-        Route::post('/', [PetugasController::class, 'store']); // menyimpan data user baru
-        Route::get('/{id}', [PetugasController::class, 'show'])->name('admin.dataPetugas.show'); // menampilkan detail user
-        Route::get('/{id}/edit', [PetugasController::class, 'edit'])->name('admin.dataPetugas.edit'); // menampilkan halaman form edit user
-        Route::put('/{id}', [PetugasController::class, 'update'])->name('admin.dataPetugas.update'); // menyimpan perubahan data user
-        Route::delete('/{id}', [PetugasController::class, 'destroy'])->name('admin.dataPetugas.destroy'); // menghapus data user
+        Route::get('/', [DataPetugasController::class, 'index']); // menampilkan halaman awal user
+        Route::post('/list', [DataPetugasController::class, 'list']); // menampilkan data user dalam bentuk json untuk datatables
+        Route::get('/create', [DataPetugasController::class, 'create']); // menampilkan halaman form tambah user
+        Route::post('/', [DataPetugasController::class, 'store']); // menyimpan data user baru
+        Route::get('/{id}', [DataPetugasController::class, 'show'])->name('admin.dataPetugas.show'); // menampilkan detail user
+        Route::get('/{id}/edit', [DataPetugasController::class, 'edit'])->name('admin.dataPetugas.edit'); // menampilkan halaman form edit user
+        Route::put('/{id}', [DataPetugasController::class, 'update'])->name('admin.dataPetugas.update'); // menyimpan perubahan data user
+        Route::delete('/{id}', [DataPetugasController::class, 'destroy'])->name('admin.dataPetugas.destroy'); // menghapus data user
     });
 
     Route::group(['prefix' => 'jadwal'], function () {
@@ -126,5 +128,17 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/{id}/edit', [JadwalPemeriksaanController::class, 'edit'])->name('admin.jadwal.edit'); // menampilkan halaman form edit user
         Route::put('/{id}', [JadwalPemeriksaanController::class, 'update'])->name('admin.jadwal.update'); // menyimpan perubahan data user
         Route::delete('/{id}', [JadwalPemeriksaanController::class, 'destroy'])->name('admin.jadwal.destroy'); // menghapus data user
+    });
+});
+Route::group(['prefix' => 'petugas'], function () {
+    Route::group(['prefix' => 'balita'], function () {
+        Route::get('/', [BalitaController::class, 'index']); // menampilkan halaman awal user
+        Route::post('/list', [BalitaController::class, 'list']); // menampilkan data user dalam bentuk json untuk datatables
+        Route::get('/create', [BalitaController::class, 'create']); // menampilkan halaman form tambah user
+        Route::post('/', [BalitaController::class, 'store']); // menyimpan data user baru
+        Route::get('/{id}', [BalitaController::class, 'show'])->name('petugas.balita.show'); // menampilkan detail user
+        Route::get('/{id}/edit', [BalitaController::class, 'edit'])->name('petugas.balita.edit'); // menampilkan halaman form edit user
+        Route::put('/{id}', [BalitaController::class, 'update'])->name('petugas.balita.update'); // menyimpan perubahan data user
+        Route::delete('/{id}', [BalitaController::class, 'destroy'])->name('petugas.balita.destroy'); // menghapus data user
     });
 });
