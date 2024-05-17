@@ -24,6 +24,6 @@ class UserController extends Controller
         $activeMenu = 'user/dataUser';
         $dataUser = UserModel::all();
         // return $dataTable->render('admin.dataUser.index');
-        return view('User', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
+        return view('user.dataUser.index', ['breadcrumb' => $breadcrumb,'page'=> $page, 'activeMenu' => $activeMenu]);
     }
 }

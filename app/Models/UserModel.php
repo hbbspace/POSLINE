@@ -15,7 +15,7 @@ class UserModel extends Authenticable
     public $timestamps = false;
 
     protected $fillable = [
-        'nik',
+        // 'nik',
         'password',
         'username',
     ];

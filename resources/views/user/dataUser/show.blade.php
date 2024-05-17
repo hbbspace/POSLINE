@@ -1,4 +1,4 @@
-@extends('admin.layouts.template')
+@extends('user.layouts.template')
 
 @section('content')
 <div class="card card-outline card-primary">
@@ -40,7 +40,7 @@
                 </tr>
             </table>
         @endempty
-        <a href="{{ url('user/dataUser') }}" class="btn btn-sm btn-default mt-2">Kembali</a>
+        <a href="{{ url('admin/dataAdmin') }}" class="btn btn-sm btn-default mt-2">Kembali</a>
     </div>
 </div>
 @endsection

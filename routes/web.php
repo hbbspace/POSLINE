@@ -9,10 +9,12 @@ use App\Http\Controllers\Admin\AnggotaKeluargaController;
 use App\Http\Controllers\Admin\DataAdminController;
 use App\Http\Controllers\Admin\DataAnakController;
 use App\Http\Controllers\Admin\JadwalPemeriksaanController;
+use App\Http\Controllers\user\jadwalUser;
 use App\Http\Controllers\DataUserController as ControllersDataUserController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Admin\PetugasController;
+use App\Http\Controllers\User\dataUser;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
 use App\Models\AnggotaKeluargaModel;
@@ -126,5 +128,22 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/{id}/edit', [JadwalPemeriksaanController::class, 'edit'])->name('admin.jadwal.edit'); // menampilkan halaman form edit user
         Route::put('/{id}', [JadwalPemeriksaanController::class, 'update'])->name('admin.jadwal.update'); // menyimpan perubahan data user
         Route::delete('/{id}', [JadwalPemeriksaanController::class, 'destroy'])->name('admin.jadwal.destroy'); // menghapus data user
+    });
+
+});
+Route::group(['prefix' => 'user'], function () {
+    Route::group(['prefix' => 'jadwal'], function () {
+        Route::get('/', [jadwalUser::class, 'index']); // menampilkan halaman awal user
+        Route::post('/list', [jadwalUser::class, 'list']); // menampilkan data user dalam bentuk json untuk datatables
+        Route::get('/{nik}', [jadwalUser::class, 'show']); // menampilkan detail user
+    });
+    Route::group(['prefix' => 'dataUser'], function () {
+        Route::get('/', [dataUser::class, 'show']); // menampilkan halaman awal user
+        Route::post('/list', [dataUser::class, 'list']); // menampilkan data user dalam bentuk json untuk datatables
+        Route::get('/create', [dataUser::class, 'create']); // menampilkan halaman form tambah user
+        Route::post('/', [dataUser::class, 'store']); // menyimpan data user baru
+        // Route::get('/{id}', [dataUser::class, 'show'])->name('admin.dataAdmin.show'); // menampilkan detail user
+        Route::get('/{id}/edit', [dataUser::class, 'edit'])->name('admin.dataAdmin.edit'); // menampilkan halaman form edit user
+        Route::put('/{id}', [dataUser::class, 'update'])->name('admin.dataAdmin.update'); // menyimpan perubahan data user
     });
 });
