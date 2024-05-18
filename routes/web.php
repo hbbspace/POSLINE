@@ -132,13 +132,15 @@ Route::group(['prefix' => 'admin'], function () {
 });
 Route::group(['prefix' => 'petugas'], function () {
     Route::group(['prefix' => 'balita'], function () {
-        Route::get('/', [BalitaController::class, 'index']); // menampilkan halaman awal user
-        Route::post('/list', [BalitaController::class, 'list']); // menampilkan data user dalam bentuk json untuk datatables
-        Route::get('/create', [BalitaController::class, 'create']); // menampilkan halaman form tambah user
-        Route::post('/', [BalitaController::class, 'store']); // menyimpan data user baru
-        Route::get('/{id}', [BalitaController::class, 'show'])->name('petugas.balita.show'); // menampilkan detail user
-        Route::get('/{id}/edit', [BalitaController::class, 'edit'])->name('petugas.balita.edit'); // menampilkan halaman form edit user
-        Route::put('/{id}', [BalitaController::class, 'update'])->name('petugas.balita.update'); // menyimpan perubahan data user
-        Route::delete('/{id}', [BalitaController::class, 'destroy'])->name('petugas.balita.destroy'); // menghapus data user
+        Route::get('/', [BalitaController::class, 'index']); // Menampilkan halaman awal user
+        Route::post('/list', [BalitaController::class, 'list']); // Menampilkan data user dalam bentuk json untuk datatables
+        Route::post('/input-result/{id}', [BalitaController::class, 'inputResult']); // Menyimpan hasil tes
+        Route::get('/create', [BalitaController::class, 'create']); // Menampilkan halaman form tambah user
+        Route::post('/', [BalitaController::class, 'store']); // Menyimpan data user baru
+        Route::get('/{id}', [BalitaController::class, 'show'])->name('petugas.balita.show'); // Menampilkan detail user
+        Route::get('/{id}/edit', [BalitaController::class, 'edit'])->name('petugas.balita.edit'); // Menampilkan halaman form edit user
+        Route::put('/{id}', [BalitaController::class, 'update'])->name('petugas.balita.update'); // Menyimpan perubahan data user
+        Route::delete('/{id}', [BalitaController::class, 'destroy'])->name('petugas.balita.destroy'); // Menghapus data user
     });
 });
+
