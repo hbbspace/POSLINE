@@ -47,7 +47,7 @@ class BalitaController extends Controller
         return DataTables::of($balitas)
             ->addColumn('action', function ($balita) {
                 return '<a href="' . url('petugas/balita/' . $balita->nik) . '" class="btn btn-info btn-sm">Detail</a> ' .
-                    '<a href="' . url('petugas/balita/' . $balita->nik . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ' .
+                    '<a href="' . url('petugas/balita/' . $balita->nik . '/input') . '" class="btn btn-warning btn-sm">Input</a> ' .
                     '<form class="d-inline-block" method="POST" action="' . url('petugas/balita/' . $balita->nik) . '">' .
                     csrf_field() . method_field('DELETE') .
                     '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
@@ -81,22 +81,26 @@ class BalitaController extends Controller
     public function create()
     {
         $breadcrumb = (object)[
-            'title' => 'Tambah Balita',
+            'title' => 'Tambah Data Balita',
             'list' => ['Home', 'Balita', 'Tambah']
         ];
         $page = (object)[
-            'title' => 'Tambah Balita Baru'
+            'title' => 'Tambah Data Balita Baru'
         ];
         $balita = BalitaModel::all();
         $activeMenu = 'petugas.balita';
-        return view('petugas.balita.create', ['balita' => $balita, 'breadcrumb' => $breadcrumb,
-            'page' => $page, 'activeMenu' => $activeMenu]);
+        return view('petugas.balita.create', [
+            'balita' => $balita, 
+            'breadcrumb' => $breadcrumb, 
+            'page' => $page, 
+            'activeMenu' => $activeMenu
+        ]);
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'nik' => 'required|string|min:3|unique:balita,nik', 
+            'nik' => 'required|string|min:3|unique:App\Models\BalitaModel,nik', 
             'tinggi_badan' => 'required|numeric|max:150', 
             'berat_badan' => 'required|numeric|max:30', 
             'lingkar_kepala' => 'required|numeric|max:30' 
@@ -109,7 +113,7 @@ class BalitaController extends Controller
             'lingkar_kepala' => $request->lingkar_kepala
         ]);
 
-        return redirect('petugas/balita')->with('success', 'Data Balita berhasil disimpan');
+        return redirect ('petugas/balita')->with('success', 'Data Balita berhasil disimpan');
     }
 
     public function show(String $nik)
