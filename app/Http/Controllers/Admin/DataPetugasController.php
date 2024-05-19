@@ -7,7 +7,7 @@ use App\Models\AdminModel;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
-class PetugasController extends Controller
+class DataPetugasController extends Controller
 {
 
     public function index()

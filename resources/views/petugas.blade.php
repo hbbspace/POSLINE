@@ -1,4 +1,4 @@
-@extends('layouts.template')
+@extends('petugas.layouts.template')
 
 @section('subtitle', 'Admin')
 @section('content_header_title', 'Home')
