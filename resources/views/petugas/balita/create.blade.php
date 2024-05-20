@@ -8,27 +8,27 @@
                 <div class="card-header">Tambah Balita Baru</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ url('petugas.balita.store') }}">
+                    <form method="POST" action="{{ url('/balita') }}">
                         @csrf
 
                         <div class="form-group">
                             <label for="nik">NIK</label>
-                            <input id="nik" type="text" class="form-control" name="nik" required autofocus>
+                            <input id="nik" type="numeric" class="form-control" name="nik">
                         </div>
 
                         <div class="form-group">
                             <label for="tinggi_badan">Tinggi Badan</label>
-                            <input id="tinggi_badan" type="text" class="form-control" name="tinggi_badan">
+                            <input id="tinggi_badan" type="numeric" class="form-control" name="tinggi_badan">
                         </div>
 
                         <div class="form-group">
                             <label for="berat_badan">Berat Badan</label>
-                            <input id="berat_badan" type="text" class="form-control" name="berat_badan">
+                            <input id="berat_badan" type="numeric" class="form-control" name="berat_badan">
                         </div>
 
                         <div class="form-group">
                             <label for="lingkar_kepala">Lingkar Kepala</label>
-                            <input id="lingkar_kepala" type="text" class="form-control" name="lingkar_kepala">
+                            <input id="lingkar_kepala" type="numeric" class="form-control" name="lingkar_kepala">
                         </div>
 
                         <button type="submit" class="btn btn-primary">Simpan</button>

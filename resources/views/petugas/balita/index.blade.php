@@ -8,28 +8,14 @@
         </div>
     </div>
     <div class="card-body">
-        @if(session('succes'))
-            <div class="alert alert-succes">{{ session('succes') }}</div>            
+        <!-- Tampilkan pesan sukses atau error -->
+        @if(session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>            
         @endif
         @if(session('error'))
             <div class="alert alert-danger">{{ session('error') }}</div>            
         @endif
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group row">
-                    <label class="col-1 control-label col-form-label">Filter :</label>
-                    <div class="col-3">
-                        <select class="form-control" id="nik" name="nik" required>
-                            <option value="">- Semua -</option>
-                            @foreach($balita as $item)
-                                <option value="{{ $item->nik }}">{{ $item->nik }}</option>
-                            @endforeach
-                        </select>
-                        <small class="form-text text-muted">Data Balita</small>
-                    </div>
-                </div>
-            </div>
-        </div>        
+        <!-- Tampilkan tabel daftar balita -->
         <table class="table table-bordered table-striped table-hover table-sm" id="table_balita">
             <thead>
                 <tr>
@@ -38,16 +24,13 @@
                     <th>Tinggi Badan</th>
                     <th>Berat Badan</th>
                     <th>Lingkar Kepala</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
         </table>
     </div>
 </div>
 @endsection
-
-@push('css')
-
-@endpush
 
 @push('js')
 <script>
@@ -60,7 +43,7 @@
                 "dataType": "json",
                 "type": "POST",
                 "data": function (d) {
-                    d.nik = $('#nik').val();
+                    // Tambahkan kode jika diperlukan
                 }
             },
             columns: [
@@ -93,6 +76,12 @@
                     className: "",
                     orderable: true,
                     searchable: true
+                },
+                {
+                    data: "action",
+                    className: "",
+                    orderable: false,
+                    searchable: false
                 }
             ]
         });

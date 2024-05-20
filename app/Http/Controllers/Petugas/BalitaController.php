@@ -38,42 +38,69 @@ class BalitaController extends Controller
 
     public function list(Request $request)
     {
-        $balitas = BalitaModel::select('balita_id','nik', 'tinggi_badan', 'berat_badan', 'lingkar_kepala')->with('anggota_keluarga'); // Mengambil kolom yang dibutuhkan
+        $balitas = BalitaModel::select('balita_id','nik', 'tinggi_badan', 'berat_badan', 'lingkar_kepala')->with('anggota_keluarga');
 
         if ($request->nik) {
             $balitas->where('nik', $request->nik);
         }
 
         return DataTables::of($balitas)
-            ->addColumn('action', function ($balita) { // Menambahkan kolom 'action'
-                return '<a href="' . url('petugas/balita/' .$balita->nik) . '" class="btn btn-info btn-sm">Detail</a> ' .
-                    '<a href="' . url('petugas/balita/' .$balita->nik . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ' .
-                    '<form class="d-inline-block" method="POST" action="' . url('petugas/balita/' .$balita->nik) . '">' .
+            ->addColumn('action', function ($balita) {
+                return '<a href="' . url('petugas/balita/' . $balita->nik) . '" class="btn btn-info btn-sm">Detail</a> ' .
+                    '<a href="' . url('petugas/balita/' . $balita->nik . '/input') . '" class="btn btn-warning btn-sm">Input</a> ' .
+                    '<form class="d-inline-block" method="POST" action="' . url('petugas/balita/' . $balita->nik) . '">' .
                     csrf_field() . method_field('DELETE') .
                     '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
             })
             ->make(true);
     }
 
+
+    public function inputResult(Request $request, String $id)
+    {
+        $request->validate([
+            'tinggi_badan' => 'required|numeric|max:150', 
+            'berat_badan' => 'required|numeric|max:30', 
+            'lingkar_kepala' => 'required|numeric|max:30' 
+        ]);
+
+        $balita = BalitaModel::find($id);
+        if (!$balita) {
+            return redirect()->back()->with('error', 'Balita tidak ditemukan');
+        }
+
+        $balita->update([
+            'tinggi_badan' => $request->tinggi_badan,
+            'berat_badan' => $request->berat_badan,
+            'lingkar_kepala' => $request->lingkar_kepala
+        ]);
+
+        return redirect()->back()->with('success', 'Hasil balita berhasil disimpan');
+    }
+
     public function create()
     {
         $breadcrumb = (object)[
-            'title' => 'Tambah Balita',
+            'title' => 'Tambah Data Balita',
             'list' => ['Home', 'Balita', 'Tambah']
         ];
         $page = (object)[
-            'title' => 'Tambah Balita Baru'
+            'title' => 'Tambah Data Balita Baru'
         ];
         $balita = BalitaModel::all();
         $activeMenu = 'petugas.balita';
-        return view('petugas.balita.create', ['balita' => $balita, 'breadcrumb' => $breadcrumb,
-            'page' => $page, 'activeMenu' => $activeMenu]);
+        return view('petugas.balita.create', [
+            'balita' => $balita, 
+            'breadcrumb' => $breadcrumb, 
+            'page' => $page, 
+            'activeMenu' => $activeMenu
+        ]);
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'nik' => 'required|string|min:3|unique:balita,nik', 
+            'nik' => 'required|string|min:3|unique:App\Models\BalitaModel,nik', 
             'tinggi_badan' => 'required|numeric|max:150', 
             'berat_badan' => 'required|numeric|max:30', 
             'lingkar_kepala' => 'required|numeric|max:30' 
@@ -86,12 +113,18 @@ class BalitaController extends Controller
             'lingkar_kepala' => $request->lingkar_kepala
         ]);
 
-        return redirect('petugas/balita')->with('success', 'Data Balita berhasil disimpan');
+        return redirect ('petugas/balita')->with('success', 'Data Balita berhasil disimpan');
     }
 
     public function show(String $nik)
     {
-        $balita = BalitaModel::find($nik);
+        $balita = BalitaModel::where('nik', $nik)->first();
+
+        // Periksa apakah balita ditemukan
+        if (!$balita) {
+            return redirect()->back()->with('error', 'Balita tidak ditemukan');
+        }
+
         $breadcrumb = (object) [
             'title' => 'Detail Balita',
             'list' => ['Home', 'Balita', 'Detail']
@@ -103,7 +136,7 @@ class BalitaController extends Controller
 
         $activeMenu = 'petugas.balita';
 
-        return view('petugas.balita.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'balita' => $balita, 'activeMenu' => $activeMenu]);
+        return view('petugas.balita.show', compact('balita', 'breadcrumb', 'page', 'activeMenu'));
     }
 
     public function update(Request $request, String $nik)

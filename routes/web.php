@@ -152,9 +152,11 @@ Route::group(['prefix' => 'petugas'], function () {
         Route::post('/list', [BalitaController::class, 'list']); // menampilkan data user dalam bentuk json untuk datatables
         Route::get('/create', [BalitaController::class, 'create']); // menampilkan halaman form tambah user
         Route::post('/', [BalitaController::class, 'store']); // menyimpan data user baru
-        Route::get('/{id}', [BalitaController::class, 'show'])->name('petugas.balita.show'); // menampilkan detail user
-        Route::get('/{id}/edit', [BalitaController::class, 'edit'])->name('petugas.balita.edit'); // menampilkan halaman form edit user
-        Route::put('/{id}', [BalitaController::class, 'update'])->name('petugas.balita.update'); // menyimpan perubahan data user
-        Route::delete('/{id}', [BalitaController::class, 'destroy'])->name('petugas.balita.destroy'); // menghapus data user
+        Route::get('/{nik}', [BalitaController::class, 'show'])->name('petugas.balita.show'); // menampilkan detail user
+        Route::get('/{nik}/edit', [BalitaController::class, 'edit'])->name('petugas.balita.edit'); // menampilkan halaman form edit user
+        Route::put('/{nik}', [BalitaController::class, 'update'])->name('petugas.balita.update'); // menyimpan perubahan data user
+        Route::delete('/{nik}', [BalitaController::class, 'destroy'])->name('petugas.balita.destroy'); // menghapus data user
     });
 });
+
+
