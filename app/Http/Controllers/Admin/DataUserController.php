@@ -21,7 +21,7 @@ class DataUserController extends Controller
             'title' => 'Daftar Data User yang terdaftar dalam sistem'
         ];
 
-        $activeMenu = 'admin.dataUser';
+        $activeMenu = 'dataUser';
 
         $user = UserModel::all();
         return view('admin.dataUser.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'user' => $user, 'activeMenu' => $activeMenu]);

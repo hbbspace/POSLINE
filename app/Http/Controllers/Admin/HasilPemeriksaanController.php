@@ -9,7 +9,7 @@ use Yajra\DataTables\Facades\DataTables;
 
 class HasilPemeriksaanController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
         $breadcrumb = (object) [
             'title' => 'Daftar Hasil Pemeriksaan',
@@ -20,7 +20,7 @@ class HasilPemeriksaanController extends Controller
             'title' => 'Daftar Hasil Pemeriksaan'
         ];
     
-        $activeMenu = 'admin.dataPemeriksaan';
+        $activeMenu = 'dataPemeriksaan';
     
         $hasil_pemeriksaan = HasilPemeriksaanModel::all();
     

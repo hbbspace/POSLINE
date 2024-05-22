@@ -21,7 +21,7 @@ class DataPetugasController extends Controller
             'title' => 'Daftar Admin yang terdaftar dalam sistem'
         ];
 
-        $activeMenu = 'admin.dataPetugas';
+        $activeMenu = 'dataPetugas';
         $admin = AdminModel::all();
         return view('admin.dataPetugas.index', ['breadcrumb' => $breadcrumb, 'page' => $page,
             'admin' => $admin, 'activeMenu' => $activeMenu]);

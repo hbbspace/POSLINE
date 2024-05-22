@@ -22,7 +22,7 @@ class DataAnakController extends Controller
             'title' => 'Daftar Anak yang terdaftar dalam sistem'
         ];
 
-        $activeMenu = 'admin.dataAnggotaKeluarga';
+        $activeMenu = 'dataAnak';
 
         $anggota_keluarga = AnggotaKeluargaModel::all();
         return view('admin.dataAnak.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'anggota_keluarga' => $anggota_keluarga, 'activeMenu' => $activeMenu]);

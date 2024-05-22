@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\PemeriksaanModel;
+use Carbon\Carbon;
 use Yajra\DataTables\Facades\DataTables;
 
 class jadwalUser extends Controller
@@ -20,48 +21,38 @@ class jadwalUser extends Controller
             'title' => 'Daftar Agenda Pemeriksaan'
         ];
 
-        $activeMenu = 'user.jadwal';
+        $activeMenu = 'jadwal';
 
         $jadwal_pemeriksaan = PemeriksaanModel::all();
         return view('user.jadwal.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'jadwal_pemeriksaan' => $jadwal_pemeriksaan, 'activeMenu' => $activeMenu]);
     }
 
-    public function show($pemeriksaan_id)
-    {
-        $jadwal_pemeriksaan = PemeriksaanModel::find($pemeriksaan_id);
-        $breadcrumb = (object) [
-            'title' => 'Detail Jadwal',
-            'list' => ['Home', 'Jadwal', 'Detail']
-        ];
-
-        $page = (object) [
-            'title' => 'Detail Jadwal'
-        ];
-
-        $activeMenu = 'user.jadwal';
-
-        return view('user.jadwal.show', ['breadcrumb' => $breadcrumb,
-         'page' => $page, 'jadwal_pemeriksaan' => $jadwal_pemeriksaan, 'activeMenu' => $activeMenu]);
-    }
 
     public function list(Request $request)
     {
         $jadwal_pemeriksaan = PemeriksaanModel::select('pemeriksaan_id', 'agenda', 'tanggal', 'tempat');
-
+    
         if ($request->pemeriksaan_id) {
             $jadwal_pemeriksaan->where('pemeriksaan_id', $request->pemeriksaan_id);
         }
     
         return DataTables::of($jadwal_pemeriksaan)
             ->addIndexColumn() // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
-            // ->addColumn('aksi', function ($jadwal_pemeriksaan) { // menambahkan kolom aksi
-            //     $btn = '<a href="'.url('user/jadwal', $jadwal_pemeriksaan->pemeriksaan_id).'" class="btn btn-info btn-sm">Detail</a> ';
-            //     $btn .= '<a href="'.url('user/jadwal', $jadwal_pemeriksaan->pemeriksaan_id. '/edit').'" class="btn btn-warning btn-sm">Edit</a> ';
-            //     $btn .= '<form class="d-inline-block" method="POST" action="'. url('user/jadwal', $jadwal_pemeriksaan->pemeriksaan_id).'">'. csrf_field() . method_field('DELETE') .
-            //         '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
-            //     return $btn;
-            // })
-            // ->rawColumns(['aksi']) // memberitahu bahwa kolom aksi adalah html
+            ->addColumn('Keterangan', function ($jadwal_pemeriksaan) { // menambahkan kolom aksi
+                $tanggal_pemeriksaan = Carbon::parse($jadwal_pemeriksaan->tanggal);
+    
+                if ($tanggal_pemeriksaan->isFuture()) {
+                    $btn = '<a class="btn btn-primary btn-sm">Akan Dilaksanakan</a> ';
+                } elseif ($tanggal_pemeriksaan->isToday()) {
+                    $btn = '<a class="btn btn-success btn-sm">Sedang Dilaksanakan</a> ';
+                } else {
+                    $btn = '<a class="btn btn-danger btn-sm">Telah Dilaksanakan</a> ';
+                }
+    
+                return $btn;
+            })
+            ->rawColumns(['Keterangan']) // memberitahu bahwa kolom aksi adalah html
             ->make(true);
     }
+    
 }    

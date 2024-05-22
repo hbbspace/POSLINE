@@ -20,7 +20,7 @@ class DataAdminController extends Controller
             'title' => 'Daftar Admin yang terdaftar dalam sistem'
         ];
 
-        $activeMenu = 'admin.dataAdmin';
+        $activeMenu = 'dataAdmin';
         $admin = AdminModel::all();
         return view('admin.dataAdmin.index', ['breadcrumb' => $breadcrumb, 'page' => $page,
             'admin' => $admin, 'activeMenu' => $activeMenu]);

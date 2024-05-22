@@ -20,7 +20,7 @@ class KeluargaController extends Controller
             'title' => 'Daftar Keluarga yang terdaftar dalam sistem'
         ];
 
-        $activeMenu = 'admin.dataKeluarga'; 
+        $activeMenu = 'dataKeluarga'; 
         $keluarga = KeluargaModel::all();
 
         return view('admin.dataKeluarga.index', [

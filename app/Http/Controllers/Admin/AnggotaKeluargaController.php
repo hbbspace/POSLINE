@@ -21,7 +21,7 @@ class AnggotaKeluargaController extends Controller
             'title' => 'Daftar Data Ibu yang terdaftar dalam sistem'
         ];
 
-        $activeMenu = 'admin.dataAnggotaKeluarga';
+        $activeMenu = 'dataAnggotaKeluarga';
 
         $anggota_keluarga = AnggotaKeluargaModel::all();
         return view('admin.dataAnggotaKeluarga.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'anggota_keluarga' => $anggota_keluarga, 'activeMenu' => $activeMenu]);
@@ -123,21 +123,21 @@ class AnggotaKeluargaController extends Controller
         if (!$anggota_keluarga) {
             return redirect('admin/dataIbu')->with('error', 'Data Ibu tidak ditemukan');
         }
-        $anggota_keluarga->tanggal_lahir = $request->tanggal_lahir;
-        $anggota_keluarga->no_kk = $request->no_kk;
-        $anggota_keluarga->jk = $request->jk;
-        $anggota_keluarga->nama = $request->nama;
-        $anggota_keluarga->status = $request->status;
+        // $anggota_keluarga->tanggal_lahir = $request->tanggal_lahir;
+        // $anggota_keluarga->no_kk = $request->no_kk;
+        // $anggota_keluarga->jk = $request->jk;
+        // $anggota_keluarga->nama = $request->nama;
+        // $anggota_keluarga->status = $request->status;
 
-        $anggota_keluarga->save();
+        
+        $anggota_keluarga->update([
+            'nama' => $request->nama,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'jk' => $request->jk,
+            'status' => $request->status,
+            'no_kk' => $request->no_kk
+        ]);
 
-        // $anggota_keluarga->update([
-        //     'nama' => $request->nama,
-        //     'tanggal_lahir' => $request->tanggal_lahir,
-        //     'jk' => $request->jk,
-        //     'status' => $request->status,
-        //     'no_kk' => $request->no_kk
-        // ]);
     
         return redirect('admin/dataIbu')->with('success', 'Data Ibu berhasil diubah');
     }

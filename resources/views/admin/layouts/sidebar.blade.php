@@ -21,50 +21,51 @@
             </li>
             <li class="nav-header">Data Pengguna</li>
             <li class="nav-item">
-                <a href="{{ url('admin/dataAdmin') }}" class="nav-link">
+                <a href="{{ url('admin/dataAdmin') }}" class="nav-link  {{ $activeMenu == 'dataAdmin' ? 'active' : '' }} ">
                     <i class="nav-icon far fa-user"></i>
                     <p>Data Super Admin</p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ url('admin/dataKeluarga') }}" class="nav-link">
+                <a href="{{ url('admin/dataKeluarga') }}" class="nav-link  {{ $activeMenu == 'dataKeluarga' ? 'active' : '' }}">
                     <i class="nav-icon far fa-user"></i>
                     <p>Data KK</p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ url('admin/dataIbu') }}" class="nav-link">
+                <a href="{{ url('admin/dataIbu') }}" class="nav-link  {{ $activeMenu == 'dataAnggotaKeluarga' ? 'active' : '' }}">
                     <i class="nav-icon far fa-user"></i>
                     <p>Data Orang Tua</p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ url('admin/dataAnak') }}" class="nav-link">
+                <a href="{{ url('admin/dataAnak') }}" class="nav-link  {{ $activeMenu == 'dataAnak' ? 'active' : '' }}">
                     <i class="nav-icon far fa-user"></i>
                     <p>Data Anak</p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ url('admin/dataPetugas') }}" class="nav-link ">
+                <a href="{{ url('admin/dataPetugas') }}" class="nav-link  {{ $activeMenu == 'dataPetugas' ? 'active' : '' }} ">
                     <i class="nav-icon far fa-user"></i>
                     <p>Data Petugas Posyandu</p>
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="{{ url('admin/dataUser') }}" class="nav-link ">
+            {{-- <li class="nav-item">
+                 <a href="{{ url('admin/dataUser') }}" class="nav-link  {{ $activeMenu == 'datUser' ? 'active' : '' }} ">
                     <i class="nav-icon far fa-user"></i>
                     <p>Data User</p>
                 </a>
+            </li> --}}
             <li class="nav-header">Data Jadwal</li>
             <li class="nav-item">
-                <a href="{{ url('admin/jadwal') }}" class="nav-link  ">
+                <a href="{{ url('admin/jadwal') }}" class="nav-link   {{ $activeMenu == 'jadwal' ? 'active' : '' }} ">
                     <i class="nav-icon fas fa-cubes"></i>
                     <p>Jadwal</p>
                 </a>
             </li>
             <li class="nav-header">Data Pemeriksaan</li>
             <li class="nav-item">
-                <a href="{{ url('admin/dataPemeriksaan') }}" class="nav-link  ">
+                <a href="{{ url('admin/dataPemeriksaan') }}" class="nav-link    {{ $activeMenu == 'dataPemeriksaan' ? 'active' : '' }}">
                     <i class="nav-icon fas fa-cubes"></i>
                     <p>Data Pemeriksaan</p>
                 </a>

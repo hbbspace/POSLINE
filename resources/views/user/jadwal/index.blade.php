@@ -36,6 +36,7 @@
                     <th>agenda</th>
                     <th>Tanggal</th>
                     <th>Tempat</th>
+                    <th>Keterangan</th>
                 </tr>
             </thead>
         </table>
@@ -50,7 +51,7 @@
 @push('js')
 <script>
     $(document).ready(function() {
-        var dataKeluarga = $('#table_jadwal').DataTable({
+        var jadwal = $('#table_jadwal').DataTable({
             processing: true,
             serverSide : true,
             ajax: {
@@ -94,6 +95,12 @@
                     className: "",
                     orderable: true,
                     searchable: true
+                },
+                {
+                    data: "Keterangan",
+                    className: "",
+                    orderable: false,
+                    searchable: false
                 }
             ]
         });

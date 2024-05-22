@@ -7,7 +7,7 @@
         <div class="card-tools"></div>
     </div>
     <div class="card-body">
-        @empty($admin)
+        @empty($user)
             <div class="alert alert-danger alert-dismissible">
                 <h5><i class="icon fas fa-ban"></i> Kesalahan!</h5>
                 Data yang Anda cari tidak ditemukan.
@@ -16,31 +16,39 @@
             <table class="table table-bordered table-striped table-hover table-sm">
                 <tr>
                     <th>ID</th>
-                    <td>{{ $admin->admin_id }}</td>
+                    <td>{{ $user->user_id }}</td>
                 </tr>
                 <tr>
                     <th>Username</th>
-                    <td>{{ $admin->username }}</td>
+                    <td>{{ $user->username }}</td>
                 </tr>
                 <tr>
                     <th>Password</th>
-                    <td>{{ $admin->password }}</td>
+                    <td>************</td>
                 </tr>
                 <tr>
-                    <th>Nama Admin</th>
-                    <td>{{ $admin->nama_admin }}</td>
+                    <th>Nama user</th>
+                    <td>{{ $user->nama }}</td>
                 </tr>
                 <tr>
                     <th>Jenis Kelamin</th>
-                    <td>{{ $admin->jk }}</td>
+                    <td>{{ $user->jk }}</td>
                 </tr>
                 <tr>
-                    <th>Level</th>
-                    <td>{{ $admin->level }}</td>
+                    <th>Tanggal Lahir</th>
+                    <td>{{ $user->tanggal_lahir}}</td>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                    <td>{{ $user->status}}</td>
                 </tr>
             </table>
         @endempty
-        <a href="{{ url('admin/dataAdmin') }}" class="btn btn-sm btn-default mt-2">Kembali</a>
+        
+        <div class="d-flex justify-content-center mt-3">
+            <a href="{{ url('user/') }}" class="btn btn-primary btn-sm mx-2">Kembali</a>
+            <a href="{{ url('user/dataUser/edit') }}" class="btn btn-warning btn-sm mx-2">Edit Profile</a>
+        </div>
     </div>
 </div>
 @endsection

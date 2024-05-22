@@ -1,47 +1,32 @@
-@extends('admin.layouts.template')
+@extends('user.layouts.template')
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h4>Edit Admin</h4>
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Edit Data Profile</h3>
+            </div>
+            <div class="card-body">
+                <form action="{{ url('user/dataUser') }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" value="{{ $user->username }}" required>
                     </div>
-                    <div class="card-body">
-                        <form action="{{ url('admin/dataAdmin', $admin->admin_id) }}" method="POST">
-                            @csrf
-                            @method('PUT')
-                            <div class="mb-3">
-                                <label for="username" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="username" name="username" value="{{ $admin->username }}" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password" name="password" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="nama_admin" class="form-label">Nama Admin</label>
-                                <input type="text" class="form-control" id="nama_admin" name="nama_admin" value="{{ $admin->nama_admin }}" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="jk" class="form-label">Gender</label>
-                                <select name="jk" id="jk" class="form-control" required>
-                                    <option value="L" {{ $admin->jk == 'L' ? 'selected' : '' }}>Laki-laki</option>
-                                    <option value="P" {{ $admin->jk == 'P' ? 'selected' : '' }}>Perempuan</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="level" class="form-label">Level</label>
-                                <select name="level" id="level" class="form-control" required>
-                                    <option value="1" {{ $admin->level == '1' ? 'selected' : '' }}>Admin</option>
-                                    <option value="2" {{ $admin->level == '2' ? 'selected' : '' }}>Super Admin</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-                        </form>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
                     </div>
-                </div>
+                    <div class="mb-3">
+                        <label for="nama" class="form-label">Nama user</label>
+                        <input type="text" class="form-control" id="nama" name="nama" value="{{ $user->nama }}" required>
+                    </div>
+                    <div class="d-flex justify-content-center mt-2">
+                        <button type="submit" class="btn btn-primary mx-2" style="background-color: blue; border-color: blue;">Simpan Perubahan</button>
+                        <a href="{{ url('user/dataUser') }}" class="btn btn-warning mx-2" style="background-color: yellow; border-color: yellow; color: black;">Kembali</a>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

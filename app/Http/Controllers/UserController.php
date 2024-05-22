@@ -13,17 +13,20 @@ class UserController extends Controller
     public function index()
     {   
         // session()->flush();
+        $user_id = (Auth::guard('user')->user()->user_id);
+        $user=UserModel::select('anggota_keluarga.nama',)
+        ->join('anggota_keluarga','user.nik','=','anggota_keluarga.nik')
+        ->where('user_id',$user_id)->first();
+        $nama=$user->nama;
         $breadcrumb = (object) [
-            'title' => 'Selamat Datang',
-            'list' => ['Home', 'User']
+            'title' => 'Selamat Datang ' . $nama,
+            'list' => ['Home', 'Dashboard']
         ];
 
-        $page = (object) [
-            'title' => 'Daftar User yang terdaftar dalam sistem'
-        ];
-        $activeMenu = 'user/dataUser';
-        $dataUser = UserModel::all();
+        $activeMenu = 'dashboard';
         // return $dataTable->render('admin.dataUser.index');
-        return view('user.dataUser.index', ['breadcrumb' => $breadcrumb,'page'=> $page, 'activeMenu' => $activeMenu]);
+        return view('user', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
     }
+
+
 }

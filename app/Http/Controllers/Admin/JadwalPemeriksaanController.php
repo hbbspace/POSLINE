@@ -20,7 +20,7 @@ class JadwalPemeriksaanController extends Controller
             'title' => 'Daftar Agenda Pemeriksaan'
         ];
 
-        $activeMenu = 'admin.jadwal';
+        $activeMenu = 'jadwal';
 
         $jadwal_pemeriksaan = PemeriksaanModel::all();
         return view('admin.jadwal.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'jadwal_pemeriksaan' => $jadwal_pemeriksaan, 'activeMenu' => $activeMenu]);
