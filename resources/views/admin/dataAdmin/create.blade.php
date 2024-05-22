@@ -2,12 +2,10 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h4>Tambah Admin Baru</h4>
-                    </div>
+        <div class="card card-primary">
+                <div class="card-header">
+                    <h4>Tambah Admin Baru</h4>
+                </div>
                     <div class="card-body">
                         <form action="{{ url('admin/dataAdmin') }}" method="POST">
                             @csrf

@@ -155,4 +155,4 @@ class DataUserController extends Controller
             })
             ->make(true);
     }
-}    
+}

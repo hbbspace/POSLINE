@@ -35,21 +35,23 @@ class AnggotaKeluargaController extends Controller
         ];
 
         $page = (object) [
-            'title' => 'Tambah Data Ibu baru'
+            'title' => 'Tambah Data Ibu '
         ];
 
+        $kk=KeluargaModel::all();
         $anggota_keluarga = AnggotaKeluargaModel::all();
                 $activeMenu = 'admin.dataAnggotaKeluarga';
 
         return view('admin.dataAnggotaKeluarga.create', ['breadcrumb' => $breadcrumb, 
-         'page' => $page, 'keluarga' => $anggota_keluarga, 'activeMenu' => $activeMenu]);
+         'page' => $page, 'keluarga' => $anggota_keluarga, 'kk'=>$kk, 'activeMenu' => $activeMenu]);
     }
 
     public function store(Request $request)
     {
+         dd($request->all());
         $request->validate([
-            'no_kk' => 'required|string|min:3|unique:anggota_keluarga,no_kk',
-            'nik' => 'required|string|min:3|unique:anggota_keluarga,nik',
+            'no_kk' => 'required|string|min:3',
+            'nik' => 'required|string|min:3',
             'nama' => 'required|string|max:100',
             'tanggal_lahir' => 'required|date',
             'jk' => 'required|in:L,P',
@@ -65,7 +67,7 @@ class AnggotaKeluargaController extends Controller
             'status' => $request->status
         ]);
 
-        return redirect('admin/dataIbu')->with('success', 'Data Data Ibu berhasil disimpan');
+        return redirect('admin/dataIbu')->with('success', 'Data Ibu berhasil disimpan');
     }
 
     public function show($no_kk)
@@ -106,28 +108,40 @@ class AnggotaKeluargaController extends Controller
          'page' => $page, 'anggota_keluarga' => $anggota_keluarga, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
     }
 
-    public function update(Request $request, $nik)
+    public function update(Request $request, String $id)
     {
         $request->validate([
-            'nik' => 'required|string|min:3|unique:anggota_keluarga,nik',
-            'nama' => 'required|string|max:50',
+            'nama' => 'required|string',
             'tanggal_lahir' => 'required|date',
             'jk' => 'required|in:L,P',
             'status' => 'required|in:ibu,anak',
             'no_kk' => 'required|string|min:3'
         ]);
+    
+        $anggota_keluarga = AnggotaKeluargaModel::find( $id);
+    
+        if (!$anggota_keluarga) {
+            return redirect('admin/dataIbu')->with('error', 'Data Ibu tidak ditemukan');
+        }
+        $anggota_keluarga->tanggal_lahir = $request->tanggal_lahir;
+        $anggota_keluarga->no_kk = $request->no_kk;
+        $anggota_keluarga->jk = $request->jk;
+        $anggota_keluarga->nama = $request->nama;
+        $anggota_keluarga->status = $request->status;
 
-        AnggotaKeluargaModel::where('nik', $nik)->update([
-            'nik' => $request->nik,
-            'nama' => $request->nama,
-            'tanggal_lahir' => $request->tanggal_lahir,
-            'jk' => $request->jk,
-            'status' => $request->status,
-            'no_kk' => $request->no_kk
-        ]);
+        $anggota_keluarga->save();
 
-        return redirect('admin/dataIbu')->with('success', 'Data Data Ibu berhasil diubah');
+        // $anggota_keluarga->update([
+        //     'nama' => $request->nama,
+        //     'tanggal_lahir' => $request->tanggal_lahir,
+        //     'jk' => $request->jk,
+        //     'status' => $request->status,
+        //     'no_kk' => $request->no_kk
+        // ]);
+    
+        return redirect('admin/dataIbu')->with('success', 'Data Ibu berhasil diubah');
     }
+    
 
     public function destroy($nik)
     {
@@ -148,6 +162,11 @@ class AnggotaKeluargaController extends Controller
     {
         $anggota_keluargas = AnggotaKeluargaModel::select('nik', 'no_kk', 'nama', 'tanggal_lahir', 'jk', 'status')
                                 ->where('status', 'ibu'); // Menambahkan kondisi status 'ibu'
+
+        // $anggota_keluargas = AnggotaKeluargaModel::select('anggota_keluarga.nik', 'anggota_keluarga.no_kk', 'user.nama', 'anggota_keluarga.tanggal_lahir', 'anggota_keluarga.jk', 'anggota_keluarga.status')
+        // ->join('user', 'anggota_keluarga.nik', '=', 'nik') // Melakukan join dengan tabel users berdasarkan user_id
+        // ->where('anggota_keluarga.status', 'ibu')
+        // ->get();
     
         if ($request->no_kk) {
             $anggota_keluargas->where('no_kk', $request->no_kk);

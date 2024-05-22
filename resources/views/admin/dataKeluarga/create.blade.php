@@ -10,7 +10,7 @@
             <div class="card-header">
            <h3 class="card-title">Tambah Data Keluarga</h3>     
             </div>
-            <form method="post" action="{{ url('/dataKeluarga') }}">
+            <form method="post" action="{{ url('admin/dataKeluarga') }}">
                 @csrf <!-- Tambahkan token CSRF di sini -->
                 <div class="card-body">
                     <div class="form-group">

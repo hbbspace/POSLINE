@@ -12,7 +12,7 @@
             <div class="card-header">
                 <h3 class="card-title">Edit Data Keluarga</h3>
             </div>
-            <form method="post" action="{{ route('admin.dataKeluarga.update', $keluarga->no_kk) }}">
+            <form method="post" action="{{ url('admin/dataKeluarga', $keluarga->no_kk) }}">
                 @csrf
                 @method('PUT')
 

@@ -121,7 +121,7 @@
             ]
         });
         $('#no_kk').on('change', function() {
-            dataAnak.ajax.reload();
+            tableAnak.ajax.reload();
         });
     });
 </script>

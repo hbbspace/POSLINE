@@ -13,6 +13,7 @@ class AdminModel extends Authenticable
 
     protected $table = 'admin';
     protected $primaryKey = 'admin_id';
+    public $timestamps = false;
 
     protected $fillable = [
         'username',

@@ -9,7 +9,7 @@
     </div>
     <div class="card-body">
         @if(session('succes'))
-            <div class="alert alert-succes">{{ session('succes') }}</div>            
+            <div class="alert alert-succes">{{ session('success') }}</div>            
         @endif
         @if(session('error'))
             <div class="alert alert-danger">{{ session('error') }}</div>            

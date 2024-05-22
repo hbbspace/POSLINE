@@ -53,7 +53,7 @@
 @push('js')
 <script>
     $(document).ready(function() {
-        var dataKeluarga = $('#table_jadwal').DataTable({
+        var jadwal = $('#table_jadwal').DataTable({
             processing: true,
             serverSide : true,
             ajax: {

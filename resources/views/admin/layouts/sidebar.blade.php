@@ -55,19 +55,18 @@
                     <i class="nav-icon far fa-user"></i>
                     <p>Data User</p>
                 </a>
-            </li>
-            <li class="nav-header">Data Balita</li>
-            <li class="nav-item">
-                <a href="{{ url('admin/kategori') }}" class="nav-link  ">
-                    <i class="nav-icon far fa-bookmark"></i>
-                    <p>Data Balita</p>
-                </a>
-            </li>
             <li class="nav-header">Data Jadwal</li>
             <li class="nav-item">
                 <a href="{{ url('admin/jadwal') }}" class="nav-link  ">
                     <i class="nav-icon fas fa-cubes"></i>
                     <p>Jadwal</p>
+                </a>
+            </li>
+            <li class="nav-header">Data Pemeriksaan</li>
+            <li class="nav-item">
+                <a href="{{ url('admin/dataPemeriksaan') }}" class="nav-link  ">
+                    <i class="nav-icon fas fa-cubes"></i>
+                    <p>Data Pemeriksaan</p>
                 </a>
             </li>
         </ul>

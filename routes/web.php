@@ -9,14 +9,19 @@ use App\Http\Controllers\Admin\KeluargaController;
 use App\Http\Controllers\Admin\AnggotaKeluargaController;
 use App\Http\Controllers\Admin\DataAdminController;
 use App\Http\Controllers\Admin\DataAnakController;
+use App\Http\Controllers\Admin\DataPetugasController;
+use App\Http\Controllers\Admin\HasilPemeriksaanController;
 use App\Http\Controllers\Admin\JadwalPemeriksaanController;
 use App\Http\Controllers\user\jadwalUser;
-use App\Http\Controllers\DataUserController as ControllersDataUserController;
+use App\Http\Controllers\user\dataUser;
+use App\Http\Controllers\user\hasilPemeriksaanUser;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Petugas\BalitaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
 use App\Models\AnggotaKeluargaModel;
+use App\Models\HasilPemeriksaanModel;
 use App\Models\Keluarga;
 use Illuminate\Support\Facades\Route;
 
@@ -127,6 +132,13 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/{id}/edit', [JadwalPemeriksaanController::class, 'edit'])->name('admin.jadwal.edit'); // menampilkan halaman form edit user
         Route::put('/{id}', [JadwalPemeriksaanController::class, 'update'])->name('admin.jadwal.update'); // menyimpan perubahan data user
         Route::delete('/{id}', [JadwalPemeriksaanController::class, 'destroy'])->name('admin.jadwal.destroy'); // menghapus data user
+    });
+    
+    Route::group(['prefix' => 'dataPemeriksaan'], function () {
+        Route::get('/', [HasilPemeriksaanController::class, 'index']); // menampilkan halaman awal user
+        Route::post('/list', [HasilPemeriksaanController::class, 'list']); // menampilkan data user dalam bentuk json untuk datatables
+        Route::get('/{id}', [HasilPemeriksaanController::class, 'show']); // menampilkan detail user
+        Route::delete('/{id}', [HasilPemeriksaanController::class, 'destroy']); // menghapus data user
     });
 
 });

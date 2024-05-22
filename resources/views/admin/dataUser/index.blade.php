@@ -20,10 +20,10 @@
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Filter :</label>
                     <div class="col-3">
-                        <select class="form-control" id="nik" name="nik" required>
+                        <select class="form-control" id="user_id" name="user_id" required>
                             <option value="">- Semua -</option>
                             @foreach($user as $item)
-                                <option value="{{ $item->nik }}">{{ $item->nik }}</option>
+                                <option value="{{ $item->user_id }}">{{ $item->user_id }}</option>
                             @endforeach
                         </select>
                         <small class="form-text text-muted">NIK</small>
@@ -55,6 +55,7 @@
             serverSide : true,
             ajax: {
                 "url": "{{ url('admin/dataUser/list') }}",
+                "url": "{{ url('admin/dataUser/list') }}",
                 "dataType": "json",
                 "type": "POST",
                 "data": function (d) {
@@ -75,7 +76,7 @@
                     searchable: true
                 },
                 {
-                    data: "username",
+                    data: "Password",
                     className: "",
                     orderable: true,
                     searchable: true

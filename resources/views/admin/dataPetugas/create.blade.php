@@ -2,11 +2,9 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card">
+        <div class="card card-primary">
                     <div class="card-header">
-                        <h4>Tambah Admin Baru</h4>
+                        <h4>Tambah Petugas Baru</h4>
                     </div>
                     <div class="card-body">
                         <form action="{{ url('admin/dataPetugas') }}" method="POST">
@@ -33,8 +31,7 @@
                             <div class="mb-3">
                                 <label for="level" class="form-label">Level</label>
                                 <select name="level" id="level" class="form-control" required>
-                                    <option value="1">Admin</option>
-                                    <option value="2">Super Admin</option>
+                                    <option value="2">Admin</option>
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-primary">Tambah</button>

@@ -45,7 +45,7 @@ class DataPetugasController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'username' => 'required|string|min:3|unique:admin,username',
+            'username' => 'required|string|min:3',
             'password' => 'required|string|max:60',
             'nama_admin' => 'required|string|max:60',
             'jk' => 'required|in:L,P',
@@ -108,20 +108,31 @@ class DataPetugasController extends Controller
     public function update(Request $request, String $id)
     {
         $request->validate([
-            'username' => 'required|string|min:3|unique:admin,username,'.$id,
-            'password' => 'required|string|max:60',
-            'nama_admin' => 'required|string|max:60',
+            'username' => 'required|string',
+            'nama_admin' => 'required|string',
             'jk' => 'required|in:L,P',
             'level' => 'required|in:1,2',
         ]);
 
-        AdminModel::find($id)->update([
-            'username' => $request->username,
-            'password' => $request->password, // Note: It's better to keep the password update optional
-            'nama_admin' => $request->nama_admin,
-            'jk' => $request->jk,
-            'level' => $request->level
-        ]);
+        // Ambil data admin yang akan diperbarui
+        $admin = AdminModel::find($id);
+    
+        // Perbarui data admin
+        $admin->username = $request->username;
+        $admin->nama_admin = $request->nama_admin;
+        $admin->jk = $request->jk;
+        $admin->level = $request->level;
+    
+        // Jika password diberikan, perbarui password
+        if ($request->filled('password')) {
+            $request->validate([
+                'password' => 'required|string',
+            ]);
+            $admin->password = $request->password;
+        }
+    
+        // Simpan perubahan
+        $admin->save();
 
         return redirect('admin/dataPetugas')->with('success', 'Data Petugas Posyandu berhasil diubah');
     }

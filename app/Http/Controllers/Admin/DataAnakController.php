@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 // use App\Models\KeluargaModel;
 use App\Models\AnggotaKeluargaModel;
+use App\Models\KeluargaModel;
 use Yajra\DataTables\Facades\DataTables;
 
 class DataAnakController extends Controller
@@ -38,10 +39,12 @@ class DataAnakController extends Controller
             'title' => 'Tambah Anak baru'
         ];
 
-        $activeMenu = 'admin.dataAnak';
+        $kk=KeluargaModel::all();
+        $anggota_keluarga = AnggotaKeluargaModel::all();
+                $activeMenu = 'admin.dataAnak';
 
         return view('admin.dataAnak.create', ['breadcrumb' => $breadcrumb, 
-         'page' => $page, 'activeMenu' => $activeMenu]);
+         'page' => $page, 'keluarga' => $anggota_keluarga, 'kk'=>$kk, 'activeMenu' => $activeMenu]);
     }
 
     public function store(Request $request)
@@ -104,27 +107,38 @@ class DataAnakController extends Controller
          'page' => $page, 'anggota_keluarga' => $anggota_keluarga, 'activeMenu' => $activeMenu]);
     }
 
-    public function update(Request $request, $nik)
+    public function update(Request $request, String $id)
     {
         $request->validate([
-            'nik' => 'required|string|min:3|unique:anggota_keluarga,nik',
-            'nama' => 'required|string|max:50',
+            'nama' => 'required|string',
             'tanggal_lahir' => 'required|date',
             'jk' => 'required|in:L,P',
             'status' => 'required|in:ibu,anak',
             'no_kk' => 'required|string|min:3'
         ]);
+    
+        $anggota_keluarga = AnggotaKeluargaModel::find( $id);
+    
+        if (!$anggota_keluarga) {
+            return redirect('admin/dataAnak')->with('error', 'Data Ibu tidak ditemukan');
+        }
+        $anggota_keluarga->tanggal_lahir = $request->tanggal_lahir;
+        $anggota_keluarga->no_kk = $request->no_kk;
+        $anggota_keluarga->jk = $request->jk;
+        $anggota_keluarga->nama = $request->nama;
+        $anggota_keluarga->status = $request->status;
 
-        AnggotaKeluargaModel::where('nik', $nik)->update([
-            'nik' => $request->nik,
-            'nama' => $request->nama,
-            'tanggal_lahir' => $request->tanggal_lahir,
-            'jk' => $request->jk,
-            'status' => $request->status,
-            'no_kk' => $request->no_kk
-        ]);
+        $anggota_keluarga->save();
 
-        return redirect('admin/dataAnak')->with('success', 'Data Anak berhasil diubah');
+        // $anggota_keluarga->update([
+        //     'nama' => $request->nama,
+        //     'tanggal_lahir' => $request->tanggal_lahir,
+        //     'jk' => $request->jk,
+        //     'status' => $request->status,
+        //     'no_kk' => $request->no_kk
+        // ]);
+    
+        return redirect('admin/dataAnak')->with('success', 'Data Ibu berhasil diubah');
     }
 
     public function destroy($nik)

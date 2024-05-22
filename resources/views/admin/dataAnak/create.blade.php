@@ -6,16 +6,22 @@
 
 @section('content')
     <div class="container">
-        <div class="card">
+        <div class="card card-primary">
             <div class="card-header">
                 <h3 class="card-title">Tambah Data Anak</h3>
             </div>
-            <form method="post" action="{{ url('/dataAnak') }}">
+            <form method="POST" action="{{ url('admin/dataAnak') }}">
                 @csrf
                 <div class="card-body">
                     <div class="form-group">
                         <label for="no_kk">Nomor KK:</label>
-                        <input type="text" class="form-control" id="no_kk" name="no_kk" required>
+                        {{-- <input type="text" class="form-control" id="no_kk" name="no_kk" required> --}}
+                        <select class="form-control" id="no_kk" name="no_kk" required>
+                            <option value="">- Pilih Nomor KK -</option>
+                            @foreach($kk as $item)
+                                <option value="{{ $item->no_kk }}">{{ $item->no_kk }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="nik">NIK:</label>
@@ -39,7 +45,6 @@
                     <div class="form-group">
                         <label for="status">Status:</label>
                         <select class="form-control" id="status" name="status" required>
-                            <option value="ibu">Ibu</option>
                             <option value="anak">Anak</option>
                         </select>
                     </div>

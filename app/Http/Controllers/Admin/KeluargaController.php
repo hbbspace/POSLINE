@@ -113,14 +113,14 @@ class KeluargaController extends Controller
         ]);
     }
 
-    public function update(Request $request, $no_kk)
+    public function update(Request $request, String $no_kk)
     {
         $request->validate([
-            'no_kk' => 'required|string|min:3|unique:keluarga,no_kk,'.$no_kk.',no_kk',
+            'no_kk' => 'required|string|min:3',
             'alamat' => 'required|string|max:100'
         ]);
 
-        $keluarga = KeluargaModel::where('no_kk', $no_kk)->first();
+        $keluarga = KeluargaModel::find( $no_kk);
 
         if (!$keluarga) {
             return redirect('admin/dataKeluarga')->with('error', 'Data keluarga tidak ditemukan');

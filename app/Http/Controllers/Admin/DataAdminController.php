@@ -33,7 +33,7 @@ class DataAdminController extends Controller
             'list' => ['Home', 'Admin', 'Tambah']
         ];
         $page = (object)[
-            'title' => 'Tambah Kategori Barang Baru'
+            'title' => 'Tambah Admin Baru'
         ];
         $admin = AdminModel::all();
         $activeMenu = 'admin.dataAdmin';
@@ -106,24 +106,38 @@ class DataAdminController extends Controller
 
     public function update(Request $request, String $id)
     {
+        // Validasi input
         $request->validate([
-            'username' => 'required|string|min:3|unique:admin,username,'.$id,
-            'password' => 'required|string|max:60',
-            'nama_admin' => 'required|string|max:60',
+            'username' => 'required|string',
+            'nama_admin' => 'required|string',
             'jk' => 'required|in:L,P',
             'level' => 'required|in:1,2',
         ]);
-
-        AdminModel::find($id)->update([
-            'username' => $request->username,
-            'password' => $request->password, // Note: It's better to keep the password update optional
-            'nama_admin' => $request->nama_admin,
-            'jk' => $request->jk,
-            'level' => $request->level
-        ]);
-
+    
+        // Ambil data admin yang akan diperbarui
+        $admin = AdminModel::find($id);
+    
+        // Perbarui data admin
+        $admin->username = $request->username;
+        $admin->nama_admin = $request->nama_admin;
+        $admin->jk = $request->jk;
+        $admin->level = $request->level;
+    
+        // Jika password diberikan, perbarui password
+        if ($request->filled('password')) {
+            $request->validate([
+                'password' => 'required|string',
+            ]);
+            $admin->password = $request->password;
+        }
+    
+        // Simpan perubahan
+        $admin->save();
+    
+        // Redirect dengan pesan sukses
         return redirect('admin/dataAdmin')->with('success', 'Data Admin berhasil diubah');
     }
+    
 
     public function edit(String $id)
     {
