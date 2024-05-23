@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\AdminModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
 
 class DataAdminController extends Controller
@@ -44,16 +45,22 @@ class DataAdminController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'username' => 'required|string|min:3|unique:admin,username',
+            'username' => 'required|string|min:3',
             'password' => 'required|string|max:60',
             'nama_admin' => 'required|string|max:60',
             'jk' => 'required|in:L,P',
-            'level' => 'required|in:1,2'
+            'level' => 'required|in:1'
         ]);
 
+        $existingAdmin = AdminModel::where('username', $request->username)->first();
+        if ($existingAdmin && Hash::check($request->password, $existingAdmin->password)) {
+            return redirect('admin/dataPetugas/create')->with('error', 'Request Tidak Tersedia, Gunakan Inputan Lain');
+        }
+    
+        // Buat entri baru jika kombinasi tidak terpakai
         AdminModel::create([
             'username' => $request->username,
-            'password' => $request->password,
+            'password' => Hash::make($request->password), // Hash password
             'nama_admin' => $request->nama_admin,
             'jk' => $request->jk,
             'level' => $request->level
@@ -106,16 +113,21 @@ class DataAdminController extends Controller
 
     public function update(Request $request, String $id)
     {
-        // Validasi input
         $request->validate([
             'username' => 'required|string',
             'nama_admin' => 'required|string',
             'jk' => 'required|in:L,P',
-            'level' => 'required|in:1,2',
+            'level' => 'required|in:1',
         ]);
     
         // Ambil data admin yang akan diperbarui
         $admin = AdminModel::find($id);
+    
+        // Pengecekan apakah username sudah terpakai
+        $existingAdmin = AdminModel::where('username', $request->username)->first();
+        if ($existingAdmin && Hash::check($request->password, $existingAdmin->password)) {
+            return redirect('admin/dataAdmin/'. $id. '/edit' )->with('error', 'Username sudah digunakan');
+        }
     
         // Perbarui data admin
         $admin->username = $request->username;
@@ -125,17 +137,13 @@ class DataAdminController extends Controller
     
         // Jika password diberikan, perbarui password
         if ($request->filled('password')) {
-            $request->validate([
-                'password' => 'required|string',
-            ]);
-            $admin->password = $request->password;
+            $admin->password = Hash::make($request->password);
         }
     
         // Simpan perubahan
         $admin->save();
     
-        // Redirect dengan pesan sukses
-        return redirect('admin/dataAdmin')->with('success', 'Data Admin berhasil diubah');
+        return redirect('admin/dataAdmin')->with('success', 'Data Petugas Posyandu berhasil diubah');
     }
     
 

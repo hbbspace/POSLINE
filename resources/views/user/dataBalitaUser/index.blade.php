@@ -39,7 +39,8 @@
                     <th>No KK</th>
                     <th>Jenis Kelamin</th>
                     <th>Tanggal Lahir</th>
-                    <th>Jumlah Imunisasi</th>
+                    <th>Umur (Bulan)</th>
+                    {{-- <th>Jumlah Imunisasi</th> --}}
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -84,7 +85,8 @@
                 { data: "no_kk", orderable: true, searchable: true },
                 { data: "jk", orderable: true, searchable: true },
                 { data: "tanggal_lahir", orderable: true, searchable: true },
-                { data: "jumlah_pemeriksaan", orderable: true, searchable: true },
+                { data: "umur", orderable: true, searchable: true },
+                // { data: "jumlah_pemeriksaan", orderable: true, searchable: true },
                 {
                     data: "aksi",
                     orderable: false,

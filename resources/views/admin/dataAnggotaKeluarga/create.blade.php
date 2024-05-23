@@ -15,7 +15,6 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="no_kk">Nomor KK:</label>
-                        {{-- <input type="text" class="form-control" id="no_kk" name="no_kk" required> --}}
                         <select class="form-control" id="no_kk" name="no_kk" required>
                             <option value="">- Pilih Nomor KK -</option>
                             @foreach($kk as $item)
@@ -45,7 +44,7 @@
                     <div class="form-group">
                         <label for="status">Status:</label>
                         <select class="form-control" id="status" name="status" required>
-                            <option value="ibu">Ibu</option>
+                            <option value="Ibu">Ibu</option>
                         </select>
                     </div>
                 </div>

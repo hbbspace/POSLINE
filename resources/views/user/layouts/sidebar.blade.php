@@ -46,6 +46,8 @@
                     <p>Jadwal</p>
                 </a>
             </li>
+            <li class="nav-header">                <a href="{{ route('logout') }}">Logout</a>
+            </li>
         </ul>
     </nav>
 </div>

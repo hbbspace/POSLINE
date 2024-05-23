@@ -50,12 +50,12 @@
                     <p>Data Petugas Posyandu</p>
                 </a>
             </li>
-            {{-- <li class="nav-item">
-                 <a href="{{ url('admin/dataUser') }}" class="nav-link  {{ $activeMenu == 'datUser' ? 'active' : '' }} ">
+            <li class="nav-item">
+                 <a href="{{ url('admin/dataUser') }}" class="nav-link  {{ $activeMenu == 'dataUser' ? 'active' : '' }} ">
                     <i class="nav-icon far fa-user"></i>
                     <p>Data User</p>
                 </a>
-            </li> --}}
+            </li>
             <li class="nav-header">Data Jadwal</li>
             <li class="nav-item">
                 <a href="{{ url('admin/jadwal') }}" class="nav-link   {{ $activeMenu == 'jadwal' ? 'active' : '' }} ">
@@ -69,6 +69,8 @@
                     <i class="nav-icon fas fa-cubes"></i>
                     <p>Data Pemeriksaan</p>
                 </a>
+            </li>
+            <li class="nav-header">                <a href="{{ route('logout') }}">Logout</a>
             </li>
         </ul>
     </nav>

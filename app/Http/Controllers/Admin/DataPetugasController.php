@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\AdminModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
 
 class DataPetugasController extends Controller
@@ -49,19 +50,28 @@ class DataPetugasController extends Controller
             'password' => 'required|string|max:60',
             'nama_admin' => 'required|string|max:60',
             'jk' => 'required|in:L,P',
-            'level' => 'required|in:1,2'
+            'level' => 'required|in:2'
         ]);
-
+    
+        // Periksa apakah kombinasi username dan password sudah terpakai
+        $existingAdmin = AdminModel::where('username', $request->username)->first();
+        if ($existingAdmin && Hash::check($request->password, $existingAdmin->password)) {
+            return redirect('admin/dataPetugas/create')->with('error', 'Request Tidak Tersedia, Gunakan Inputan Lain');
+        }
+    
+        // Buat entri baru jika kombinasi tidak terpakai
         AdminModel::create([
             'username' => $request->username,
-            'password' => $request->password,
+            'password' => Hash::make($request->password), // Hash password
             'nama_admin' => $request->nama_admin,
             'jk' => $request->jk,
             'level' => $request->level
         ]);
-
+    
         return redirect('admin/dataPetugas')->with('success', 'Data Petugas Posyandu berhasil disimpan');
     }
+    
+    
 
     public function list(Request $request)
     {
@@ -111,11 +121,17 @@ class DataPetugasController extends Controller
             'username' => 'required|string',
             'nama_admin' => 'required|string',
             'jk' => 'required|in:L,P',
-            'level' => 'required|in:1,2',
+            'level' => 'required|in:2',
         ]);
-
+    
         // Ambil data admin yang akan diperbarui
         $admin = AdminModel::find($id);
+    
+        // Pengecekan apakah username sudah terpakai
+        $existingAdmin = AdminModel::where('username', $request->username)->first();
+        if ($existingAdmin && Hash::check($request->password, $existingAdmin->password)) {
+            return redirect('admin/dataPetugas/'. $id. '/edit' )->with('error', 'Username sudah digunakan');
+        }
     
         // Perbarui data admin
         $admin->username = $request->username;
@@ -125,17 +141,15 @@ class DataPetugasController extends Controller
     
         // Jika password diberikan, perbarui password
         if ($request->filled('password')) {
-            $request->validate([
-                'password' => 'required|string',
-            ]);
-            $admin->password = $request->password;
+            $admin->password = Hash::make($request->password);
         }
     
         // Simpan perubahan
         $admin->save();
-
+    
         return redirect('admin/dataPetugas')->with('success', 'Data Petugas Posyandu berhasil diubah');
     }
+    
 
     public function edit(String $id)
     {

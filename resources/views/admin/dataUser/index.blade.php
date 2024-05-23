@@ -26,7 +26,7 @@
                                 <option value="{{ $item->user_id }}">{{ $item->user_id }}</option>
                             @endforeach
                         </select>
-                        <small class="form-text text-muted">NIK</small>
+                        <small class="form-text text-muted">user ID</small>
                     </div>
                 </div>
             </div>
@@ -55,7 +55,6 @@
             serverSide : true,
             ajax: {
                 "url": "{{ url('admin/dataUser/list') }}",
-                "url": "{{ url('admin/dataUser/list') }}",
                 "dataType": "json",
                 "type": "POST",
                 "data": function (d) {
@@ -76,7 +75,7 @@
                     searchable: true
                 },
                 {
-                    data: "Password",
+                    data: "username",
                     className: "",
                     orderable: true,
                     searchable: true

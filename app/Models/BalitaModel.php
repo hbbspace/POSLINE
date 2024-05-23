@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class BalitaModel extends Model
 {
     protected $table = 'balita';
-    public $timestamps = true;
+    public $timestamps = false;
     protected $primaryKey = 'balita_id';
 
     protected $fillable = [

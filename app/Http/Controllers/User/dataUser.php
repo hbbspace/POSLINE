@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
 
 class dataUser extends Controller
@@ -44,7 +45,7 @@ class dataUser extends Controller
 
         UserModel::find($id)->update([
             'username' => $request->username,
-            'password' => $request->password, // Note: It's better to keep the password update optional
+            'password' => Hash::make($request->password), // Hash password
             'nama_admin' => $request->nama_admin,
             'jk' => $request->jk,
             'level' => $request->level

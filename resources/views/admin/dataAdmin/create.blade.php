@@ -3,6 +3,16 @@
 @section('content')
     <div class="container">
         <div class="card card-primary">
+            @if ($message = session()->get('success'))
+            <div class="alert alert-success">
+                {{ $message }}
+            </div>
+        @endif
+        @if ($message = session()->get('error'))
+            <div class="alert alert-danger">
+                {{ $message }}
+            </div>
+        @endif
                 <div class="card-header">
                     <h4>Tambah Admin Baru</h4>
                 </div>
@@ -31,8 +41,7 @@
                             <div class="mb-3">
                                 <label for="level" class="form-label">Level</label>
                                 <select name="level" id="level" class="form-control" required>
-                                    <option value="1">Admin</option>
-                                    <option value="2">Super Admin</option>
+                                    <option value="1">Super Admin</option>
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-primary">Tambah</button>

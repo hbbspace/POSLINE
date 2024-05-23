@@ -58,16 +58,16 @@ Route::get('/user',[UserController::class,'index']);
 
 
 Route::group(['prefix' => 'admin'], function () {
-    // Route::group(['prefix' => 'dataUser'], function () {
-    //     Route::get('/', [DataUserController::class, 'index']); // menampilkan halaman awal user
-    //     Route::post('/list', [DataUserController::class, 'list']); // menampilkan data user dalam bentuk json untuk datatables
-    //     Route::get('/create', [DataUserController::class, 'create']); // menampilkan halaman form tambah user
-    //     Route::post('/', [DataUserController::class, 'store']); // menyimpan data user baru
-    //     Route::get('/{nik}', [DataUserController::class, 'show']); // menampilkan detail user
-    //     Route::get('/{nik}/edit', [DataUserController::class, 'edit']); // menampilkan halaman form edit user
-    //     Route::put('/{nik}', [DataUserController::class, 'update']); // menyimpan perubahan data user
-    //     Route::delete('/{nik}', [DataUserController::class, 'destroy']); // menghapus data user
-    // });
+    Route::group(['prefix' => 'dataUser'], function () {
+        Route::get('/', [DataUserController::class, 'index']); // menampilkan halaman awal user
+        Route::post('/list', [DataUserController::class, 'list']); // menampilkan data user dalam bentuk json untuk datatables
+        Route::get('/create', [DataUserController::class, 'create']); // menampilkan halaman form tambah user
+        Route::post('/', [DataUserController::class, 'store']); // menyimpan data user baru
+        Route::get('/{nik}', [DataUserController::class, 'show']); // menampilkan detail user
+        Route::get('/{nik}/edit', [DataUserController::class, 'edit']); // menampilkan halaman form edit user
+        Route::put('/{nik}', [DataUserController::class, 'update']); // menyimpan perubahan data user
+        Route::delete('/{nik}', [DataUserController::class, 'destroy']); // menghapus data user
+    });
 
     Route::group(['prefix' => 'dataKeluarga'], function () {
         Route::get('/', [KeluargaController::class, 'index']); // menampilkan halaman awal user

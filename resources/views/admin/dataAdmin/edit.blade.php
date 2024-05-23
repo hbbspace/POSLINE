@@ -5,7 +5,17 @@
         <div class="card card-primary">
             <div class="card-header">
                 <h3 class="card-title">Edit Data Admin</h3>
+            </div>            
+            @if ($message = session()->get('success'))
+            <div class="alert alert-success">
+                {{ $message }}
             </div>
+        @endif
+        @if ($message = session()->get('error'))
+            <div class="alert alert-danger">
+                {{ $message }}
+            </div>
+        @endif
                     <div class="card-body">
                         <form action="{{ url('admin/dataAdmin', $admin->admin_id) }}" method="POST">
                             @csrf

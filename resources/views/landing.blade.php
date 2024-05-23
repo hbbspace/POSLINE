@@ -17,7 +17,7 @@
    <header class="header" data-header>
         <div class="container">
             <a href="" class="logo">
-                <ion-icon name="home-outline"></ion-icon> PosLine
+                 PosLine
             </a>
 
             <nav class="navbar container" data-navbar>

@@ -48,16 +48,17 @@ class AnggotaKeluargaController extends Controller
 
     public function store(Request $request)
     {
-         dd($request->all());
+        // Validasi inputan
         $request->validate([
-            'no_kk' => 'required|string|min:3',
-            'nik' => 'required|string|min:3',
+            'no_kk' => 'required|string|min:3', // 'exists' memastikan no_kk ada di tabel referensi
+            'nik' => 'required|string|min:3|unique:anggota_keluarga,nik', // 'unique' memastikan nik tidak duplikat
             'nama' => 'required|string|max:100',
             'tanggal_lahir' => 'required|date',
             'jk' => 'required|in:L,P',
-            'status' => 'required|in: Ibu, Anak'
+            'status' => 'required|in:Ibu'
         ]);
-
+    
+        // Menyimpan data ke database
         AnggotaKeluargaModel::create([
             'no_kk' => $request->no_kk,
             'nik' => $request->nik,
@@ -66,9 +67,11 @@ class AnggotaKeluargaController extends Controller
             'jk' => $request->jk,
             'status' => $request->status
         ]);
-
+    
+        // Redirect dengan pesan sukses
         return redirect('admin/dataIbu')->with('success', 'Data Ibu berhasil disimpan');
     }
+    
 
     public function show($no_kk)
     {
@@ -177,7 +180,7 @@ class AnggotaKeluargaController extends Controller
             ->addColumn('aksi', function ($anggota_keluarga) { // menambahkan kolom aksi
                 $btn = '<a href="' . url('admin/dataIbu/' .$anggota_keluarga->nik) . '" class="btn btn-info btn-sm">Detail</a> ';
                 $btn .= '<a href="' . url('admin/dataIbu/' .$anggota_keluarga->nik . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
-                $btn .= '<form class="d-inline-block" method="POST" action="' . url('admin/dataAnggotaKeluarga/' .$anggota_keluarga->nik) . '">'
+                $btn .= '<form class="d-inline-block" method="POST" action="' . url('admin/dataIbu/' .$anggota_keluarga->nik) . '">'
                     . csrf_field() . method_field('DELETE') .
                     '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
                 return $btn;

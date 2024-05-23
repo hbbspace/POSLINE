@@ -20,7 +20,8 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="no_kk">Nomor Kartu Keluarga</label>
-                            <input type="text" class="form-control" id="no_kk" name="no_kk" value="{{ $keluarga->no_kk }}">
+                            <input type="text" class="form-control" id="no_kk" name="no_kk" value="{{ $keluarga->no_kk }}" disabled>
+                            <input type="hidden" name="no_kk" value="{{ $keluarga->no_kk }}">
                         </div>
                         <div class="form-group">
                             <label for="alamat">Alamat</label>

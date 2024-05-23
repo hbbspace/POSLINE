@@ -60,7 +60,7 @@ class AuthController extends Controller
         // Jika tidak berhasil login
         return redirect('/login')
             ->withInput()
-            ->withErrors(['login_gagal' => 'Pastikan kembali NIK dan password yang dimasukkan sudah benar']);
+            ->withErrors(['login_gagal' => 'Pastikan kembali Username dan password yang dimasukkan sudah benar']);
     }
     
     

@@ -3,6 +3,16 @@
 @section('content')
     <div class="container">
         <div class="card card-primary">
+            @if ($message = session()->get('success'))
+            <div class="alert alert-success">
+                {{ $message }}
+            </div>
+        @endif
+        @if ($message = session()->get('error'))
+            <div class="alert alert-danger">
+                {{ $message }}
+            </div>
+        @endif
                     <div class="card-header">
                         <h4>Tambah Petugas Baru</h4>
                     </div>

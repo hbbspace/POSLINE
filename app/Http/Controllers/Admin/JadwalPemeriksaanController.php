@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\BalitaModel;
+use App\Models\HasilPemeriksaanModel;
 use Illuminate\Http\Request;
 use App\Models\PemeriksaanModel;
 use Yajra\DataTables\Facades\DataTables;
@@ -43,7 +45,7 @@ class JadwalPemeriksaanController extends Controller
         return view('admin.jadwal.create', ['breadcrumb' => $breadcrumb, 
          'page' => $page, 'jadwal' => $jadwal_pemeriksaan, 'activeMenu' => $activeMenu]);
     }
-
+    
     public function store(Request $request)
     {
         $request->validate([
@@ -51,16 +53,30 @@ class JadwalPemeriksaanController extends Controller
             'tempat' => 'required|string|max:100',
             'tanggal' => 'required|date',
         ]);
-
-        PemeriksaanModel::create([
+    
+        // Buat entri baru di tabel hasil pemeriksaan
+        $pemeriksaan = PemeriksaanModel::create([
             'agenda' => $request->agenda,
             'tempat' => $request->tempat,
             'tanggal' => $request->tanggal,
-
         ]);
-
+    
+        // Dapatkan semua balita
+        $balitas = BalitaModel::all();
+    
+        // Iterasi melalui setiap balita
+        foreach ($balitas as $balita) {
+            // Buat entri baru di tabel hasil pemeriksaan untuk setiap balita
+            HasilPemeriksaanModel::create([
+                'balita_id' => $balita->balita_id,
+                'pemeriksaan_id' => $pemeriksaan->pemeriksaan_id,
+                // Anda juga bisa menambahkan atribut lain yang diperlukan di sini
+            ]);
+        }
+    
         return redirect('admin/jadwal')->with('success', 'Data Anak berhasil disimpan');
     }
+    
 
     public function show($pemeriksaan_id)
     {

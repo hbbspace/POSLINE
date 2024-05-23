@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\BalitaModel;
 use App\Models\HasilPemeriksaanModel;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
@@ -36,26 +37,23 @@ class dataBalitaUser extends Controller
         $no_kk = $nokk_user->no_kk;
     
         // Mengambil data balita dengan count pemeriksaan
-        $dataBalita = HasilPemeriksaanModel::select(
-                'hasil_pemeriksaan.hasil_id', 
-                'balita.balita_id', 
+        $dataBalita = BalitaModel::select(
+                'balita_id', 
                 'balita.nik',
-                'pemeriksaan.pemeriksaan_id',  
                 'anggota_keluarga.nama', 
                 'anggota_keluarga.no_kk',
-                DB::raw('COUNT(hasil_pemeriksaan.pemeriksaan_id) as jumlah_pemeriksaan')
+                'anggota_keluarga.tanggal_lahir',
+                // DB::raw('COUNT(hasil_pemeriksaan.pemeriksaan_id) as jumlah_pemeriksaan')
             )
-            ->join('balita', 'hasil_pemeriksaan.balita_id', '=', 'balita.balita_id')
             ->join('anggota_keluarga', 'balita.nik', '=', 'anggota_keluarga.nik')
-            ->join('pemeriksaan', 'hasil_pemeriksaan.pemeriksaan_id', '=', 'pemeriksaan.pemeriksaan_id')
             ->where('anggota_keluarga.no_kk', '=', $no_kk)
-            ->groupBy(
-                'hasil_pemeriksaan.hasil_id', 
-                'balita.balita_id', 
-                'pemeriksaan.pemeriksaan_id',  
-                'anggota_keluarga.nama', 
-                'anggota_keluarga.no_kk'
-            )
+            // ->groupBy(
+            //     'hasil_pemeriksaan.hasil_id', 
+            //     'balita.balita_id', 
+            //     'pemeriksaan.pemeriksaan_id',  
+            //     'anggota_keluarga.nama', 
+            //     'anggota_keluarga.no_kk'
+            // )
             ->get();
 
 
@@ -78,35 +76,23 @@ class dataBalitaUser extends Controller
                 ->first(); 
             $no_kk = $nokk_user->no_kk;
         
-            // Mengambil data balita dengan count pemeriksaan
-            $dataBalita = HasilPemeriksaanModel::select(
-                    'hasil_pemeriksaan.hasil_id', 
+            // Mengambil data balita dengan umur
+            $dataBalita = BalitaModel::select(
                     'balita.balita_id', 
                     'balita.nik',
-                    'pemeriksaan.pemeriksaan_id',  
                     'anggota_keluarga.nama', 
                     'anggota_keluarga.no_kk',
                     'anggota_keluarga.jk',
                     'anggota_keluarga.tanggal_lahir',
-                    DB::raw('COUNT(hasil_pemeriksaan.pemeriksaan_id) as jumlah_pemeriksaan')
-                )
-                ->join('balita', 'hasil_pemeriksaan.balita_id', '=', 'balita.balita_id')
+                    DB::raw('TIMESTAMPDIFF(MONTH, anggota_keluarga.tanggal_lahir, CURDATE()) as umur')                )
                 ->join('anggota_keluarga', 'balita.nik', '=', 'anggota_keluarga.nik')
-                ->join('pemeriksaan', 'hasil_pemeriksaan.pemeriksaan_id', '=', 'pemeriksaan.pemeriksaan_id')
                 ->where('anggota_keluarga.no_kk', '=', $no_kk)
-                ->groupBy(
-                    'hasil_pemeriksaan.hasil_id', 
-                    'balita.balita_id', 
-                    'pemeriksaan.pemeriksaan_id',  
-                    'anggota_keluarga.nama', 
-                    'anggota_keluarga.no_kk'
-                )
                 ->get();
         
             return DataTables::of($dataBalita)
                 ->addIndexColumn() // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
-                ->addColumn('aksi', function () { // menambahkan kolom aksi
-                    $btn = '<a href="' . url('user/dataPemeriksaanBalita/') . '" class="btn btn-info btn-sm">Detail Imunisasi</a> ';
+                ->addColumn('aksi', function ($row) { // menambahkan kolom aksi
+                    $btn = '<a href="' . url('user/dataPemeriksaanBalita/' . $row->balita_id) . '" class="btn btn-info btn-sm">Detail Imunisasi</a>';
                     return $btn;
                 })
                 ->rawColumns(['aksi']) // memberitahu bahwa kolom aksi adalah html
@@ -114,19 +100,19 @@ class dataBalitaUser extends Controller
         }
         
         
-            public function show(String $hasil_id)
+        
+            public function show(String $balita_id)
         {
-            $hasil_pemeriksaan = HasilPemeriksaanModel::select(
-                'hasil_pemeriksaan.*', 'anggota_keluarga.nama', 'admin.nama_admin', 'pemeriksaan.agenda', 'pemeriksaan.tanggal'
+            $balita = BalitaModel::select(
+                'balita.*', 'anggota_keluarga.nama', 'admin.nama_admin', 'pemeriksaan.agenda', 'pemeriksaan.tanggal'
             )
-            ->join('balita', 'hasil_pemeriksaan.balita_id', '=', 'balita.balita_id')
             ->join('anggota_keluarga', 'balita.nik', '=', 'anggota_keluarga.nik')
             ->join('admin', 'hasil_pemeriksaan.admin_id', '=', 'admin.admin_id')
             ->join('pemeriksaan', 'hasil_pemeriksaan.pemeriksaan_id', '=', 'pemeriksaan.pemeriksaan_id')
-            ->where('hasil_pemeriksaan.hasil_id', $hasil_id)
+            ->where('balita.balita_id', $balita_id)
             ->first();
         
-            if (!$hasil_pemeriksaan) {
+            if (!$balita) {
                 return redirect('user/dataBalitaUser')->with('error', 'Data yang Anda cari tidak ditemukan.');
             }
         
@@ -144,7 +130,7 @@ class dataBalitaUser extends Controller
             return view('user.dataPemeriksaanBalitaUser.show', [
                 'breadcrumb' => $breadcrumb,
                 'page' => $page,
-                'hasil_pemeriksaan' => $hasil_pemeriksaan,
+                'balita' => $balita,
                 'activeMenu' => $activeMenu
             ]);
         }

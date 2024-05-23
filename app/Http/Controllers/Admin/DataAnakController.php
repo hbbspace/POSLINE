@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 // use App\Models\KeluargaModel;
 use App\Models\AnggotaKeluargaModel;
+use App\Models\BalitaModel;
 use App\Models\KeluargaModel;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -47,18 +48,20 @@ class DataAnakController extends Controller
          'page' => $page, 'keluarga' => $anggota_keluarga, 'kk'=>$kk, 'activeMenu' => $activeMenu]);
     }
 
+
     public function store(Request $request)
     {
         $request->validate([
-            'no_kk' => 'required|string|min:3|unique:anggota_keluarga,no_kk',
-            'nik' => 'required|string|min:3|unique:anggota_keluarga,nik',
+            'no_kk' => 'required|string|min:3', // 'exists' memastikan no_kk ada di tabel referensi
+            'nik' => 'required|string|min:3|unique:anggota_keluarga,nik', // 'unique' memastikan nik tidak duplikat
             'nama' => 'required|string|max:100',
             'tanggal_lahir' => 'required|date',
             'jk' => 'required|in:L,P',
-            'status' => 'required|in: Ibu, Anak'
+            'status' => 'required|in:Anak'
         ]);
-
-        AnggotaKeluargaModel::create([
+    
+        // Tambahkan data anak baru ke tabel anggota_keluarga
+        $newAnak = AnggotaKeluargaModel::create([
             'no_kk' => $request->no_kk,
             'nik' => $request->nik,
             'nama' => $request->nama,
@@ -66,9 +69,16 @@ class DataAnakController extends Controller
             'jk' => $request->jk,
             'status' => $request->status
         ]);
-
+    
+        // Buat entri baru di tabel balita menggunakan nik anak yang baru saja dibuat
+        BalitaModel::create([
+            'nik' => $request->nik,
+            // Tambahkan atribut lain yang diperlukan di sini
+        ]);
+    
         return redirect('admin/dataAnak')->with('success', 'Data Anak berhasil disimpan');
     }
+    
 
     public function show($no_kk)
     {
@@ -113,14 +123,14 @@ class DataAnakController extends Controller
             'nama' => 'required|string',
             'tanggal_lahir' => 'required|date',
             'jk' => 'required|in:L,P',
-            'status' => 'required|in:ibu,anak',
+            'status' => 'required|in:anak',
             'no_kk' => 'required|string|min:3'
         ]);
     
         $anggota_keluarga = AnggotaKeluargaModel::find( $id);
     
         if (!$anggota_keluarga) {
-            return redirect('admin/dataAnak')->with('error', 'Data Ibu tidak ditemukan');
+            return redirect('admin/dataAnak')->with('error', 'Data Anak tidak ditemukan');
         }
         $anggota_keluarga->tanggal_lahir = $request->tanggal_lahir;
         $anggota_keluarga->no_kk = $request->no_kk;
