@@ -60,6 +60,8 @@ class JadwalPemeriksaanController extends Controller
             'tempat' => $request->tempat,
             'tanggal' => $request->tanggal,
         ]);
+
+        HasilPemeriksaanModel::whereNull('admin_id')->delete();
     
         // Dapatkan semua balita
         $balitas = BalitaModel::all();

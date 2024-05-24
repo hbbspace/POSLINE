@@ -27,10 +27,8 @@ use App\Models\Keluarga;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [LandingController::class,'index']);
-Route::get('/forgotPassword', [forgotPassword::class,'index']);
 
 Route::get('login', [AuthController::class, 'index'])->name('login');
-Route::get('register', [AuthController::class, 'register'])->name('register');
 Route::post('proses_login', [AuthController::class, 'proses_login'])->name('proses_login');
 Route::get('logout', [AuthController::class,'logout'])->name('logout');
 Route::post('proses_register', [AuthController::class, 'proses_register'])->name('proses_register');
@@ -38,6 +36,11 @@ Route::post('proses_register', [AuthController::class, 'proses_register'])->name
 Route::get('/admin',[AdminController::class,'index']);
 Route::get('/petugas',[PetugasController::class,'index']);
 Route::get('/user',[UserController::class,'index']);
+
+Route::group(['prefix'=>'forgotPassword'], function (){
+    Route::get('/', [forgotPassword::class,'index']);
+    Route::post('/', [forgotPassword::class, 'store']); // menyimpan data user baru
+});
 
 
 
