@@ -40,7 +40,7 @@ class JadwalPemeriksaanController extends Controller
         ];
 
         $jadwal_pemeriksaan = PemeriksaanModel::all();
-        $activeMenu = 'admin.jadwal';
+        $activeMenu = 'jadwal';
 
         return view('admin.jadwal.create', ['breadcrumb' => $breadcrumb, 
          'page' => $page, 'jadwal' => $jadwal_pemeriksaan, 'activeMenu' => $activeMenu]);
@@ -92,7 +92,7 @@ class JadwalPemeriksaanController extends Controller
             'title' => 'Detail Jadwal'
         ];
 
-        $activeMenu = 'admin.jadwal';
+        $activeMenu = 'jadwal';
 
         return view('admin.jadwal.show', ['breadcrumb' => $breadcrumb,
          'page' => $page, 'jadwal_pemeriksaan' => $jadwal_pemeriksaan, 'activeMenu' => $activeMenu]);
@@ -111,7 +111,7 @@ class JadwalPemeriksaanController extends Controller
             'title' => 'Edit Jadwal'
         ];
 
-        $activeMenu = 'admin.jadwal';
+        $activeMenu = 'jadwal';
 
         return view('admin.jadwal.edit', ['breadcrumb' => $breadcrumb, 
          'page' => $page, 'jadwal_pemeriksaan' => $jadwal_pemeriksaan, 'activeMenu' => $activeMenu]);

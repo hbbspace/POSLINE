@@ -2,15 +2,22 @@
 
 @section('content')
     <div class="container">
-        <div class="card card-primary">
-            @if ($message = session()->get('success'))
-            <div class="alert alert-success">
-                {{ $message }}
+        <div class="card card-info">
+            @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <span class="">{{ session('success') }}</span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
         @endif
-        @if ($message = session()->get('error'))
-            <div class="alert alert-danger">
-                {{ $message }}
+        
+        @if(session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span class="">{{ session('error') }}</span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
         @endif
                 <div class="card-header">

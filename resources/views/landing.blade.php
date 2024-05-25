@@ -17,8 +17,9 @@
    <header class="header" data-header>
         <div class="container">
             <a href="" class="logo">
-                 PosLine
+                <img src="{{ url('img/logo.png') }}" alt="Logo PosLine" style="width: 60px;">
             </a>
+            <h3 style="color :black; font-size :25px">PosLine</h3>
 
             <nav class="navbar container" data-navbar>
                 <ul class="navbar-list">

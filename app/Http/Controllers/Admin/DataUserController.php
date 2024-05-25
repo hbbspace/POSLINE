@@ -47,7 +47,7 @@ class DataUserController extends Controller
                     })
                     ->get();
     
-        $activeMenu = 'admin.dataUser';
+        $activeMenu = 'dataUser';
     
         return view('admin.dataUser.create', [
             'breadcrumb' => $breadcrumb, 
@@ -85,7 +85,7 @@ class DataUserController extends Controller
 
     public function show(string $id)
     {
-        $user = UserModel::with('user')->find($id);
+        $user = UserModel::find($id);
         $breadcrumb = (object) [
             'title' => 'Detail Data User',
             'list' => ['Home', 'Data User', 'Detail']
@@ -95,7 +95,7 @@ class DataUserController extends Controller
             'title' => 'Detail Data User'
         ];
 
-        $activeMenu = 'admin.dataUser';
+        $activeMenu = 'dataUser';
 
         return view('admin.dataUser.show', ['breadcrumb' => $breadcrumb,
          'page' => $page, 'user' => $user, 'activeMenu' => $activeMenu]);
@@ -119,7 +119,7 @@ class DataUserController extends Controller
             'title' => 'Edit Data User'
         ];
 
-        $activeMenu = 'admin.dataUser';
+        $activeMenu = 'dataUser';
 
         return view('admin.dataUser.edit', ['breadcrumb' => $breadcrumb, 
          'page' => $page, 'user' => $user, 'nik' => $nik, 'activeMenu' => $activeMenu]);

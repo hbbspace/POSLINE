@@ -92,7 +92,7 @@ class dataBalitaUser extends Controller
             return DataTables::of($dataBalita)
                 ->addIndexColumn() // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
                 ->addColumn('aksi', function ($row) { // menambahkan kolom aksi
-                    $btn = '<a href="' . url('user/dataPemeriksaanBalita/' . $row->balita_id) . '" class="btn btn-info btn-sm">Detail Imunisasi</a>';
+                    $btn = '<a href="' . url('user/dataPemeriksaanBalita') . '" class="btn btn-info btn-sm">Detail Imunisasi</a>';
                     return $btn;
                 })
                 ->rawColumns(['aksi']) // memberitahu bahwa kolom aksi adalah html
@@ -125,7 +125,7 @@ class dataBalitaUser extends Controller
                 'title' => 'Detail Data Pemeriksaan Balita'
             ];
         
-            $activeMenu = 'user.dataPemeriksaan';
+            $activeMenu = 'dataBalitaUser';
         
             return view('user.dataPemeriksaanBalitaUser.show', [
                 'breadcrumb' => $breadcrumb,

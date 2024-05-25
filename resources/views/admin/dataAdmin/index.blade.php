@@ -1,6 +1,6 @@
 @extends('admin.layouts.template')
 @section('content')
-<div class="card card-outline card-primary">
+<div class="card card-outline card-info">
     <div class="card-header">
         <h3 class="card-title">{{ $page->title }}</h3>
         <div class="card-tools">
@@ -9,11 +9,23 @@
     </div>
     <div class="card-body">
         @if(session('success'))
-            <div class="alert alert-success">{{ session('success') }}</div>
-        @endif
-        @if(session('error'))
-            <div class="alert alert-danger">{{ session('error') }}</div>
-        @endif
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <span class="">{{ session('success') }}</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+    
+    @if(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <span class="">{{ session('error') }}</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+    
         <table class="table table-bordered table-striped table-hover table-sm" id="table_admin">
             <thead>
                 <tr>

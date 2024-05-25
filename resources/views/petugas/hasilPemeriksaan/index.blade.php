@@ -1,4 +1,4 @@
-@extends('user.layouts.template')
+@extends('petugas.layouts.template')
 @section('content')
 <div class="card card-outline card-info">
     <div class="card-header">
@@ -30,10 +30,10 @@
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Filter :</label>
                     <div class="col-3">
-                        <select class="form-control" id="nama" name="nama" required>
+                        <select class="form-control" id="hasil_id" name="hasil_id" required>
                             <option value="">- Semua -</option>
-                            @foreach($dataBalita as $item)
-                                <option value="{{ $item->nama }}">{{ $item->nama }}</option>
+                            @foreach($hasil_pemeriksaan as $item)
+                                <option value="{{ $item->hasil_id }}">{{ $item->hasil_id }}</option>
                             @endforeach
                         </select>
                         <small class="form-text text-muted">Id Hasil Pemeriksaan</small>
@@ -45,13 +45,11 @@
             <thead>
                 <tr>
                     <th>No</th>
+                    <th>Hasil ID</th>
                     <th>Nama Balita</th>
-                    <th>NIK</th>
-                    <th>No KK</th>
-                    <th>Jenis Kelamin</th>
-                    <th>Tanggal Lahir</th>
-                    <th>Umur (Bulan)</th>
-                    {{-- <th>Jumlah Imunisasi</th> --}}
+                    <th>Nama Admin</th>
+                    <th>Tanggal Pemeriksaan</th>
+                    <th>Catatan</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -71,14 +69,14 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: "{{ url('user/dataBalitaUser/list') }}",
+                url: "{{ url('petugas/historyPemeriksaan/list') }}",
                 dataType: "json",
                 type: "POST",
                 headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
                 data: function (d) {
-                    d.nama = $('#nama').val();
+                    d.hasil_id = $('#hasil_id').val();
                 }
             },
             columns: [
@@ -91,13 +89,11 @@
                         return meta.row + 1; // Nomor indeks baris dimulai dari 0, jadi tambahkan 1
                     }
                 },
+                { data: "hasil_id", orderable: true, searchable: true },
                 { data: "nama", orderable: true, searchable: true },
-                { data: "nik", orderable: true, searchable: true },
-                { data: "no_kk", orderable: true, searchable: true },
-                { data: "jk", orderable: true, searchable: true },
-                { data: "tanggal_lahir", orderable: true, searchable: true },
-                { data: "umur", orderable: true, searchable: true },
-                // { data: "jumlah_pemeriksaan", orderable: true, searchable: true },
+                { data: "nama_admin", orderable: true, searchable: true },
+                { data: "tanggal", orderable: true, searchable: true },
+                { data: "catatan", orderable: true, searchable: true },
                 {
                     data: "aksi",
                     orderable: false,
@@ -105,7 +101,7 @@
                 }
             ]
         });
-        $('#nama').on('change', function() {
+        $('#hasil_id').on('change', function() {
             hasilPemeriksaanBalita.ajax.reload();
         });
     });

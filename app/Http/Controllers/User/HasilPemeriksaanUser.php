@@ -117,7 +117,7 @@ class HasilPemeriksaanUser extends Controller
         'title' => 'Detail Data Pemeriksaan Balita'
     ];
 
-    $activeMenu = 'user.dataPemeriksaan';
+    $activeMenu = 'dataPemeriksaanBalita';
 
     return view('user.dataPemeriksaanBalitaUser.show', [
         'breadcrumb' => $breadcrumb,

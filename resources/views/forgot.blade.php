@@ -6,6 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
     <title>POSLINE</title>
+    <style>
+        .custom-border {
+            border-color: #098DB3;
+            border-radius: 3px;
+        }
+    </style>
 </head>
 <body class="h-full">
     <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
@@ -14,7 +20,7 @@
             <h2 class="mt-1 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Forgot Password</h2>
         </div>
     
-        <div class="mt-6 sm:mx-auto sm:w-full sm:max-w-sm">
+        <div class="mt-1 sm:mx-auto sm:w-full sm:max-w-sm custom-border p-6">
             <!-- Pesan Sukses -->
             @if (session('success'))
                 <div class="alert alert-success text-center bg-green-100 border border-green-400 text-green-600 px-4 py-3 rounded relative">
@@ -28,48 +34,46 @@
                     {{ session('error') }}
                 </div>
             @endif
+            <div class="mt-1 sm:mx-auto sm:w-full sm:max-w-sm border-2 custom-border p-6">
 
-            <form class="space-y-6" action="{{ url('/forgotPassword') }}" method="POST">
-                @csrf
-                
-                <div>
-                    <label for="NIK" class="block text-sm font-medium leading-6 text-gray-900">Username</label>
-                    <div class="mt-2">
-                        <input type="text" id="username" name="username" value="{{ old('username') }}" placeholder="Username" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6" autofocus>
+                <form class="space-y-6" action="{{ url('/forgotPassword') }}" method="POST">
+                    @csrf
+                    
+                    <div>
+                        <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Username</label>
+                        <div class="mt-2">
+                            <input type="text" id="username" name="username" value="{{ old('username') }}" placeholder="Username" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#098DB3] sm:text-sm sm:leading-6" autofocus>
+                        </div>
                     </div>
-                </div>
 
-                <div>
-                    <label for="NIK" class="block text-sm font-medium leading-6 text-gray-900">NIK</label>
-                    <div class="mt-2">
-                        <input type="text" id="nik" name="nik" placeholder="NIK" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6" autofocus>
+                    <div>
+                        <label for="nik" class="block text-sm font-medium leading-6 text-gray-900">NIK</label>
+                        <div class="mt-2">
+                            <input type="text" id="nik" name="nik" placeholder="NIK" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#098DB3] sm:text-sm sm:leading-6" autofocus>
+                        </div>
                     </div>
-                </div>
-        
-                <div>
-                    <div class="flex items-center justify-between">
-                        <label for="password" class="block text-sm font-medium leading-6 text-gray-900">New Password</label>
+            
+                    <div>
+                        <div class="flex items-center justify-between">
+                            <label for="password" class="block text-sm font-medium leading-6 text-gray-900">New Password</label>
+                        </div>
+                        <div class="mt-2 relative">
+                            <input id="password" type="password" name="password" placeholder='New Password' required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#098DB3] sm:text-sm sm:leading-6">
+                            <button type="button" onclick="togglePassword()" class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
+                                <svg id="eyeIcon" class="h-5 w-5 text-gray-500" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                </svg>
+                            </button>
+                        </div>
                     </div>
-                    <div class="mt-2 relative">
-                        <input id="password" type="password" name="password" placeholder='New Password' required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6">
-                        <button type="button" onclick="togglePassword()" class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
-                            <svg id="eyeIcon" class="h-5 w-5 text-gray-500" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                            </svg>
-                        </button>
+            
+                    <div class="flex">
+                        <button type="button" onclick="window.history.back();" class="w-full flex justify-center rounded-md bg-stone-300 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-stone-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 mr-[5px]">Kembali</button>
+                        <button type="submit" class="custom-button flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold bg-[#086b8c] leading-6 text-white shadow-sm hover:bg-[#086b8c] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-custom-button">Ubah Password</button>
                     </div>
-                </div>
-        
-                <div class="flex">
-                    <button type="button" onclick="window.history.back();" class="w-full flex justify-center rounded-md bg-stone-300 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-stone-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 mr-[5px]">Kembali</button>
-                    <button type="submit" class="w-full flex justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">Ubah Password</button>
                 </div>
             </form>
-        
-            <p class="mt-10 text-center text-sm text-gray-500">
-                Posyadu Selalu Ada Untukmu
-            </p>
         </div>
     </div>
 

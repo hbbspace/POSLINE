@@ -19,13 +19,34 @@
                     <p>Dashboard</p>
                 </a>
             </li>
-            <li class="nav-header">Aktivitas Menu</li>
             <li class="nav-item">
-                <a href="{{ url('petugas/balita') }}" class="nav-link">
-                    <i class="nav-icon fas fa-list-ul"></i>
-                    <p>List Balita</p>
+                <a href="{{ url('petugas/dataPetugas') }}" class="nav-link {{ $activeMenu == 'dataPetugas' ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-user"></i>
+                    <p>Profile</p>
                 </a>
-            </li>            
+            </li>   
+            <li class="nav-header">Pemeriksaan</li>
+            <li class="nav-item">
+                <a href="{{ url('petugas/pemeriksaanBalita') }}" class="nav-link {{ $activeMenu == 'pemeriksaanBalita' ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-list-ul"></i>
+                    <p>List Pemeriksaan Balita</p>
+                </a>
+            </li>   
+            <li class="nav-item">
+                <a href="{{ url('petugas/historyPemeriksaan') }}" class="nav-link {{ $activeMenu == 'hasilPemeriksaanBalita' ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-list-ul"></i>
+                    <p>History Pemeriksaan Balita</p>
+                </a>
+            </li>   
+            <li class="nav-header">Jadwal Pemeriksaan</li>
+            <li class="nav-item">
+                <a href="{{ url('petugas/jadwal') }}" class="nav-link {{ $activeMenu == 'jadwal' ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-list-ul"></i>
+                    <p>Jadwal</p>
+                </a>
+            </li>   
+            <li class="nav-header">                <a href="{{ route('logout') }}">Logout</a>
+            </li>
         </ul>
     </nav>
 </div>

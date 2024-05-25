@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="container">
-        <div class="card card-primary">
+        <div class="card card-info">
             <div class="card-header">
                 <h3 class="card-title">Tambah Data Anak</h3>
             </div>

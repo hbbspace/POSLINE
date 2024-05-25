@@ -59,14 +59,14 @@
             <li class="nav-header">Data Jadwal</li>
             <li class="nav-item">
                 <a href="{{ url('admin/jadwal') }}" class="nav-link   {{ $activeMenu == 'jadwal' ? 'active' : '' }} ">
-                    <i class="nav-icon fas fa-cubes"></i>
+                    <i class="nav-icon fas fa-list"></i>
                     <p>Jadwal</p>
                 </a>
             </li>
             <li class="nav-header">Data Pemeriksaan</li>
             <li class="nav-item">
                 <a href="{{ url('admin/dataPemeriksaan') }}" class="nav-link    {{ $activeMenu == 'dataPemeriksaan' ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-cubes"></i>
+                    <i class="nav-icon fas fa-list"></i>
                     <p>Data Pemeriksaan</p>
                 </a>
             </li>

@@ -29,7 +29,7 @@
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-light elevation-0">
+  <aside class="main-sidebar sidebar-light-info elevation-2">
     <!-- Brand Logo -->
     <a href="{{ url('/petugas')}}" class="brand-link">
       <img src="{{ url('img/logo.png')}}" alt="logo" class="brand-image img-square" style="opacity: .8">

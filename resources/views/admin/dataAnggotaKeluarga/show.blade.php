@@ -5,7 +5,7 @@
 @section('content_header_subtitle', '')
 
 @section('content')
-<div class="card card-outline card-primary">
+<div class="card card-outline card-info">
     <div class="card-header">
         <h3 class="card-title">{{ $page->title }}</h3>
         <div class="card-tools"></div>
@@ -40,7 +40,7 @@
                 </tr>
             </table>
         @endempty
-        <a href="{{ url('admin/dataIbu') }}" class="btn btn-sm btn-default mt-2">Kembali</a>
+        <a href="{{ url('admin/dataIbu') }}" class="btn btn-sm btn-primary mt-2">Kembali</a>
     </div>
 </div>
 @endsection

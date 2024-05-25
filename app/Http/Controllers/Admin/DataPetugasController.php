@@ -38,7 +38,7 @@ class DataPetugasController extends Controller
             'title' => 'Tambah Kategori Barang Baru'
         ];
         $admin = AdminModel::all();
-        $activeMenu = 'admin.dataPetugas';
+        $activeMenu = 'dataPetugas';
         return view('admin.dataPetugas.create', ['admin' => $admin, 'breadcrumb' => $breadcrumb,
             'page' => $page, 'activeMenu' => $activeMenu]);
     }
@@ -110,7 +110,7 @@ class DataPetugasController extends Controller
             'title' => 'Detail Petugas Posyandu'
         ];
 
-        $activeMenu = 'admin.dataPetugas';
+        $activeMenu = 'dataPetugas';
 
         return view('admin.dataPetugas.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'admin' => $admin, 'activeMenu' => $activeMenu]);
     }

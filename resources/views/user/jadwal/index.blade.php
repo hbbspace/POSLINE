@@ -1,17 +1,28 @@
 @extends('user.layouts.template')
 @section('content')
-<div class="card card-outline card-primary">
+<div class="card card-outline card-info">
     <div class="card-header">
         <h3 class="card-title">{{ $page->title }}</h3>
 
     </div>
     <div class="card-body">
-        @if(session('succes'))
-            <div class="alert alert-succes">{{ session('succes') }}</div>            
-        @endif
-        @if(session('error'))
-            <div class="alert alert-danger">{{ session('error') }}</div>            
-        @endif
+        @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <span class="">{{ session('success') }}</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+    
+    @if(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <span class="">{{ session('error') }}</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group row">

@@ -18,6 +18,10 @@ use App\Http\Controllers\user\HasilPemeriksaanUser;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Petugas\BalitaController;
+use App\Http\Controllers\Petugas\dataPetugas;
+use App\Http\Controllers\Petugas\hasilPemeriksaan;
+use App\Http\Controllers\Petugas\jadwalPetugas;
+use App\Http\Controllers\Petugas\pemeriksaanBalita;
 use App\Http\Controllers\User\dataBalitaUser;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
@@ -150,13 +154,11 @@ Route::group(['prefix' => 'user'], function () {
     Route::group(['prefix' => 'jadwal'], function () {
         Route::get('/', [jadwalUser::class, 'index']); // menampilkan halaman awal user
         Route::post('/list', [jadwalUser::class, 'list']); // menampilkan data user dalam bentuk json untuk datatables
-        Route::get('/{nik}', [jadwalUser::class, 'show']); // menampilkan detail user
     });
     Route::group(['prefix' => 'dataUser'], function () {
         Route::get('/', [dataUser::class, 'index']); // menampilkan halaman awal user
         Route::post('/list', [dataUser::class, 'list']); // menampilkan data user dalam bentuk json untuk datatables
         Route::get('/create', [dataUser::class, 'create']); // menampilkan halaman form tambah user
-        Route::get('/', [dataUser::class, 'index']); // menampilkan halaman form tambah user
         // Route::post('/', [dataUser::class, 'store']); // menyimpan data user baru
         // Route::get('/{id}', [dataUser::class, 'show'])->name('admin.dataAdmin.show'); // menampilkan detail user
         Route::get('/edit', [dataUser::class, 'edit']);// menampilkan halaman form edit user
@@ -173,6 +175,41 @@ Route::group(['prefix' => 'user'], function () {
         Route::get('/', [dataBalitaUser::class, 'index']); // menampilkan halaman awal user
         Route::post('/list', [dataBalitaUser::class, 'list']); // menampilkan data user dalam bentuk json untuk datatables
         Route::get('/{id}', [dataBalitaUser::class, 'show']); // menampilkan detail user
+    });
+});
+
+Route::group(['prefix'=>'petugas'], function(){
+    Route::group(['prefix'=>'pemeriksaanBalita'], function(){
+        Route::get('/', [pemeriksaanBalita::class, 'index']); // menampilkan halaman awal user
+        Route::post('/list', [pemeriksaanBalita::class, 'list']); // menampilkan halaman awal user
+        Route::get('{id}/edit', [pemeriksaanBalita::class, 'edit']); // menampilkan halaman awal user
+        Route::put('/{id}', [pemeriksaanBalita::class, 'update']); // menyimpan perubahan data user
+        // Route::get('/', [jadwalUser::class, 'index']); 
+
+    });
+
+    Route::group(['prefix' => 'historyPemeriksaan'], function () {
+        Route::get('/', [hasilPemeriksaan::class, 'index']); // menampilkan halaman awal user
+        Route::post('/list', [hasilPemeriksaan::class, 'list']); // menampilkan data user dalam bentuk json untuk datatables
+        // Route::get('/create', [hasilPemeriksaan::class, 'create']); // menampilkan halaman form tambah user
+        // Route::post('/', [hasilPemeriksaan::class, 'store']); // menyimpan data user baru
+        Route::get('/{id}', [hasilPemeriksaan::class, 'show']); // menampilkan detail user
+        Route::get('/{id}/edit', [hasilPemeriksaan::class, 'edit']); // menampilkan halaman form edit user
+        Route::put('/{id}', [hasilPemeriksaan::class, 'update']); // menyimpan perubahan data user
+        Route::delete('/{id}', [hasilPemeriksaan::class, 'destroy']);// menghapus data user
+    });
+
+    Route::group(['prefix' => 'dataPetugas'], function () {
+        Route::get('/', [dataPetugas::class, 'index']); // menampilkan halaman awal user
+        // Route::post('/', [dataPetugas::class, 'store']); // menyimpan data user baru
+        // Route::get('/{id}', [dataPetugas::class, 'show'])->name('admin.dataAdmin.show'); // menampilkan detail user
+        Route::get('/edit', [dataPetugas::class, 'edit']);// menampilkan halaman form edit user
+        Route::put('/{id}', [dataPetugas::class, 'update']); // menyimpan perubahan data user
+    });
+
+    Route::group(['prefix' => 'jadwal'], function () {
+        Route::get('/', [jadwalPetugas::class, 'index']); // menampilkan halaman awal user
+        Route::post('/list', [jadwalPetugas::class, 'list']); // menampilkan data user dalam bentuk json untuk datatables
     });
 });
 

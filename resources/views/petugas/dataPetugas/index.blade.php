@@ -1,13 +1,14 @@
-@extends('user.layouts.template')
+@extends('petugas.layouts.template')
 
 @section('content')
 <div class="card card-outline card-info">
     <div class="card-header">
         <h3 class="card-title">{{ $page->title }}</h3>
-        <div class="card-tools"></div>
+
     </div>
+    
     <div class="card-body">
-        @empty($user)
+        @empty($admin)
             <div class="alert alert-danger alert-dismissible">
                 <h5><i class="icon fas fa-ban"></i> Kesalahan!</h5>
                 Data yang Anda cari tidak ditemukan.
@@ -34,40 +35,30 @@
             <table class="table table-bordered table-striped table-hover table-sm">
                 <tr>
                     <th>ID</th>
-                    <td>{{ $user->user_id }}</td>
+                    <td>{{ $admin->admin_id }}</td>
                 </tr>
                 <tr>
                     <th>Username</th>
-                    <td>{{ $user->username }}</td>
+                    <td>{{ $admin->username }}</td>
                 </tr>
                 <tr>
-                    <th>Password</th>
-                    <td>************</td>
-                </tr>
-                <tr>
-                    <th>Nama user</th>
-                    <td>{{ $user->nama }}</td>
+                    <th>Nama Admin</th>
+                    <td>{{ $admin->nama_admin }}</td>
                 </tr>
                 <tr>
                     <th>Jenis Kelamin</th>
-                    <td>{{ $user->jk }}</td>
+                    <td>{{ $admin->jk }}</td>
                 </tr>
                 <tr>
-                    <th>Tanggal Lahir</th>
-                    <td>{{ $user->tanggal_lahir}}</td>
-                </tr>
-                <tr>
-                    <th>Status</th>
-                    <td>{{ $user->status}}</td>
+                    <th>Level</th>
+                    <td>{{ $admin->level }}</td>
                 </tr>
             </table>
         @endempty
-        
         <div class="d-flex justify-content-center mt-3">
-            <a href="{{ url('user/') }}" class="btn btn-primary btn-sm mx-2">Kembali</a>
-            <a href="{{ url('user/dataUser/edit') }}" class="btn btn-warning btn-sm mx-2">Edit Profile</a>
-        </div>
-    </div>
+            <a href="{{ url('petugas/') }}" class="btn btn-primary btn-sm mx-2">Kembali</a>
+            <a href="{{ url('petugas/dataPetugas/edit') }}" class="btn btn-warning btn-sm mx-2">Edit Profile</a>
+        </div>    </div>
 </div>
 @endsection
 

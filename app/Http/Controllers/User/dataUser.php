@@ -33,23 +33,29 @@ class dataUser extends Controller
         return view('user.dataUser.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'user' => $user, 'activeMenu' => $activeMenu]);
     }
 
-    public function update(Request $request, String $id)
+    public function update(Request $request)
     {
+        $user_id = (Auth::guard('user')->user()->user_id);
+        $user=UserModel::select('user.*','anggota_keluarga.nama')
+        ->join('anggota_keluarga','user.nik','=','anggota_keluarga.nik')
+        ->where('user_id',$user_id)->first();
         $request->validate([
-            'username' => 'required|string|min:3|unique:admin,username,'.$id,
-            'password' => 'required|string|max:60',
-            'nama_admin' => 'required|string|max:60',
-            'jk' => 'required|in:L,P',
-            'level' => 'required|in:1,2',
-        ]);
-
-        UserModel::find($id)->update([
+            'username' => 'required|string|min:3',        ]);
+        
+        $data = [
             'username' => $request->username,
-            'password' => Hash::make($request->password), // Hash password
-            'nama_admin' => $request->nama_admin,
-            'jk' => $request->jk,
-            'level' => $request->level
-        ]);
+        ];    
+
+        // Jika password diberikan, perbarui password
+        if ($request->filled('password')) {
+            $request->validate([
+                'password' => 'string|min:3',
+            ]);
+            $data['password'] = Hash::make($request->password);
+        }
+    
+        // Simpan perubahan
+        $user->update($data);
 
         return redirect('user/dataUser')->with('success', 'Data Pengguna berhasil diubah');
     }
@@ -70,7 +76,7 @@ class dataUser extends Controller
             'title' => 'Edit Data Profil'
         ];
 
-        $activeMenu = 'user.dataUser'; // set menu yang sedang aktif
+        $activeMenu = 'dataUser';
 
         return view('user.dataUser.edit', [
             'breadcrumb' => $breadcrumb,

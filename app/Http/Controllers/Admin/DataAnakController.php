@@ -42,7 +42,7 @@ class DataAnakController extends Controller
 
         $kk=KeluargaModel::all();
         $anggota_keluarga = AnggotaKeluargaModel::all();
-                $activeMenu = 'admin.dataAnak';
+        $activeMenu = 'dataAnak';
 
         return view('admin.dataAnak.create', ['breadcrumb' => $breadcrumb, 
          'page' => $page, 'keluarga' => $anggota_keluarga, 'kk'=>$kk, 'activeMenu' => $activeMenu]);
@@ -92,7 +92,7 @@ class DataAnakController extends Controller
             'title' => 'Detail Anak'
         ];
 
-        $activeMenu = 'admin.dataAnak';
+        $activeMenu = 'dataAnak';
 
         return view('admin.dataAnak.show', ['breadcrumb' => $breadcrumb,
          'page' => $page, 'anggota_keluarga' => $anggota_keluarga, 'activeMenu' => $activeMenu]);
@@ -111,7 +111,7 @@ class DataAnakController extends Controller
             'title' => 'Edit Anak'
         ];
 
-        $activeMenu = 'admin.dataAnak';
+        $activeMenu = 'dataAnak';
 
         return view('admin.dataAnak.edit', ['breadcrumb' => $breadcrumb, 
          'page' => $page, 'anggota_keluarga' => $anggota_keluarga, 'activeMenu' => $activeMenu]);

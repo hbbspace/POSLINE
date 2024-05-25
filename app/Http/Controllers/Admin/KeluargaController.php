@@ -41,7 +41,7 @@ class KeluargaController extends Controller
             'title' => 'Tambah Data Keluarga Baru'
         ];
         $keluarga = KeluargaModel::all();
-        $activeMenu = 'admin.dataKeluarga';
+        $activeMenu = 'dataKeluarga'; 
         return view('admin.dataKeluarga.create', [
             'keluarga' => $keluarga, 
             'breadcrumb' => $breadcrumb, 
@@ -62,7 +62,7 @@ class KeluargaController extends Controller
             'alamat' => $request->alamat
         ]);
 
-        return redirect('admin/dataKeluarga')->with('success', 'Data kategori barang berhasil disimpan');
+        return redirect('admin/dataKeluarga')->with('success', 'Data keluarga berhasil disimpan');
     }
 
     public function list(Request $request) 
@@ -103,7 +103,7 @@ class KeluargaController extends Controller
             'title' => 'Detail Keluarga'
         ];
 
-        $activeMenu = 'keluarga';
+        $activeMenu = 'dataKeluarga'; 
 
         return view('admin.dataKeluarga.show', [
             'breadcrumb' => $breadcrumb, 
@@ -150,7 +150,7 @@ class KeluargaController extends Controller
             'title' => 'Edit Data Keluarga'
         ];
 
-        $activeMenu = 'keluarga'; // set menu yang sedang aktif
+        $activeMenu = 'dataKeluarga'; 
 
         return view('admin.dataKeluarga.edit', [
             'breadcrumb' => $breadcrumb,

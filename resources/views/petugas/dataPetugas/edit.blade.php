@@ -1,35 +1,35 @@
-@extends('admin.layouts.template')
+@extends('petugas.layouts.template')
 
 @section('content')
     <div class="container">
         <div class="card card-info">
             <div class="card-header">
-                <h3 class="card-title">Edit Data Petugas</h3>
-            </div>
-            <div class="card-body">
-                @if(session('success'))
+                <h3 class="card-title">Edit Data Profile</h3>
+            </div>            
+            @if(session('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <span class="">{{ session('success') }}</span>
+                    <span>{{ session('success') }}</span>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
             @endif
-            
+        
             @if(session('error'))
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <span class="">{{ session('error') }}</span>
+                    <span>{{ session('error') }}</span>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
             @endif
-                <form action="{{ url('admin/dataPetugas', $admin->admin_id) }}" method="POST">
+            <div class="card-body">
+                <form action="{{ url('petugas/dataPetugas', Auth::guard('admin')->user()->admin_id) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" name="username" value="{{ $admin->username }}" required>
+                        <input type="text" class="form-control" id="username" name="username" value="{{ old('username', $admin->username) }}" required>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
@@ -38,20 +38,13 @@
                     </div>
                     <div class="mb-3">
                         <label for="nama_admin" class="form-label">Nama Admin</label>
-                        <input type="text" class="form-control" id="nama_admin" name="nama_admin" value="{{ $admin->nama_admin }}" required>
+                        <input type="text" class="form-control" id="nama_admin" name="nama_admin" value="{{ old('nama_admin', $admin->nama_admin) }}" required>
                     </div>
                     <div class="mb-3">
                         <label for="jk" class="form-label">Gender</label>
                         <select name="jk" id="jk" class="form-control" required>
-                            <option value="L" {{ $admin->jk == 'L' ? 'selected' : '' }}>Laki-laki</option>
-                            <option value="P" {{ $admin->jk == 'P' ? 'selected' : '' }}>Perempuan</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="level" class="form-label">Level</label>
-                        <select name="level" id="level" class="form-control" required>
-                            <option value="1" {{ $admin->level == '1' ? 'selected' : '' }}>Super Admin</option>
-                            <option value="2" {{ $admin->level == '2' ? 'selected' : '' }}>Admin</option>
+                            <option value="L" {{ old('jk', $admin->jk) == 'L' ? 'selected' : '' }}>Laki-laki</option>
+                            <option value="P" {{ old('jk', $admin->jk) == 'P' ? 'selected' : '' }}>Perempuan</option>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Simpan Perubahan</button>

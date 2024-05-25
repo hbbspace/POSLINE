@@ -37,7 +37,7 @@ class DataAdminController extends Controller
             'title' => 'Tambah Admin Baru'
         ];
         $admin = AdminModel::all();
-        $activeMenu = 'admin.dataAdmin';
+        $activeMenu = 'dataAdmin';
         return view('admin.dataAdmin.create', ['admin' => $admin, 'breadcrumb' => $breadcrumb,
             'page' => $page, 'activeMenu' => $activeMenu]);
     }
@@ -106,7 +106,7 @@ class DataAdminController extends Controller
             'title' => 'Detail Admin'
         ];
 
-        $activeMenu = 'admin.dataAdmin';
+        $activeMenu = 'dataAdmin';
 
         return view('admin.dataAdmin.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'admin' => $admin, 'activeMenu' => $activeMenu]);
     }
@@ -161,7 +161,7 @@ class DataAdminController extends Controller
             'title' => 'Edit Data Admin'
         ];
 
-        $activeMenu = 'admin.dataAdmin'; // set menu yang sedang aktif
+        $activeMenu = 'dataAdmin';
 
         return view('admin.dataAdmin.edit', [
             'breadcrumb' => $breadcrumb,

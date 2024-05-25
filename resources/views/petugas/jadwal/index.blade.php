@@ -1,11 +1,9 @@
-@extends('user.layouts.template')
+@extends('petugas.layouts.template')
 @section('content')
 <div class="card card-outline card-info">
     <div class="card-header">
         <h3 class="card-title">{{ $page->title }}</h3>
-        {{-- <div class="card-tools">
-            <a href="{{ url('admin/jadwal/create') }}" class="btn btn-sm btn-primary mt-1">Tambah</a>
-        </div> --}}
+
     </div>
     <div class="card-body">
         @if(session('success'))
@@ -30,29 +28,26 @@
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Filter :</label>
                     <div class="col-3">
-                        <select class="form-control" id="nama" name="nama" required>
+                        <select class="form-control" id="pemeriksaan_id" name="pemeriksaan_id" required>
                             <option value="">- Semua -</option>
-                            @foreach($dataBalita as $item)
-                                <option value="{{ $item->nama }}">{{ $item->nama }}</option>
+                            @foreach($jadwal_pemeriksaan as $item)
+                                <option value="{{ $item->pemeriksaan_id }}">{{ $item->pemeriksaan_id }}</option>
                             @endforeach
                         </select>
-                        <small class="form-text text-muted">Id Hasil Pemeriksaan</small>
+                        <small class="form-text text-muted">Pemeriksaan ID</small>
                     </div>
                 </div>
             </div>
-        </div>
-        <table class="table table-bordered table-striped table-hover table-sm" id="table_hasil_pemeriksaan">
+        </div>        
+        <table class="table table-bordered table-striped table-hover table-sm" id="table_jadwal">
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Nama Balita</th>
-                    <th>NIK</th>
-                    <th>No KK</th>
-                    <th>Jenis Kelamin</th>
-                    <th>Tanggal Lahir</th>
-                    <th>Umur (Bulan)</th>
-                    {{-- <th>Jumlah Imunisasi</th> --}}
-                    <th>Aksi</th>
+                    <th>Pemeriksaan ID</th>
+                    <th>agenda</th>
+                    <th>Tanggal</th>
+                    <th>Tempat</th>
+                    <th>Keterangan</th>
                 </tr>
             </thead>
         </table>
@@ -67,18 +62,15 @@
 @push('js')
 <script>
     $(document).ready(function() {
-        var hasilPemeriksaanBalita = $('#table_hasil_pemeriksaan').DataTable({
+        var jadwal = $('#table_jadwal').DataTable({
             processing: true,
-            serverSide: true,
+            serverSide : true,
             ajax: {
-                url: "{{ url('user/dataBalitaUser/list') }}",
-                dataType: "json",
-                type: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                data: function (d) {
-                    d.nama = $('#nama').val();
+                "url": "{{ url('petugas/jadwal/list') }}",
+                "dataType": "json",
+                "type": "POST",
+                "data": function (d) {
+                    d.pemeriksaan_id = $('#pemeriksaan_id').val();
                 }
             },
             columns: [
@@ -91,22 +83,40 @@
                         return meta.row + 1; // Nomor indeks baris dimulai dari 0, jadi tambahkan 1
                     }
                 },
-                { data: "nama", orderable: true, searchable: true },
-                { data: "nik", orderable: true, searchable: true },
-                { data: "no_kk", orderable: true, searchable: true },
-                { data: "jk", orderable: true, searchable: true },
-                { data: "tanggal_lahir", orderable: true, searchable: true },
-                { data: "umur", orderable: true, searchable: true },
-                // { data: "jumlah_pemeriksaan", orderable: true, searchable: true },
                 {
-                    data: "aksi",
+                    data: "pemeriksaan_id",
+                    className: "",
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: "agenda",
+                    className: "",
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: "tanggal",
+                    className: "",
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: "tempat",
+                    className: "",
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: "Keterangan",
+                    className: "",
                     orderable: false,
                     searchable: false
                 }
             ]
         });
-        $('#nama').on('change', function() {
-            hasilPemeriksaanBalita.ajax.reload();
+        $('#pemeriksaan_id').on('change', function() {
+            jadwal.ajax.reload();
         });
     });
 </script>

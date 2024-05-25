@@ -1,4 +1,4 @@
-@extends('admin.layouts.template')
+@extends('petugas.layouts.template')
 
 @section('content')
 <div class="card card-outline card-info">
@@ -64,7 +64,7 @@
                 </tr>
             </table>
         @endif
-        <a href="{{ url('admin/dataPemeriksaan') }}" class="btn btn-sm btn-primary mt-2">Kembali</a>
+        <a href="{{ url('petugas/historyPemeriksaan') }}" class="btn btn-sm btn-primary mt-2">Kembali</a>
     </div>
 </div>
 @endsection
