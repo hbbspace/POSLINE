@@ -15,7 +15,7 @@ class DataAcuanSeeder extends Seeder
     {
         DB::table('data_acuan')->insert([
             [
-                'umur' => 3,
+                'usia' => 3,
                 'BB-L_min' => 5.8,
                 'BB-L_max' => 7.5,
                 'BB-P_min' => 5.3,
@@ -30,7 +30,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 40.9,
             ],
             [
-                'umur' => 4,
+                'usia' => 4,
                 'BB-L_min' => 6.2,
                 'BB-L_max' => 7.9,
                 'BB-P_min' => 5.8,
@@ -45,7 +45,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 41.7,
             ],
             [
-                'umur' => 5,
+                'usia' => 5,
                 'BB-L_min' => 6.7,
                 'BB-L_max' => 8.4,
                 'BB-P_min' => 6.2,
@@ -60,7 +60,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 42.5,
             ],
             [
-                'umur' => 6,
+                'usia' => 6,
                 'BB-L_min' => 7.3,
                 'BB-L_max' => 8.8,
                 'BB-P_min' => 6.7,
@@ -75,7 +75,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 43.0,
             ],
             [
-                'umur' => 7,
+                'usia' => 7,
                 'BB-L_min' => 7.6,
                 'BB-L_max' => 9.2,
                 'BB-P_min' => 6.9,
@@ -90,7 +90,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 43.5,
             ],
             [
-                'umur' => 8,
+                'usia' => 8,
                 'BB-L_min' => 7.9,
                 'BB-L_max' => 9.6,
                 'BB-P_min' => 7.2,
@@ -105,7 +105,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 43.9,
             ],
             [
-                'umur' => 9,
+                'usia' => 9,
                 'BB-L_min' => 8.0,
                 'BB-L_max' => 9.8,
                 'BB-P_min' => 7.3,
@@ -120,7 +120,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 44.4,
             ],
             [
-                'umur' => 10,
+                'usia' => 10,
                 'BB-L_min' => 8.5,
                 'BB-L_max' => 10.3,
                 'BB-P_min' => 7.7,
@@ -135,7 +135,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 44.7,
             ],
             [
-                'umur' => 11,
+                'usia' => 11,
                 'BB-L_min' => 8.7,
                 'BB-L_max' => 10.6,
                 'BB-P_min' => 7.8,
@@ -150,7 +150,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 45.0,
             ],
             [
-                'umur' => 12,
+                'usia' => 12,
                 'BB-L_min' => 8.9,
                 'BB-L_max' => 10.7,
                 'BB-P_min' => 8.1,
@@ -165,7 +165,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 45.4,
             ],
             [
-                'umur' => 13,
+                'usia' => 13,
                 'BB-L_min' => 9.0,
                 'BB-L_max' => 10.9,
                 'BB-P_min' => 8.2,
@@ -180,7 +180,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 45.6,
             ],
             [
-                'umur' => 14,
+                'usia' => 14,
                 'BB-L_min' => 9.3,
                 'BB-L_max' => 11.2,
                 'BB-P_min' => 8.4,
@@ -195,7 +195,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 45.9,
             ],
             [
-                'umur' => 15,
+                'usia' => 15,
                 'BB-L_min' => 9.6,
                 'BB-L_max' => 11.5,
                 'BB-P_min' => 8.6,
@@ -210,7 +210,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 46.1,
             ],
             [
-                'umur' => 16,
+                'usia' => 16,
                 'BB-L_min' => 9.8,
                 'BB-L_max' => 11.7,
                 'BB-P_min' => 8.7,
@@ -225,7 +225,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 46.4,
             ],
             [
-                'umur' => 17,
+                'usia' => 17,
                 'BB-L_min' => 10.0,
                 'BB-L_max' => 11.9,
                 'BB-P_min' => 8.9,
@@ -240,7 +240,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 46.6,
             ],
             [
-                'umur' => 18,
+                'usia' => 18,
                 'BB-L_min' => 10.3,
                 'BB-L_max' => 12.2,
                 'BB-P_min' => 8.9,
@@ -255,7 +255,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 46.6,
             ],
             [
-                'umur' => 19,
+                'usia' => 19,
                 'BB-L_min' => 10.5,
                 'BB-L_max' => 12.5,
                 'BB-P_min' => 9.1,
@@ -270,7 +270,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 46.8,
             ],
             [
-                'umur' => 20,
+                'usia' => 20,
                 'BB-L_min' => 10.7,
                 'BB-L_max' => 12.7,
                 'BB-P_min' => 9.3,
@@ -285,7 +285,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 47.1,
             ],
             [
-                'umur' => 21,
+                'usia' => 21,
                 'BB-L_min' => 10.8,
                 'BB-L_max' => 12.9,
                 'BB-P_min' => 9.4,
@@ -300,7 +300,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 47.3,
             ],
             [
-                'umur' => 22,
+                'usia' => 22,
                 'BB-L_min' => 11.0,
                 'BB-L_max' => 13.2,
                 'BB-P_min' => 9.5,
@@ -315,7 +315,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 47.5,
             ],
             [
-                'umur' => 23,
+                'usia' => 23,
                 'BB-L_min' => 11.2,
                 'BB-L_max' => 13.4,
                 'BB-P_min' => 9.6,
@@ -330,7 +330,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 47.7,
             ],
             [
-                'umur' => 24,
+                'usia' => 24,
                 'BB-L_min' => 11.3,
                 'BB-L_max' => 13.6,
                 'BB-P_min' => 9.7,
@@ -345,7 +345,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 47.6,
             ],
             [
-                'umur' => 25,
+                'usia' => 25,
                 'BB-L_min' => 11.5,
                 'BB-L_max' => 13.8,
                 'BB-P_min' => 9.8,
@@ -360,7 +360,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 47.8,
             ],
             [
-                'umur' => 26,
+                'usia' => 26,
                 'BB-L_min' => 11.6,
                 'BB-L_max' => 14.0,
                 'BB-P_min' => 9.9,
@@ -375,7 +375,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 47.9,
             ],
             [
-                'umur' => 27,
+                'usia' => 27,
                 'BB-L_min' => 11.8,
                 'BB-L_max' => 14.2,
                 'BB-P_min' => 10.0,
@@ -390,7 +390,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 48.0,
             ],
             [
-                'umur' => 28,
+                'usia' => 28,
                 'BB-L_min' => 11.9,
                 'BB-L_max' => 14.4,
                 'BB-P_min' => 10.1,
@@ -405,7 +405,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 48.1,
             ],
             [
-                'umur' => 29,
+                'usia' => 29,
                 'BB-L_min' => 12.0,
                 'BB-L_max' => 14.6,
                 'BB-P_min' => 10.2,
@@ -420,7 +420,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 48.2,
             ],
             [
-                'umur' => 30,
+                'usia' => 30,
                 'BB-L_min' => 12.1,
                 'BB-L_max' => 14.8,
                 'BB-P_min' => 10.3,
@@ -435,7 +435,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 48.3,
             ],
             [
-                'umur' => 31,
+                'usia' => 31,
                 'BB-L_min' => 12.2,
                 'BB-L_max' => 15.0,
                 'BB-P_min' => 10.4,
@@ -450,7 +450,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 48.4,
             ],
             [
-                'umur' => 32,
+                'usia' => 32,
                 'BB-L_min' => 12.4,
                 'BB-L_max' => 15.2,
                 'BB-P_min' => 10.5,
@@ -465,7 +465,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 48.5,
             ],
             [
-                'umur' => 33,
+                'usia' => 33,
                 'BB-L_min' => 12.5,
                 'BB-L_max' => 15.4,
                 'BB-P_min' => 10.6,
@@ -480,7 +480,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 48.6,
             ],
             [
-                'umur' => 34,
+                'usia' => 34,
                 'BB-L_min' => 12.6,
                 'BB-L_max' => 15.6,
                 'BB-P_min' => 10.7,
@@ -495,7 +495,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 48.7,
             ],
             [
-                'umur' => 35,
+                'usia' => 35,
                 'BB-L_min' => 12.7,
                 'BB-L_max' => 15.8,
                 'BB-P_min' => 10.8,
@@ -510,7 +510,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 48.8,
             ],
             [
-                'umur' => 36,
+                'usia' => 36,
                 'BB-L_min' => 12.8,
                 'BB-L_max' => 16.0,
                 'BB-P_min' => 10.9,
@@ -525,7 +525,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 48.9,
             ],
             [
-                'umur' => 37,
+                'usia' => 37,
                 'BB-L_min' => 12.9,
                 'BB-L_max' => 16.1,
                 'BB-P_min' => 11.0,
@@ -540,7 +540,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 49.0,
             ],
             [
-                'umur' => 38,
+                'usia' => 38,
                 'BB-L_min' => 13.0,
                 'BB-L_max' => 16.3,
                 'BB-P_min' => 11.1,
@@ -555,7 +555,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 49.1,
             ],
             [
-                'umur' => 39,
+                'usia' => 39,
                 'BB-L_min' => 13.1,
                 'BB-L_max' => 16.4,
                 'BB-P_min' => 11.2,
@@ -570,7 +570,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 49.2,
             ],
             [
-                'umur' => 40,
+                'usia' => 40,
                 'BB-L_min' => 13.2,
                 'BB-L_max' => 16.6,
                 'BB-P_min' => 11.3,
@@ -585,7 +585,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 49.3,
             ],
             [
-                'umur' => 41,
+                'usia' => 41,
                 'BB-L_min' => 13.3,
                 'BB-L_max' => 16.8,
                 'BB-P_min' => 11.4,
@@ -600,7 +600,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 49.4,
             ],
             [
-                'umur' => 42,
+                'usia' => 42,
                 'BB-L_min' => 13.4,
                 'BB-L_max' => 17.0,
                 'BB-P_min' => 11.5,
@@ -615,7 +615,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 49.5,
             ],
             [
-                'umur' => 43,
+                'usia' => 43,
                 'BB-L_min' => 13.5,
                 'BB-L_max' => 17.1,
                 'BB-P_min' => 11.6,
@@ -630,7 +630,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 49.6,
             ],
             [
-                'umur' => 44,
+                'usia' => 44,
                 'BB-L_min' => 13.6,
                 'BB-L_max' => 17.3,
                 'BB-P_min' => 11.7,
@@ -645,7 +645,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 49.7,
             ],
             [
-                'umur' => 45,
+                'usia' => 45,
                 'BB-L_min' => 13.7,
                 'BB-L_max' => 17.4,
                 'BB-P_min' => 11.8,
@@ -660,7 +660,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 49.8,
             ],
             [
-                'umur' => 46,
+                'usia' => 46,
                 'BB-L_min' => 13.8,
                 'BB-L_max' => 17.6,
                 'BB-P_min' => 11.9,
@@ -675,7 +675,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 49.9,
             ],
             [
-                'umur' => 47,
+                'usia' => 47,
                 'BB-L_min' => 13.9,
                 'BB-L_max' => 17.7,
                 'BB-P_min' => 12.0,
@@ -690,7 +690,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 50.0,
             ],
             [
-                'umur' => 48,
+                'usia' => 48,
                 'BB-L_min' => 14.0,
                 'BB-L_max' => 17.9,
                 'BB-P_min' => 12.1,
@@ -705,7 +705,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 50.1,
             ],
             [
-                'umur' => 49,
+                'usia' => 49,
                 'BB-L_min' => 14.1,
                 'BB-L_max' => 18.0,
                 'BB-P_min' => 12.2,
@@ -720,7 +720,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 50.2,
             ],
             [
-                'umur' => 50,
+                'usia' => 50,
                 'BB-L_min' => 14.2,
                 'BB-L_max' => 18.2,
                 'BB-P_min' => 12.3,
@@ -735,7 +735,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 50.3,
             ],
             [
-                'umur' => 51,
+                'usia' => 51,
                 'BB-L_min' => 14.3,
                 'BB-L_max' => 18.3,
                 'BB-P_min' => 12.4,
@@ -750,7 +750,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 50.4,
             ],
             [
-                'umur' => 52,
+                'usia' => 52,
                 'BB-L_min' => 14.4,
                 'BB-L_max' => 18.4,
                 'BB-P_min' => 12.5,
@@ -765,7 +765,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 50.5,
             ],
             [
-                'umur' => 53,
+                'usia' => 53,
                 'BB-L_min' => 14.5,
                 'BB-L_max' => 18.6,
                 'BB-P_min' => 12.6,
@@ -780,7 +780,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 50.6,
             ],
             [
-                'umur' => 54,
+                'usia' => 54,
                 'BB-L_min' => 14.6,
                 'BB-L_max' => 18.7,
                 'BB-P_min' => 12.7,
@@ -795,7 +795,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 50.7,
             ],
             [
-                'umur' => 55,
+                'usia' => 55,
                 'BB-L_min' => 14.7,
                 'BB-L_max' => 18.9,
                 'BB-P_min' => 12.8,
@@ -810,7 +810,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 50.8,
             ],
             [
-                'umur' => 56,
+                'usia' => 56,
                 'BB-L_min' => 14.8,
                 'BB-L_max' => 19.0,
                 'BB-P_min' => 12.9,
@@ -825,7 +825,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 50.9,
             ],
             [
-                'umur' => 57,
+                'usia' => 57,
                 'BB-L_min' => 14.9,
                 'BB-L_max' => 19.1,
                 'BB-P_min' => 13.0,
@@ -840,7 +840,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 51.0,
             ],
             [
-                'umur' => 58,
+                'usia' => 58,
                 'BB-L_min' => 15.0,
                 'BB-L_max' => 19.3,
                 'BB-P_min' => 13.1,
@@ -855,7 +855,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 51.1,
             ],
             [
-                'umur' => 59,
+                'usia' => 59,
                 'BB-L_min' => 15.1,
                 'BB-L_max' => 19.4,
                 'BB-P_min' => 13.2,
@@ -870,7 +870,7 @@ class DataAcuanSeeder extends Seeder
                 'LK-P_max' => 51.2,
             ],
             [
-                'umur' => 60,
+                'usia' => 60,
                 'BB-L_min' => 15.2,
                 'BB-L_max' => 19.5,
                 'BB-P_min' => 13.3,
