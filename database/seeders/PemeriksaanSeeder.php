@@ -16,7 +16,12 @@ class PemeriksaanSeeder extends Seeder
         DB::table('pemeriksaan')->insert([
             [
                 'agenda' => 'Pemeriksaan Balita Sehat',
-                'tanggal' => '2024-04-20',
+                'tanggal' => '2024-05-16',
+                'tempat' => 'Posyandu Melati',
+            ],
+            [
+                'agenda' => 'Pemeriksaan Balita Sehat pt 2',
+                'tanggal' => '2024-05-23',
                 'tempat' => 'Posyandu Melati',
             ]
         ]);
