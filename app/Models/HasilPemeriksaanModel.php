@@ -15,13 +15,16 @@ class HasilPemeriksaanModel extends Model
 
     protected $fillable = [
         'hasil_id',
-        'balita_id',
+        'nik',
         'pemeriksaan_id',
         'admin_id',
+        'usia',
         'tinggi_badan',
         'berat_badan',
         'lingkar_kepala',
-        'nilai_kesehatan',
+        'riwayat_penyakit',
+        'ranking',
+        'status',
         'catatan'
     ];
 }
