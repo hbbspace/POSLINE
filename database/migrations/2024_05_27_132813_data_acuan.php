@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('data_acuan', function (Blueprint $table) {
-            $table->integer('umur', 2)->primary();
+            $table->integer('usia', 2)->primary();
             $table->float('BB-L_min', 3);
             $table->float('BB-L_max', 3);
             $table->float('BB-P_min', 3);

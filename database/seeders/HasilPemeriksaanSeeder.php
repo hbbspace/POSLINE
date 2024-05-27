@@ -14,7 +14,6 @@ class HasilPemeriksaanSeeder extends Seeder
     public function run(): void
     {
         DB::table('hasil_pemeriksaan')->insert([
-
             [
                 'nik' => 3501011111800011,
                 'pemeriksaan_id' => 1,
@@ -24,8 +23,7 @@ class HasilPemeriksaanSeeder extends Seeder
                 'berat_badan' => 10.5,
                 'lingkar_kepala' => 45.3,
                 'riwayat_penyakit' => 'Tidak ada',
-                'status' => 'Periksa',
-                'catatan' => 'Periksa',
+                'status' => 'Selesai',
             ],
             [
                 'nik' => 3501012222800012,
@@ -36,8 +34,7 @@ class HasilPemeriksaanSeeder extends Seeder
                 'berat_badan' => 15,
                 'lingkar_kepala' => 49.7,
                 'riwayat_penyakit' => 'Ringan',
-                'status' => 'Periksa',
-                'catatan' => 'Periksa',
+                'status' => 'Selesai',
             ],
             [
                 'nik' => 3501013333800013,
@@ -48,8 +45,7 @@ class HasilPemeriksaanSeeder extends Seeder
                 'berat_badan' => 12.0,
                 'lingkar_kepala' => 44,
                 'riwayat_penyakit' => 'Berat',
-                'status' => 'Periksa',
-                'catatan' => 'Periksa',
+                'status' => 'Selesai',
             ],
             [
                 'nik' => 3501014444800014,
@@ -60,8 +56,7 @@ class HasilPemeriksaanSeeder extends Seeder
                 'berat_badan' => 18,
                 'lingkar_kepala' => 45,
                 'riwayat_penyakit' => 'Ringan',
-                'status' => 'Periksa',
-                'catatan' => 'Periksa',
+                'status' => 'Selesai',
             ],
             [
                 'nik' => 3501015555800015,
@@ -72,8 +67,7 @@ class HasilPemeriksaanSeeder extends Seeder
                 'berat_badan' => 7.5,
                 'lingkar_kepala' => 42.2,
                 'riwayat_penyakit' => 'Berat',
-                'status' => 'Periksa',
-                'catatan' => 'Periksa',
+                'status' => 'Selesai',
             ],
             [
                 'nik' => 3501016666800016,
@@ -84,7 +78,7 @@ class HasilPemeriksaanSeeder extends Seeder
                 'berat_badan' => 10,
                 'lingkar_kepala' => 45,
                 'riwayat_penyakit' => 'Ringan',
-                'status' => 'Periksa',
+                'status' => 'Selesai',
             ],
             [
                 'nik' => 3501017777800017,
@@ -95,29 +89,29 @@ class HasilPemeriksaanSeeder extends Seeder
                 'berat_badan' => 16,
                 'lingkar_kepala' => 48,
                 'riwayat_penyakit' => 'Tidak ada',
-                'status' => 'Periksa',
+                'status' => 'Selesai',
             ],
             [
                 'nik' => 3501018888800018,
                 'pemeriksaan_id' => 1,
-                'admin_id' => 2,
+                'admin_id' => 5,
                 'usia' => 21,
                 'tinggi_badan' => 79,
                 'berat_badan' => 9.5,
                 'lingkar_kepala' => 44,
                 'riwayat_penyakit' => 'Tidak ada',
-                'status' => 'Periksa',
+                'status' => 'Selesai',
             ],
             [
                 'nik' => 3501019999800019,
                 'pemeriksaan_id' => 1,
-                'admin_id' => 2,
+                'admin_id' => 4,
                 'usia' => 8,
                 'tinggi_badan' => 71,
                 'berat_badan' => 9,
                 'lingkar_kepala' => 40,
                 'riwayat_penyakit' => 'Ringan',
-                'status' => 'Periksa',
+                'status' => 'Selesai',
             ],
             [
                 'nik' => 3501020000800020,
@@ -128,19 +122,22 @@ class HasilPemeriksaanSeeder extends Seeder
                 'berat_badan' => 12,
                 'lingkar_kepala' => 46,
                 'riwayat_penyakit' => 'Tidak ada',
-                'status' => 'Periksa',
+                'status' => 'Selesai',
             ],
             [
                 'nik' => 3501021000800021,
                 'pemeriksaan_id' => 1,
-                'admin_id' => 2,
+                'admin_id' => 3,
                 'usia' => 9,
                 'tinggi_badan' => 70,
                 'berat_badan' => 10,
                 'lingkar_kepala' => 43.5,
                 'riwayat_penyakit' => 'Tidak ada',
-                'status' => 'Periksa',
+                'status' => 'Selesai',
             ],
+        ]);
+
+        DB::table('hasil_pemeriksaan')->insert([
             [
                 'nik' => 3501011111800011,
                 'pemeriksaan_id' => 2,
