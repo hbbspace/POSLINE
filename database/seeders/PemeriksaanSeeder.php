@@ -18,12 +18,7 @@ class PemeriksaanSeeder extends Seeder
                 'agenda' => 'Pemeriksaan Balita Sehat',
                 'tanggal' => '2024-04-20',
                 'tempat' => 'Posyandu Melati',
-            ],
-            [
-                'agenda' => 'Pemeriksaan Imunisasi',
-                'tanggal' => '2024-04-27',
-                'tempat' => 'Puskesmas Merdeka',
-            ],
+            ]
         ]);
     }
 }

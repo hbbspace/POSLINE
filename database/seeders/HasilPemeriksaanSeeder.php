@@ -15,24 +15,59 @@ class HasilPemeriksaanSeeder extends Seeder
     {
         DB::table('hasil_pemeriksaan')->insert([
             [
-                'balita_id' => 1,
+                'nik' => 3501011111800011,
                 'pemeriksaan_id' => 1,
-                'admin_id' => 1,
-                'tinggi_badan' => 82.00,
-                'berat_badan' => 13.00,
-                'lingkar_kepala' => 41.00,
-                'nilai_kesehatan' => '2',
-                'catatan' => 'Batuk dan pilek',
+                'status' => 'Terdaftar',
             ],
             [
-                'balita_id' => 2,
-                'pemeriksaan_id' => 2,
-                'admin_id' => 2,
-                'tinggi_badan' => 76.00,
-                'berat_badan' => 11.00,
-                'lingkar_kepala' => 39.00,
-                'nilai_kesehatan' => '3',
-                'catatan' => 'Sehat',
+                'nik' => 3501012222800012,
+                'pemeriksaan_id' => 1,
+                'status' => 'Terdaftar',
+            ],
+            [
+                'nik' => 3501013333800013,
+                'pemeriksaan_id' => 1,
+                'status' => 'Terdaftar',
+            ],
+            [
+                'nik' => 3501014444800014,
+                'pemeriksaan_id' => 1,
+                'status' => 'Terdaftar',
+            ],
+            [
+                'nik' => 3501015555800015,
+                'pemeriksaan_id' => 1,
+                'status' => 'Terdaftar',
+            ],
+            [
+                'nik' => 3501016666800016,
+                'pemeriksaan_id' => 1,
+                'status' => 'Terdaftar',
+            ],
+            [
+                'nik' => 3501017777800017,
+                'pemeriksaan_id' => 1,
+                'status' => 'Terdaftar',
+            ],
+            [
+                'nik' => 3501018888800018,
+                'pemeriksaan_id' => 1,
+                'status' => 'Terdaftar',
+            ],
+            [
+                'nik' => 3501019999800019,
+                'pemeriksaan_id' => 1,
+                'status' => 'Terdaftar',
+            ],
+            [
+                'nik' => 3501020000800020,
+                'pemeriksaan_id' => 1,
+                'status' => 'Terdaftar',
+            ],
+            [
+                'nik' => 3501021000800021,
+                'pemeriksaan_id' => 1,
+                'status' => 'Terdaftar',
             ],
         ]);
     }
