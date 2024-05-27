@@ -22,7 +22,7 @@ return new class extends Migration
             $table->float('lingkar_kepala', 5, 2)->nullable();
             $table->enum('riwayat_penyakit', ['Tidak ada', 'Ringan', 'Berat'])->nullable();
             $table->integer('ranking')->nullable();
-            $table->enum('status', ['Terdaftar', 'Periksa', 'Selesai']);
+            $table->enum('status', ['Terdaftar', 'Selesai']);
             $table->string('catatan', 255)->nullable();
             // Tambahkan kolom lain sesuai kebutuhan
 
