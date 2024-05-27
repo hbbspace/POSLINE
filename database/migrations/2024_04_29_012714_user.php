@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('user', function (Blueprint $table) {
             $table->increments('user_id');
-            $table->string('username', 16);
+            $table->string('nik', 16);
+            $table->string('username', 25);
             $table->string('password', 60);
             // Tambahkan kolom lain sesuai kebutuhan
 
             // Tambahkan foreign key
-            $table->foreign('username')->references('nik')->on('anggota_keluarga');
+            $table->foreign('nik')->references('nik')->on('anggota_keluarga');
         });
     }
 
