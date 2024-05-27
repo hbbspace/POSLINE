@@ -13,18 +13,21 @@ return new class extends Migration
     {
         Schema::create('hasil_pemeriksaan', function (Blueprint $table) {
             $table->increments('hasil_id');
-            $table->integer('balita_id')->unsigned();
+            $table->string('nik', 16);
             $table->integer('pemeriksaan_id')->unsigned();
-            $table->integer('admin_id')->unsigned();
-            $table->float('tinggi_badan', 4);
-            $table->float('berat_badan', 3);
-            $table->float('lingkar_kepala', 3);
-            $table->enum('nilai_kesehatan', ['1', '2', '3', '4', '5']);
-            $table->string('catatan')->nullable();
+            $table->integer('admin_id')->unsigned()->nullable();
+            $table->integer('usia')->nullable();
+            $table->float('tinggi_badan', 5, 2)->nullable();
+            $table->float('berat_badan', 5, 2)->nullable();
+            $table->float('lingkar_kepala', 5, 2)->nullable();
+            $table->enum('riwayat_penyakit', ['Tidak ada', 'Ringan', 'Berat'])->nullable();
+            $table->integer('ranking')->nullable();
+            $table->enum('status', ['Terdaftar', 'Periksa', 'Selesai']);
+            $table->string('catatan', 255)->nullable();
             // Tambahkan kolom lain sesuai kebutuhan
 
             // Tambahkan foreign key
-            $table->foreign('balita_id')->references('balita_id')->on('balita');
+            $table->foreign('nik')->references('nik')->on('anggota_keluarga');
             $table->foreign('pemeriksaan_id')->references('pemeriksaan_id')->on('pemeriksaan');
             $table->foreign('admin_id')->references('admin_id')->on('admin');
         });

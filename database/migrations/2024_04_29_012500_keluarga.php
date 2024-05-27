@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('keluarga', function (Blueprint $table) {
             $table->string('no_kk', 16)->primary();
             $table->string('alamat', 100);
+            $table->decimal('pendapatan', 15, 2);
             // Tambahkan kolom lain sesuai kebutuhan
         });
     }
