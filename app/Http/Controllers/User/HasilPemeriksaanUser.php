@@ -35,15 +35,14 @@ class HasilPemeriksaanUser extends Controller
             $no_kk = $nokk_user->no_kk;
     
             $hasil_pemeriksaan = HasilPemeriksaanModel::select(
-                'hasil_pemeriksaan.hasil_id', 'balita.balita_id', 'admin.admin_id', 
+                'hasil_pemeriksaan.hasil_id', 'admin.admin_id', 
                 'pemeriksaan.pemeriksaan_id', 'hasil_pemeriksaan.catatan', 'anggota_keluarga.nama', 
                 'admin.nama_admin', 'pemeriksaan.tanggal', 'anggota_keluarga.no_kk'
             )
-            ->join('balita', 'hasil_pemeriksaan.balita_id', '=', 'balita.balita_id')
-            ->join('anggota_keluarga', 'balita.nik', '=', 'anggota_keluarga.nik')
+            ->join('anggota_keluarga', 'hasil_pemeriksaan.nik', '=', 'anggota_keluarga.nik')
             ->join('admin', 'hasil_pemeriksaan.admin_id', '=', 'admin.admin_id')
             ->join('pemeriksaan', 'hasil_pemeriksaan.pemeriksaan_id', '=', 'pemeriksaan.pemeriksaan_id')
-            ->where('anggota_keluarga.no_kk', '=', $no_kk)
+            ->where('anggota_keluarga.no_kk', '=', $no_kk)->where('hasil_pemeriksaan.status','=','Selesai')
             ->get();
 
         return view('user.dataPemeriksaanBalitaUser.index', [
@@ -69,15 +68,14 @@ class HasilPemeriksaanUser extends Controller
         $no_kk = $nokk_user->no_kk;
     
         $hasil_pemeriksaan = HasilPemeriksaanModel::select(
-            'hasil_pemeriksaan.hasil_id', 'balita.balita_id', 'admin.admin_id', 
+            'hasil_pemeriksaan.hasil_id', 'admin.admin_id', 
             'pemeriksaan.pemeriksaan_id', 'hasil_pemeriksaan.catatan', 'anggota_keluarga.nama', 
             'admin.nama_admin', 'pemeriksaan.tanggal', 'anggota_keluarga.no_kk'
         )
-        ->join('balita', 'hasil_pemeriksaan.balita_id', '=', 'balita.balita_id')
-        ->join('anggota_keluarga', 'balita.nik', '=', 'anggota_keluarga.nik')
+        ->join('anggota_keluarga', 'hasil_pemeriksaan.nik', '=', 'anggota_keluarga.nik')
         ->join('admin', 'hasil_pemeriksaan.admin_id', '=', 'admin.admin_id')
         ->join('pemeriksaan', 'hasil_pemeriksaan.pemeriksaan_id', '=', 'pemeriksaan.pemeriksaan_id')
-        ->where('anggota_keluarga.no_kk', '=', $no_kk)
+        ->where('anggota_keluarga.no_kk', '=', $no_kk)->where('hasil_pemeriksaan.status','=','Selesai')
         ->get(); // Menggunakan get() untuk mengambil hasil
     
     
@@ -97,8 +95,7 @@ class HasilPemeriksaanUser extends Controller
     $hasil_pemeriksaan = HasilPemeriksaanModel::select(
         'hasil_pemeriksaan.*', 'anggota_keluarga.nama', 'admin.nama_admin', 'pemeriksaan.agenda', 'pemeriksaan.tanggal'
     )
-    ->join('balita', 'hasil_pemeriksaan.balita_id', '=', 'balita.balita_id')
-    ->join('anggota_keluarga', 'balita.nik', '=', 'anggota_keluarga.nik')
+    ->join('anggota_keluarga', 'hasil_pemeriksaan.nik', '=', 'anggota_keluarga.nik')
     ->join('admin', 'hasil_pemeriksaan.admin_id', '=', 'admin.admin_id')
     ->join('pemeriksaan', 'hasil_pemeriksaan.pemeriksaan_id', '=', 'pemeriksaan.pemeriksaan_id')
     ->where('hasil_pemeriksaan.hasil_id', $hasil_id)

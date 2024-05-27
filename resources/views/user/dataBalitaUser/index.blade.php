@@ -96,7 +96,7 @@
                 { data: "no_kk", orderable: true, searchable: true },
                 { data: "jk", orderable: true, searchable: true },
                 { data: "tanggal_lahir", orderable: true, searchable: true },
-                { data: "umur", orderable: true, searchable: true },
+                { data: "usia", orderable: true, searchable: true },
                 // { data: "jumlah_pemeriksaan", orderable: true, searchable: true },
                 {
                     data: "aksi",

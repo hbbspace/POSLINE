@@ -20,7 +20,7 @@
                 </tr>
                 <tr>
                     <th>Balita Id</th>
-                    <td>{{ $hasil_pemeriksaan->balita_id }}</td>
+                    <td>{{ $hasil_pemeriksaan->nik }}</td>
                 </tr>
                 <tr>
                     <th>Nama Balita</th>

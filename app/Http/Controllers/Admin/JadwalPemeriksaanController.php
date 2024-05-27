@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AnggotaKeluargaModel;
 use App\Models\BalitaModel;
 use App\Models\HasilPemeriksaanModel;
 use Illuminate\Http\Request;
 use App\Models\PemeriksaanModel;
+use Carbon\Carbon;
 use Yajra\DataTables\Facades\DataTables;
 
 class JadwalPemeriksaanController extends Controller
@@ -62,16 +64,22 @@ class JadwalPemeriksaanController extends Controller
         ]);
 
         HasilPemeriksaanModel::whereNull('admin_id')->delete();
-    
+        
         // Dapatkan semua balita
-        $balitas = BalitaModel::all();
-    
+
+        $umur60BulanSebelumnya = Carbon::now()->subMonths(60);
+        
+        $balitas = AnggotaKeluargaModel::where('status', 'anak')
+            ->where('tanggal_lahir', '>=', $umur60BulanSebelumnya)
+            ->get();
+            
         // Iterasi melalui setiap balita
         foreach ($balitas as $balita) {
             // Buat entri baru di tabel hasil pemeriksaan untuk setiap balita
             HasilPemeriksaanModel::create([
-                'balita_id' => $balita->balita_id,
+                'nik' => $balita->nik,
                 'pemeriksaan_id' => $pemeriksaan->pemeriksaan_id,
+                'status'=>'Terdaftar'
                 // Anda juga bisa menambahkan atribut lain yang diperlukan di sini
             ]);
         }

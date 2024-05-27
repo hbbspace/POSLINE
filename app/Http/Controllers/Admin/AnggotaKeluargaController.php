@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\KeluargaModel;
 use App\Models\AnggotaKeluargaModel;
+use App\Models\UserModel;
+use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
 
 class AnggotaKeluargaController extends Controller
@@ -57,17 +59,26 @@ class AnggotaKeluargaController extends Controller
             'jk' => 'required|in:L,P',
             'status' => 'required|in:Ibu'
         ]);
-    
-        // Menyimpan data ke database
-        AnggotaKeluargaModel::create([
-            'no_kk' => $request->no_kk,
-            'nik' => $request->nik,
-            'nama' => $request->nama,
-            'tanggal_lahir' => $request->tanggal_lahir,
-            'jk' => $request->jk,
-            'status' => $request->status
-        ]);
-    
+
+        if (UserModel::where('nik', $request->nik)->exists()) {
+            return redirect('admin/dataUser')->with('error', 'Gagal menambah data user, NIK sudah terdaftar.');
+        }else{
+            // Menyimpan data ke database
+            AnggotaKeluargaModel::create([
+                'no_kk' => $request->no_kk,
+                'nik' => $request->nik,
+                'nama' => $request->nama,
+                'tanggal_lahir' => $request->tanggal_lahir,
+                'jk' => $request->jk,
+                'status' => $request->status
+            ]);
+
+            UserModel::create([
+                'nik' => $request->nik,
+                'password' => Hash::make($request->nik), // Hash password
+                'username' => $request->nik
+            ]);
+        }
         // Redirect dengan pesan sukses
         return redirect('admin/dataIbu')->with('success', 'Data Ibu berhasil disimpan');
     }

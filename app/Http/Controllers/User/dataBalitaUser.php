@@ -36,24 +36,14 @@ class dataBalitaUser extends Controller
             ->first(); 
         $no_kk = $nokk_user->no_kk;
     
-        // Mengambil data balita dengan count pemeriksaan
-        $dataBalita = BalitaModel::select(
-                'balita_id', 
-                'balita.nik',
-                'anggota_keluarga.nama', 
-                'anggota_keluarga.no_kk',
-                'anggota_keluarga.tanggal_lahir',
-                // DB::raw('COUNT(hasil_pemeriksaan.pemeriksaan_id) as jumlah_pemeriksaan')
-            )
-            ->join('anggota_keluarga', 'balita.nik', '=', 'anggota_keluarga.nik')
+        $dataBalita = HasilPemeriksaanModel::select(
+            'hasil_pemeriksaan.hasil_id', 
+            'anggota_keluarga.nama', 
+            'hasil_pemeriksaan.usia','anggota_keluarga.nik'
+            ,'anggota_keluarga.no_kk','anggota_keluarga.jk','anggota_keluarga.tanggal_lahir'
+        )
+        ->join('anggota_keluarga', 'hasil_pemeriksaan.nik', '=', 'anggota_keluarga.nik')
             ->where('anggota_keluarga.no_kk', '=', $no_kk)
-            // ->groupBy(
-            //     'hasil_pemeriksaan.hasil_id', 
-            //     'balita.balita_id', 
-            //     'pemeriksaan.pemeriksaan_id',  
-            //     'anggota_keluarga.nama', 
-            //     'anggota_keluarga.no_kk'
-            // )
             ->get();
 
 
@@ -76,16 +66,14 @@ class dataBalitaUser extends Controller
                 ->first(); 
             $no_kk = $nokk_user->no_kk;
         
-            // Mengambil data balita dengan umur
-            $dataBalita = BalitaModel::select(
-                    'balita.balita_id', 
-                    'balita.nik',
-                    'anggota_keluarga.nama', 
-                    'anggota_keluarga.no_kk',
-                    'anggota_keluarga.jk',
-                    'anggota_keluarga.tanggal_lahir',
-                    DB::raw('TIMESTAMPDIFF(MONTH, anggota_keluarga.tanggal_lahir, CURDATE()) as umur')                )
-                ->join('anggota_keluarga', 'balita.nik', '=', 'anggota_keluarga.nik')
+            $dataBalita = HasilPemeriksaanModel::select(
+                'hasil_pemeriksaan.hasil_id', 
+                'anggota_keluarga.nama', 
+                'hasil_pemeriksaan.usia','anggota_keluarga.nik'
+                ,'anggota_keluarga.no_kk','anggota_keluarga.jk','anggota_keluarga.tanggal_lahir',
+                DB::raw('TIMESTAMPDIFF(MONTH, anggota_keluarga.tanggal_lahir, CURDATE()) as usia')
+            )
+            ->join('anggota_keluarga', 'hasil_pemeriksaan.nik', '=', 'anggota_keluarga.nik')
                 ->where('anggota_keluarga.no_kk', '=', $no_kk)
                 ->get();
         
@@ -101,39 +89,53 @@ class dataBalitaUser extends Controller
         
         
         
-            public function show(String $balita_id)
-        {
-            $balita = BalitaModel::select(
-                'balita.*', 'anggota_keluarga.nama', 'admin.nama_admin', 'pemeriksaan.agenda', 'pemeriksaan.tanggal'
-            )
-            ->join('anggota_keluarga', 'balita.nik', '=', 'anggota_keluarga.nik')
-            ->join('admin', 'hasil_pemeriksaan.admin_id', '=', 'admin.admin_id')
-            ->join('pemeriksaan', 'hasil_pemeriksaan.pemeriksaan_id', '=', 'pemeriksaan.pemeriksaan_id')
-            ->where('balita.balita_id', $balita_id)
-            ->first();
+        //     public function show(String $hasil_id)
+        // {
+        //     $user_id = Auth::guard('user')->user()->user_id;
         
-            if (!$balita) {
-                return redirect('user/dataBalitaUser')->with('error', 'Data yang Anda cari tidak ditemukan.');
-            }
+        //     // Mengambil data no_kk dari user
+        //     $nokk_user = UserModel::select('anggota_keluarga.no_kk')
+        //         ->join('anggota_keluarga', 'user.nik', '=', 'anggota_keluarga.nik')
+        //         ->where('user.user_id', $user_id)
+        //         ->first(); 
+        //     $no_kk = $nokk_user->no_kk;
+        //     $balita = HasilPemeriksaanModel::select(
+        //         'hasil_pemeriksaan.hasil_id', 'admin.admin_id', 
+        //         'pemeriksaan.pemeriksaan_id', 'hasil_pemeriksaan.catatan', 'anggota_keluarga.nama', 
+        //         'admin.nama_admin', 'pemeriksaan.tanggal', 'anggota_keluarga.nik', 'pemeriksaan.agenda', 
+        //         'hasil_pemeriksaan.riwayat_penyakit','hasil_pemeriksaan.berat_badan','hasil_pemeriksaan.tinggi_badan'
+        //         ,'hasil_pemeriksaan.riwayat_penyakit'
+        //     )
+            
+        //     ->join('anggota_keluarga', 'hasil_pemeriksaan.nik', '=', 'anggota_keluarga.nik')
+        //     ->join('admin', 'hasil_pemeriksaan.admin_id', '=', 'admin.admin_id')
+        //     ->join('pemeriksaan', 'hasil_pemeriksaan.pemeriksaan_id', '=', 'pemeriksaan.pemeriksaan_id')
+        //         ->where('anggota_keluarga.no_kk', '=', $no_kk)
+        //         ->where('hasil_pemeriksaan.hasil_id', $hasil_id)
+        //         ->get();
         
-            $breadcrumb = (object) [
-                'title' => 'Detail Data Pemeriksaan Balita',
-                'list' => ['Home', 'Data Pemeriksaan Balita', 'Detail']
-            ];
+        //     if (!$balita) {
+        //         return redirect('user/dataBalitaUser')->with('error', 'Data yang Anda cari tidak ditemukan.');
+        //     }
         
-            $page = (object) [
-                'title' => 'Detail Data Pemeriksaan Balita'
-            ];
+        //     $breadcrumb = (object) [
+        //         'title' => 'Detail Data Pemeriksaan Balita',
+        //         'list' => ['Home', 'Data Pemeriksaan Balita', 'Detail']
+        //     ];
         
-            $activeMenu = 'dataBalitaUser';
+        //     $page = (object) [
+        //         'title' => 'Detail Data Pemeriksaan Balita'
+        //     ];
         
-            return view('user.dataPemeriksaanBalitaUser.show', [
-                'breadcrumb' => $breadcrumb,
-                'page' => $page,
-                'balita' => $balita,
-                'activeMenu' => $activeMenu
-            ]);
-        }
+        //     $activeMenu = 'dataBalitaUser';
+        
+        //     return view('user.dataPemeriksaanBalitaUser.show', [
+        //         'breadcrumb' => $breadcrumb,
+        //         'page' => $page,
+        //         'balita' => $balita,
+        //         'activeMenu' => $activeMenu
+        //     ]);
+        // }
         
         }
     

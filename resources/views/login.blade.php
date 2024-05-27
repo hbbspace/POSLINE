@@ -20,6 +20,9 @@
         .focus-custom-button:focus {
             outline-color: #098DB3;
         }
+        .light-grey-bg {
+            background-color: #f5f5f5; /* Warna light grey */
+        }
     </style>
 </head>
 <body class="h-full">
@@ -29,7 +32,7 @@
             <h2 class="mt-1 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Login</h2>
         </div>
 
-        <div class="mt-6 sm:mx-auto sm:w-full sm:max-w-sm border-2 custom-border p-6">
+        <div class="mt-6 sm:mx-auto sm:w-full sm:max-w-sm border-2 custom-border p-6 light-grey-bg">
             <form class="space-y-6" action="{{ route('proses_login') }}" method="POST">
                 @csrf
                 
@@ -81,7 +84,6 @@
                     <button type="submit" class="custom-button flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#086b8c] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-custom-button">Sign in</button>
                 </div>
             </form>
-
         </div>
         <p class="mt-10 text-center text-sm text-gray-500">
             Posyandu Selalu Ada Untukmu
@@ -91,7 +93,7 @@
     <script>
         function togglePassword() {
             const passwordField = document.getElementById('password');
-            const eyeIcon = document.getElementById('eyeIcon');
+            const eyeIcon = document.getElement.getElementById('eyeIcon');
 
             if (passwordField.type === 'password') {
                 passwordField.type = 'text';

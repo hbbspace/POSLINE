@@ -71,10 +71,10 @@ class DataAnakController extends Controller
         ]);
     
         // Buat entri baru di tabel balita menggunakan nik anak yang baru saja dibuat
-        BalitaModel::create([
-            'nik' => $request->nik,
-            // Tambahkan atribut lain yang diperlukan di sini
-        ]);
+        // BalitaModel::create([
+        //     'nik' => $request->nik,
+        //     // Tambahkan atribut lain yang diperlukan di sini
+        // ]);
     
         return redirect('admin/dataAnak')->with('success', 'Data Anak berhasil disimpan');
     }

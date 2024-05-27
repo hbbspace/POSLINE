@@ -33,7 +33,7 @@
                         <a href="#article" class="navbar-link" data-nav-link>Artikel</a>
                     </li>
                     <li>
-                        <a href="#" class="navbar-link" data-nav-link>Contact</a>
+                        <a href="#contact" class="navbar-link" data-nav-link>Contact</a>
                     </li>
                 </ul>
             </nav>
@@ -66,7 +66,7 @@
                 </div>
             </section>
 
-            <section class="section about" id="about" aria-level="about">
+            <section class="section about" id="article" aria-level="about">
                 <div class="container">
                     <div class="about-banner img-holder" style="--width: 600; --height: 700;">
                         <img src="img/abt-banner.jpg" width="600px" height="700px" loading="lazy" alt="" class="img-cover">
@@ -80,7 +80,7 @@
                 </div>
             </section>
 
-            <section class="section about" id="about" aria-level="about">
+            <section class="section about" id="article" aria-level="about">
                 <div class="container">
                     <div class="about-content">
                         <h2 class="h2 section-title">Gizi Seimbang untuk Pertumbuhan Optimal</h2>
@@ -95,7 +95,7 @@
                 </div>
             </section>
             
-            <section class="section about" id="about" aria-level="about">
+            <section class="section about" id="article" aria-level="about">
                 <div class="container">
                     <div class="about-banner img-holder" style="--width: 600; --height: 700;">
                         <img src="img/abt-banner.jpg" width="600px" height="700px" loading="lazy" alt="" class="img-cover">
@@ -181,9 +181,9 @@
                                 <p class="footer-list-title">Company</p>
                             </li>
                             <li>
-                                <a href="#about" class="footer-link">
+                                <a href="#article" class="footer-link">
                                     <ion-icon name="chevron-forward"></ion-icon>
-                                    <span class="span">About us</span>
+                                    <span class="span">Article</span>
                                 </a>
                             </li>
                             <li>
