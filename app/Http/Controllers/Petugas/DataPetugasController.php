@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
 
-class dataPetugas extends Controller
+class DataPetugasController extends Controller
 {
    
     public function index()

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
-class dataBalitaUser extends Controller
+class DataBalitaUserController extends Controller
 {
    
     public function index()

@@ -10,7 +10,7 @@ use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Auth;
 
 
-class HasilPemeriksaanUser extends Controller
+class HasilPemeriksaanUserController extends Controller
 {
     public function index()
     {

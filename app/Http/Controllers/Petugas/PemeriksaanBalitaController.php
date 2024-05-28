@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
-class pemeriksaanBalita extends Controller
+class PemeriksaanBalitaController extends Controller
 {
 
 

@@ -7,7 +7,7 @@ use App\Models\HasilPemeriksaanModel;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
-class hasilPemeriksaan extends Controller
+class HasilPemeriksaanController extends Controller
 {
     public function index()
     {

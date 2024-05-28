@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Petugas;
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -8,7 +8,7 @@ use App\Models\PemeriksaanModel;
 use Carbon\Carbon;
 use Yajra\DataTables\Facades\DataTables;
 
-class jadwalPetugas extends Controller
+class JadwalUserController extends Controller
 {
     public function index()
     {
@@ -24,7 +24,7 @@ class jadwalPetugas extends Controller
         $activeMenu = 'jadwal';
 
         $jadwal_pemeriksaan = PemeriksaanModel::all();
-        return view('petugas.jadwal.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'jadwal_pemeriksaan' => $jadwal_pemeriksaan, 'activeMenu' => $activeMenu]);
+        return view('user.jadwal.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'jadwal_pemeriksaan' => $jadwal_pemeriksaan, 'activeMenu' => $activeMenu]);
     }
 
 

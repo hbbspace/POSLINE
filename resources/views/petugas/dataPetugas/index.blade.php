@@ -34,24 +34,16 @@
     @endif
             <table class="table table-bordered table-striped table-hover table-sm">
                 <tr>
-                    <th>ID</th>
-                    <td>{{ $admin->admin_id }}</td>
+                    <th>Nama Admin</th>
+                    <td>{{ $admin->nama_admin }}</td>
                 </tr>
                 <tr>
                     <th>Username</th>
                     <td>{{ $admin->username }}</td>
                 </tr>
                 <tr>
-                    <th>Nama Admin</th>
-                    <td>{{ $admin->nama_admin }}</td>
-                </tr>
-                <tr>
                     <th>Jenis Kelamin</th>
                     <td>{{ $admin->jk }}</td>
-                </tr>
-                <tr>
-                    <th>Level</th>
-                    <td>{{ $admin->level }}</td>
                 </tr>
             </table>
         @endempty

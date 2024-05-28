@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PetugasController extends Controller
 {
@@ -10,7 +11,7 @@ class PetugasController extends Controller
     {   
         // session()->flush();
         $breadcrumb = (object) [
-            'title' => 'Selamat Datang',
+            'title' => 'Selamat Datang '  . Auth::guard('admin')->user()->nama_admin,
             'list' => ['Home', 'Welcome']
         ];
 
