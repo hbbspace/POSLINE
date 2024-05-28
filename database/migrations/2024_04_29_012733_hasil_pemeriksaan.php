@@ -16,14 +16,17 @@ return new class extends Migration
             $table->string('nik', 16);
             $table->integer('pemeriksaan_id')->unsigned();
             $table->integer('admin_id')->unsigned()->nullable();
-            $table->integer('usia')->nullable();
-            $table->float('tinggi_badan', 5, 2)->nullable();
-            $table->float('berat_badan', 5, 2)->nullable();
-            $table->float('lingkar_kepala', 5, 2)->nullable();
-            $table->enum('riwayat_penyakit', ['Tidak ada', 'Ringan', 'Berat'])->nullable();
+            $table->integer('usia')->nullable(); // Diisi oleh Petugas
+            $table->float('tinggi_badan', 3, 2)->nullable(); // Diisi oleh Petugas
+            $table->float('berat_badan', 3, 2)->nullable(); // Diisi oleh Petugas
+            $table->float('lingkar_badan', 3, 2)->nullable(); // Diisi oleh Petugas
+            $table->enum('riwayat_penyakit', ['Tidak ada', 'Ringan', 'Berat'])->nullable(); // Diisi oleh Petugas
+            $table->enum('asupan_makanan', ['Baik', 'Cukup', 'Kurang'])->nullable(); // Diisi oleh Petugas
+            $table->enum('status_gizi', ['Baik', 'Cukup', 'Kurang'])->nullable();
+            $table->enum('stunting', ['1', '2', '3','Tidak'])->nullable();
+            $table->enum('status', ['Terdaftar','Selesai']);
             $table->integer('ranking')->nullable();
-            $table->enum('status', ['Stunting', 'Tidak'])->nullable();
-            $table->string('catatan', 255)->nullable();
+            $table->string('catatan', 255)->nullable(); // Diisi oleh Petugas
             // Tambahkan kolom lain sesuai kebutuhan
 
             // Tambahkan foreign key
