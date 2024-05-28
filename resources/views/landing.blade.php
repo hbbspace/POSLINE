@@ -7,6 +7,7 @@
   <title>POSLINE</title>
   <!--======== custom css link =========-->
   @vite('resources/css/landing.css')
+  <link rel="icon" href="{{ asset('img/logo.png') }}" type="image/png"> <!-- Favicon ditambahkan -->
   <!--========= google font link ========-->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
