@@ -59,7 +59,7 @@
                     <td>{{ $hasil_pemeriksaan->lingkar_kepala }} Cm</td>
                 </tr>
                 <tr>
-                    <th>Nilai Kesehatan</th>
+                    <th>Riwayat Penyakit</th>
                     <td>{{ $hasil_pemeriksaan->riwayat_penyakit }}</td>
                 </tr>
             </table>

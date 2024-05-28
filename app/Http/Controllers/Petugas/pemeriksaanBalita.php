@@ -92,7 +92,7 @@ public function update(Request $request, string $id)
         'riwayat_penyakit' => $request->riwayat_penyakit,
         'catatan' => $request->catatan,
         'admin_id' => $request->admin_id,
-        'status' => 'Periksa',
+        'status' => 'Selesai',
         'usia' => $request->usia
     ]);
 

@@ -28,8 +28,8 @@
                         <!-- small box -->
                         <div class="small-box bg-info">
                           <div class="inner">
-                            <h3>Jumlah Imunisasi telah dilakukan</h3>
-                            {{-- <p>{{$hasil_pemeriksaan}} Imunisasi telah dilakukan</p> --}}
+                            <h3>Total Pemeriksaan</h3>
+                            <p>{{$hasil_pemeriksaan}} Pemeriksaan telah dilakukan</p>
                           </div>
                           <div class="icon">
                             <i class="ion ion-trophy"></i>

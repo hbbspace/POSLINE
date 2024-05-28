@@ -28,7 +28,7 @@ class UserController extends Controller
         ->count();
 
         $hasil_pemeriksaan = HasilPemeriksaanModel::select(
-            'hasil_pemeriksaan.hasil_id'
+            'hasil_pemeriksaan.hasil_id',  'anggota_keluarga.nik'
         )
         ->join('anggota_keluarga', 'anggota_keluarga.nik', '=', 'hasil_pemeriksaan.nik')
         ->where('anggota_keluarga.no_kk', '=', $no_kk)
