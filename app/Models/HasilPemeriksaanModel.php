@@ -21,10 +21,12 @@ class HasilPemeriksaanModel extends Model
         'usia',
         'tinggi_badan',
         'berat_badan',
-        'lingkar_kepala',
+        'lingkar_badan',
         'riwayat_penyakit',
-        'ranking',
+        'malnutrisi',
+        'stunting',
         'status',
+        'ranking',
         'catatan'
     ];
 }

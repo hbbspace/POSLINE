@@ -225,6 +225,7 @@ class DataAcuanSeeder extends Seeder
                 'usia' => 26,
                 'TB-L_min' => 87.7,
                 'TB-P_min' => 11.6,
+                'BB-L_min' => 11.6,
                 'BB-P_min' => 9.9,
                 'LB-L_min' => 48.5,
                 'LB-P_min' => 48.1,

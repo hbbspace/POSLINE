@@ -5,62 +5,54 @@ namespace App\Http\Controllers\Petugas;
 use App\Http\Controllers\Controller;
 use App\Models\HasilPemeriksaanModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class SPKController extends Controller {
 
     // Fungsi untuk menghitung nilai utilitas
-    private function calculateUtilitas($nilaiNormalisasi, $bobot, $preferensi)
+    private function calculateUtilitas($nilaiNormalisasi, $bobot)
     {
-        return $nilaiNormalisasi * $bobot * $preferensi;
+        return $nilaiNormalisasi * $bobot;
     }
 
-    // Fungsi untuk melakukan perhitungan SPK menggunakan metode MAUT
-    public function hitungSPK()
+    // Fungsi untuk mengambil data dan melakukan perhitungan
+    public function calculateSPK($pemeriksaan_id)
     {
-        // Data kriteria
+        // Ambil data dari tabel `hasil_pemeriksaan` dengan status 'stunting'
+        $dataPemeriksaan = DB::table('hasil_pemeriksaan')
+            ->where('status', 'stunting')
+            ->get();
+
+        // Kriteria dan bobot
         $kriteria = [
-            'K1' => ['bobot' => 0.1, 'nilai' => [4, 3, 2, 5]], // Berat Badan
-            'K2' => ['bobot' => 0.1, 'nilai' => [3, 4, 5, 2]], // Tinggi Badan
-            'K3' => ['bobot' => 0.1, 'nilai' => [3, 4, 5, 2]], // Lingkar Kepala
-            'K4' => ['bobot' => 0.4, 'nilai' => [3, 4, 5, 2]], // Kondisi Ekonomi
-            'K5' => ['bobot' => 0.3, 'nilai' => [2, 5, 4, 3]] // Riwayat Penyakit	
+            'jam_kerja' => 0.1,
+            'malnutrisi	' => 0.1,
+            'kondisi_stunting' => 0.3,
+            'kondisi_ekonomi' => 0.3,
+            'riwayat_penyakit' => 0.2,
         ];
 
-        // Normalisasi data kriteria
-        foreach ($kriteria as $k => $v) {
-            $maxNilai = max($v['nilai']);
-            foreach ($v['nilai'] as $key => $value) {
-                $kriteria[$k]['nilaiNormalisasi'][$key] = $value / $maxNilai;
-            }
-        }
-
-        // Bobot preferensi untuk setiap kriteria
-        $bobotPreferensi = [
-            'K1' => 1, // Sangat Baik
-            'K2' => 0.8, // Baik
-            'K3' => 0.6 // Cukup Baik
-        ];
-
-        // Alternatif
-        $alternatif = ['A1', 'A2', 'A3', 'A4'];
+        // Normalisasi data dan hitung nilai utilitas
         $nilaiTotalUtilitas = [];
 
-        // Hitung nilai utilitas untuk setiap alternatif
-        foreach ($alternatif as $key => $a) {
+        foreach ($dataPemeriksaan as $data) {
             $totalUtilitas = 0;
-            foreach ($kriteria as $k => $v) {
-                $totalUtilitas += $this->calculateUtilitas($v['nilaiNormalisasi'][$key], $v['bobot'], $bobotPreferensi[$k]);
+            foreach ($kriteria as $k => $bobot) {
+                $nilai = $data->$k;
+                $maxNilai = DB::table('hasil_pemeriksaan')->max($k);
+                $nilaiNormalisasi = $nilai / $maxNilai;
+                $totalUtilitas += $this->calculateUtilitas($nilaiNormalisasi, $bobot);
             }
-            $nilaiTotalUtilitas[$a] = $totalUtilitas;
+            $nilaiTotalUtilitas[$data->id] = $totalUtilitas;
         }
 
         // Urutkan alternatif berdasarkan nilai total utilitas
         arsort($nilaiTotalUtilitas);
 
         // Tampilkan hasil peringkat
-        foreach ($nilaiTotalUtilitas as $alternatif => $nilai) {
-            echo "Alternatif $alternatif: Nilai Total Utilitas = $nilai <br>";
+        foreach ($nilaiTotalUtilitas as $id => $nilai) {
+            echo "ID Pemeriksaan $id: Nilai Total Utilitas = $nilai <br>";
         }
     }
 }

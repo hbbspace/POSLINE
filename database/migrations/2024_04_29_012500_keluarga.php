@@ -15,8 +15,10 @@ return new class extends Migration
             $table->string('no_kk', 16)->primary();
             $table->string('alamat', 100);
             $table->decimal('pendapatan', 15, 2);
+            $table->integer('jam_kerja')->unsigned()->nullable();
             // Tambahkan kolom lain sesuai kebutuhan
         });
+        
     }
 
     /**
