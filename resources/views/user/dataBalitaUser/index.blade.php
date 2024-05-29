@@ -1,11 +1,9 @@
 @extends('user.layouts.template')
+
 @section('content')
 <div class="card card-outline card-info">
     <div class="card-header">
         <h3 class="card-title">{{ $page->title }}</h3>
-        {{-- <div class="card-tools">
-            <a href="{{ url('admin/jadwal/create') }}" class="btn btn-sm btn-primary mt-1">Tambah</a>
-        </div> --}}
     </div>
     <div class="card-body">
         @if(session('success'))
@@ -15,16 +13,17 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-    @endif
-    
-    @if(session('error'))
+        @endif
+        
+        @if(session('error'))
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <span class="">{{ session('error') }}</span>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-    @endif
+        @endif
+        
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group row">
@@ -36,11 +35,12 @@
                                 <option value="{{ $item->nama }}">{{ $item->nama }}</option>
                             @endforeach
                         </select>
-                        <small class="form-text text-muted">Id Hasil Pemeriksaan</small>
+                        <small class="form-text text-muted">Nama Balita</small>
                     </div>
                 </div>
             </div>
         </div>
+
         <table class="table table-bordered table-striped table-hover table-sm" id="table_hasil_pemeriksaan">
             <thead>
                 <tr>
@@ -51,7 +51,6 @@
                     <th>Jenis Kelamin</th>
                     <th>Tanggal Lahir</th>
                     <th>Umur (Bulan)</th>
-                    {{-- <th>Jumlah Imunisasi</th> --}}
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -61,7 +60,7 @@
 @endsection
 
 @push('css')
-
+<!-- Tambahkan CSS tambahan di sini -->
 @endpush
 
 @push('js')
@@ -77,7 +76,7 @@
                 headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
-                data: function (d) {
+                data: function(d) {
                     d.nama = $('#nama').val();
                 }
             },
@@ -97,7 +96,6 @@
                 { data: "jk", orderable: true, searchable: true },
                 { data: "tanggal_lahir", orderable: true, searchable: true },
                 { data: "usia", orderable: true, searchable: true },
-                // { data: "jumlah_pemeriksaan", orderable: true, searchable: true },
                 {
                     data: "aksi",
                     orderable: false,

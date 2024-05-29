@@ -11,7 +11,8 @@
             <h3 class="card-title">Penting !</h3>
         </div>
         <div class="card-body">
-            <p>Penambahan data ibu secara otomatis akan membuat akun orang tua dengan username dan password yang sama dengan NIK yang ditambahkan.</p>
+            <p>Penambahan data orang tua secara otomatis akan membuat akun orang tua dengan username dan password yang sama dengan NIK yang ditambahkan.</p>
+            <p style="color: red;">Pastikan Anda mengisi data dengan benar</p>
         </div>
     </div>
 </div>

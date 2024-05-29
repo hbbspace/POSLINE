@@ -21,7 +21,7 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="nik">NIK</label>
-                            <input type="text" class="form-control" id="nik" name="nik" value="{{ $anggota_keluarga->nik }}">
+                            <input type="text" class="form-control" id="nik" name="nik" value="{{ $anggota_keluarga->nik }}" readonly>
                         </div>
                         <div class="form-group">
                             <label for="nama">Nama</label>

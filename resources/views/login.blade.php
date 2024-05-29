@@ -93,7 +93,7 @@
     <script>
         function togglePassword() {
             const passwordField = document.getElementById('password');
-            const eyeIcon = document.getElement.getElementById('eyeIcon');
+            const eyeIcon = document.getElementById('eyeIcon');
 
             if (passwordField.type === 'password') {
                 passwordField.type = 'text';

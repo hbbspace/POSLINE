@@ -84,9 +84,9 @@ class DataAdminController extends Controller
             ->addColumn('aksi', function ($admin) { // menambahkan kolom aksi
                 $btn = '<a href="' . url('admin/dataAdmin/' . $admin->admin_id) . '" class="btn btn-info btn-sm">Detail</a> ';
                 $btn .= '<a href="' . url('admin/dataAdmin/' . $admin->admin_id . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
-                $btn .= '<form class="d-inline-block" method="POST" action="' . url('admin/dataAdmin/' . $admin->admin_id) . '">'
-                    . csrf_field() . method_field('DELETE') .
-                    '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
+                // $btn .= '<form class="d-inline-block" method="POST" action="' . url('admin/dataAdmin/' . $admin->admin_id) . '">'
+                //     . csrf_field() . method_field('DELETE') .
+                //     '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
                 return $btn;
             })
             
@@ -171,21 +171,21 @@ class DataAdminController extends Controller
         ]);
     }
     
-    public function destroy(String $id)
-    {
-        $check = AdminModel::find($id);
+    // public function destroy(String $id)
+    // {
+    //     $check = AdminModel::find($id);
 
-        // Untuk mengecek apakah data user dengan id yang dimaksud ada atau tidak
-        if (!$check) {
-            return redirect('admin/dataAdmin')->with('error', 'Data Admin tidak ditemukan');
-        }
+    //     // Untuk mengecek apakah data user dengan id yang dimaksud ada atau tidak
+    //     if (!$check) {
+    //         return redirect('admin/dataAdmin')->with('error', 'Data Admin tidak ditemukan');
+    //     }
 
-        try {
-            AdminModel::destroy($id);
-            return redirect('admin/dataAdmin')->with('success', 'Data Admin berhasil dihapus');
-        } catch (\Illuminate\Database\QueryException $e) {
-            // Jika terjadi error ketika menghapus data, redirect kembali ke halaman dengan membawa pesan error
-            return redirect('admin/dataAdmin')->with('error', 'Data Admin gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
-        }
-    }
+    //     try {
+    //         AdminModel::destroy($id);
+    //         return redirect('admin/dataAdmin')->with('success', 'Data Admin berhasil dihapus');
+    //     } catch (\Illuminate\Database\QueryException $e) {
+    //         // Jika terjadi error ketika menghapus data, redirect kembali ke halaman dengan membawa pesan error
+    //         return redirect('admin/dataAdmin')->with('error', 'Data Admin gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+    //     }
+    // }
 }

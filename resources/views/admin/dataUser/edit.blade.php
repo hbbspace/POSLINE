@@ -19,13 +19,13 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="nik">NIK</label>
+                            {{-- <label for="nik">NIK</label>
                             <select class="form-control" id="nik" name="nik" required>
                                 <option value="">- Pilih NIK -</option>
                                 @foreach($nik as $item)
                                     <option value="{{ $item->nik }}">{{ $item->nik }}</option>
                                 @endforeach
-                            </select>   
+                            </select>    --}}
                         </div>
                         <div class="form-group">
                             <label for="usename">Username</label>

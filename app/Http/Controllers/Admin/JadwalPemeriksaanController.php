@@ -158,23 +158,27 @@ class JadwalPemeriksaanController extends Controller
     }
 
     public function list(Request $request)
-    {
-        $jadwal_pemeriksaan = PemeriksaanModel::select('pemeriksaan_id', 'agenda', 'tanggal', 'tempat');
+{
+    $query = PemeriksaanModel::query();
 
-        if ($request->pemeriksaan_id) {
-            $jadwal_pemeriksaan->where('pemeriksaan_id', $request->pemeriksaan_id);
-        }
-    
-        return DataTables::of($jadwal_pemeriksaan)
-            ->addIndexColumn() // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
-            ->addColumn('aksi', function ($jadwal_pemeriksaan) { // menambahkan kolom aksi
-                $btn = '<a href="'.url('admin/jadwal', $jadwal_pemeriksaan->pemeriksaan_id).'" class="btn btn-info btn-sm">Detail</a> ';
-                $btn .= '<a href="'.url('admin/jadwal', $jadwal_pemeriksaan->pemeriksaan_id. '/edit').'" class="btn btn-warning btn-sm">Edit</a> ';
-                $btn .= '<form class="d-inline-block" method="POST" action="'. url('admin/jadwal', $jadwal_pemeriksaan->pemeriksaan_id).'">'. csrf_field() . method_field('DELETE') .
-                    '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
-                return $btn;
-            })
-            ->rawColumns(['aksi']) // memberitahu bahwa kolom aksi adalah html
-            ->make(true);
+    if ($request->tanggal) {
+        $query->where('tanggal', $request->tanggal);
     }
+
+    $jadwal_pemeriksaan = $query->get();
+
+    return DataTables::of($jadwal_pemeriksaan)
+        ->addIndexColumn() // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
+        ->addColumn('aksi', function ($jadwal_pemeriksaan) { // menambahkan kolom aksi
+            $btn = '<a href="' . url('admin/jadwal', $jadwal_pemeriksaan->pemeriksaan_id) . '" class="btn btn-info btn-sm">Detail</a> ';
+            $btn .= '<a href="' . url('admin/jadwal', $jadwal_pemeriksaan->pemeriksaan_id . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
+            $btn .= '<form class="d-inline-block" method="POST" action="' . url('admin/jadwal', $jadwal_pemeriksaan->pemeriksaan_id) . '">'
+                . csrf_field() . method_field('DELETE') .
+                '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
+            return $btn;
+        })
+        ->rawColumns(['aksi']) // memberitahu bahwa kolom aksi adalah html
+        ->make(true);
+}
+
 }    

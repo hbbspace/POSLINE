@@ -22,18 +22,18 @@ class HasilPemeriksaanController extends Controller
     
         $activeMenu = 'dataPemeriksaan';
     
-        $hasil_pemeriksaan = HasilPemeriksaanModel::select(
-            'hasil_pemeriksaan.hasil_id', 'admin.admin_id', 
-            'pemeriksaan.pemeriksaan_id', 'hasil_pemeriksaan.catatan', 'anggota_keluarga.nama', 
-            'admin.nama_admin', 'pemeriksaan.tanggal'
-        )
+        // $hasil_pemeriksaan = HasilPemeriksaanModel::select(
+        //     'hasil_pemeriksaan.hasil_id', 'admin.admin_id', 
+        //     'pemeriksaan.pemeriksaan_id', 'hasil_pemeriksaan.catatan', 'anggota_keluarga.nama', 
+        //     'admin.nama_admin', 'pemeriksaan.tanggal'
+        // )
         
-        ->join('anggota_keluarga', 'anggota_keluarga.nik', '=', 'hasil_pemeriksaan.nik')
-        ->join('admin', 'hasil_pemeriksaan.admin_id', '=', 'admin.admin_id')
-        ->join('pemeriksaan', 'hasil_pemeriksaan.pemeriksaan_id', '=', 'pemeriksaan.pemeriksaan_id')
-        ;
+        // ->join('anggota_keluarga', 'anggota_keluarga.nik', '=', 'hasil_pemeriksaan.nik')
+        // ->join('admin', 'hasil_pemeriksaan.admin_id', '=', 'admin.admin_id')
+        // ->join('pemeriksaan', 'hasil_pemeriksaan.pemeriksaan_id', '=', 'pemeriksaan.pemeriksaan_id')
+        // ;
         
-        // $hasil_pemeriksaan=HasilPemeriksaanModel::all();
+        $hasil_pemeriksaan=HasilPemeriksaanModel::all();
         // dd($hasil_pemeriksaan);
         return view('admin.dataPemeriksaan.index', [
             'breadcrumb' => $breadcrumb,

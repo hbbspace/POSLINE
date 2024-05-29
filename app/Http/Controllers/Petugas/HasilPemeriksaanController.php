@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Petugas;
 
+use App\Http\Controllers\Admin\JadwalPemeriksaanController;
 use App\Http\Controllers\Controller;
 use App\Models\HasilPemeriksaanModel;
+use App\Models\PemeriksaanModel;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -22,15 +24,25 @@ class HasilPemeriksaanController extends Controller
     
         $activeMenu = 'hasilPemeriksaanBalita';
     
-        $hasil_pemeriksaan = HasilPemeriksaanModel::select(
-            'hasil_pemeriksaan.hasil_id','admin.admin_id', 
-            'pemeriksaan.pemeriksaan_id', 'hasil_pemeriksaan.catatan', 'anggota_keluarga.nama', 
-            'admin.nama_admin', 'pemeriksaan.tanggal'
-        )
-        ->join('anggota_keluarga', 'balita.nik', '=', 'anggota_keluarga.nik')
-        ->join('admin', 'hasil_pemeriksaan.admin_id', '=', 'admin.admin_id')
-        ->join('pemeriksaan', 'hasil_pemeriksaan.pemeriksaan_id', '=', 'pemeriksaan.pemeriksaan_id')
-        ;
+        // $hasil_pemeriksaan = HasilPemeriksaanModel::select(
+        //     'hasil_pemeriksaan.hasil_id',
+        //     'admin.admin_id',
+        //     'anggota_keluarga.nik',
+        //     'pemeriksaan.pemeriksaan_id',
+        //     'hasil_pemeriksaan.catatan',
+        //     'anggota_keluarga.nama',
+        //     'admin.nama_admin',
+        //     'pemeriksaan.tanggal'
+        // )
+        // ->join('anggota_keluarga', 'hasil_pemeriksaan.nik', '=', 'anggota_keluarga.nik')
+        // ->join('admin', 'hasil_pemeriksaan.admin_id', '=', 'admin.admin_id')
+        // ->join('pemeriksaan', 'hasil_pemeriksaan.pemeriksaan_id', '=', 'pemeriksaan.pemeriksaan_id')
+        // ->distinct()
+        // ->get();
+
+        $hasil_pemeriksaan=PemeriksaanModel::select('tanggal')->get();
+        
+        
         
         // dd($hasil_pemeriksaan);
         return view('petugas.hasilPemeriksaan.index', [
@@ -54,8 +66,8 @@ class HasilPemeriksaanController extends Controller
     ->join('pemeriksaan', 'hasil_pemeriksaan.pemeriksaan_id', '=', 'pemeriksaan.pemeriksaan_id')
     ;
     
-    if ($request->hasil_id) {
-        $hasil_pemeriksaan->where('hasil_pemeriksaan.hasil_id', $request->hasil_id);
+    if ($request->tanggal) {
+        $hasil_pemeriksaan->where('pemeriksaan.tanggal', $request->tanggal);
     }
 
     return DataTables::of($hasil_pemeriksaan)
@@ -131,15 +143,15 @@ class HasilPemeriksaanController extends Controller
             'tinggi_badan' => 'required|numeric|min:1', 
             'berat_badan' => 'required|numeric|min:1', 
             'lingkar_kepala' => 'required|numeric|min:1', 
-            'nilai_kesehatan' => 'required|in:1,2,3,4,5',
-            'catatan' => 'required|string|min:3', 
+            'riwayat_penyakit' => 'required|in:Tidak ada,Ringan,Berat', // Menyesuaikan dengan opsi yang diberikan sebelumnya
+            'catatan' => 'nullable|string'
         ]);
 
         HasilPemeriksaanModel::find($id)->update([
             'tinggi_badan' => $request->tinggi_badan,
             'berat_badan' => $request->berat_badan,
             'lingkar_kepala' => $request->lingkar_kepala,
-            'nilai_kesehatan' => $request->nilai_kesehatan,
+            'riwayat_penyakit' => $request->riwayat_penyakit,
             'catatan' => $request->catatan,
         ]);
 

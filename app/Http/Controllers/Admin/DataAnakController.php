@@ -61,7 +61,7 @@ class DataAnakController extends Controller
         ]);
     
         // Tambahkan data anak baru ke tabel anggota_keluarga
-        $newAnak = AnggotaKeluargaModel::create([
+        AnggotaKeluargaModel::create([
             'no_kk' => $request->no_kk,
             'nik' => $request->nik,
             'nama' => $request->nama,
@@ -168,11 +168,13 @@ class DataAnakController extends Controller
 
     public function list(Request $request)
     {
-        $anggota_keluargas = AnggotaKeluargaModel::select('nik', 'no_kk', 'nama', 'tanggal_lahir', 'jk', 'status')
-                                ->where('status', 'anak'); // Menambahkan kondisi status 'ibu'
-        if ($request->no_kk) {
-            $anggota_keluargas->where('no_kk', $request->no_kk);
+        $query = AnggotaKeluargaModel::where('status', 'anak');
+    
+        if ($request->nama) {
+            $query->where('nama', $request->nama);
         }
+    
+        $anggota_keluargas = $query->get();
     
         return DataTables::of($anggota_keluargas)
             ->addIndexColumn() // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
@@ -183,13 +185,9 @@ class DataAnakController extends Controller
                     . csrf_field() . method_field('DELETE') .
                     '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
                 return $btn;
-                // $btn = '<a href="'.route('admin.dataAnak.show', $anggota_keluarga->nik).'" class="btn btn-info btn-sm">Detail</a> ';
-                // $btn .= '<a href="'.route('admin.dataAnak.edit', $anggota_keluarga->nik).'" class="btn btn-warning btn-sm">Edit</a> ';
-                // $btn .= '<form class="d-inline-block" method="POST" action="'. route('admin.dataAnak.destroy', $anggota_keluarga->nik).'">'. csrf_field() . method_field('DELETE') .
-                //     '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
-                // return $btn;
             })
             ->rawColumns(['aksi']) // memberitahu bahwa kolom aksi adalah html
             ->make(true);
     }
+    
 }    

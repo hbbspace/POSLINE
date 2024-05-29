@@ -15,12 +15,12 @@ class AnggotaKeluargaController extends Controller
     public function index()
     {
         $breadcrumb = (object) [
-            'title' => 'Daftar Data Ibu',
-            'list' => ['Home', 'Data Ibu']
+            'title' => 'Daftar Data Orang Tua',
+            'list' => ['Home', 'Data Orang Tua']
         ];
 
         $page = (object) [
-            'title' => 'Daftar Data Ibu yang terdaftar dalam sistem'
+            'title' => 'Daftar Data Orang Tua yang terdaftar dalam sistem'
         ];
 
         $activeMenu = 'dataAnggotaKeluarga';
@@ -32,12 +32,12 @@ class AnggotaKeluargaController extends Controller
     public function create()
     {
         $breadcrumb = (object) [
-            'title' => 'Tambah Data Ibu',
-            'list' => ['Home', 'Data Ibu', 'Tambah']
+            'title' => 'Tambah Data Orang Tua',
+            'list' => ['Home', 'Data Orang Tua', 'Tambah']
         ];
 
         $page = (object) [
-            'title' => 'Tambah Data Ibu '
+            'title' => 'Tambah Data Orang Tua '
         ];
 
         $kk=KeluargaModel::all();
@@ -80,7 +80,7 @@ class AnggotaKeluargaController extends Controller
             ]);
         }
         // Redirect dengan pesan sukses
-        return redirect('admin/dataIbu')->with('success', 'Data Ibu berhasil disimpan');
+        return redirect('admin/dataIbu')->with('success', 'Data Orang Tua berhasil disimpan');
     }
     
 
@@ -88,12 +88,12 @@ class AnggotaKeluargaController extends Controller
     {
         $anggota_keluarga = AnggotaKeluargaModel::with('keluarga')->find($no_kk);
         $breadcrumb = (object) [
-            'title' => 'Detail Data Ibu',
-            'list' => ['Home', 'Data Ibu', 'Detail']
+            'title' => 'Detail Data Orang Tua',
+            'list' => ['Home', 'Data Orang Tua', 'Detail']
         ];
 
         $page = (object) [
-            'title' => 'Detail Data Ibu'
+            'title' => 'Detail Data Orang Tua'
         ];
 
         $activeMenu = 'dataAnggotaKeluarga';
@@ -108,12 +108,12 @@ class AnggotaKeluargaController extends Controller
         $keluarga = KeluargaModel::all();
 
         $breadcrumb = (object) [
-            'title' => 'Edit Data Ibu',
-            'list' => ['Home', 'Data Ibu', 'Edit']
+            'title' => 'Edit Data Orang Tua',
+            'list' => ['Home', 'Data Orang Tua', 'Edit']
         ];
 
         $page = (object) [
-            'title' => 'Edit Data Ibu'
+            'title' => 'Edit Data Orang Tua'
         ];
 
         $activeMenu = 'dataAnggotaKeluarga';
@@ -131,59 +131,58 @@ class AnggotaKeluargaController extends Controller
             'no_kk' => 'required|string|min:3'
         ]);
     
-        $anggota_keluarga = AnggotaKeluargaModel::find( $id);
+        $anggota_keluarga = AnggotaKeluargaModel::find($id);
     
         if (!$anggota_keluarga) {
-            return redirect('admin/dataIbu')->with('error', 'Data Ibu tidak ditemukan');
+            return redirect('admin/dataIbu')->with('error', 'Data Orang Tua tidak ditemukan');
         }
-        // $anggota_keluarga->tanggal_lahir = $request->tanggal_lahir;
-        // $anggota_keluarga->no_kk = $request->no_kk;
-        // $anggota_keluarga->jk = $request->jk;
-        // $anggota_keluarga->nama = $request->nama;
-        // $anggota_keluarga->status = $request->status;
-
-        
+    
+        // Update anggota keluarga
         $anggota_keluarga->update([
             'nama' => $request->nama,
             'tanggal_lahir' => $request->tanggal_lahir,
             'jk' => $request->jk,
             'status' => $request->status,
-            'no_kk' => $request->no_kk
         ]);
-
     
-        return redirect('admin/dataIbu')->with('success', 'Data Ibu berhasil diubah');
+        // Cek apakah no_kk ada di KeluargaModel dan update jika ditemukan
+        if (KeluargaModel::where('no_kk', $request->no_kk)->exists()) {
+            $anggota_keluarga->update([
+                'no_kk' => $request->no_kk
+            ]);
+        } else {
+            return redirect('admin/dataIbu')->with('error', 'No KK tidak ditemukan di database Keluarga');
+        }
+    
+        return redirect('admin/dataIbu')->with('success', 'Data Orang Tua berhasil diubah');
     }
+    
     
 
     public function destroy($nik)
     {
         $check = AnggotaKeluargaModel::find($nik);
         if (!$check) {
-            return redirect('admin/dataIbu')->with('error', 'Data Data Ibu tidak ditemukan');
+            return redirect('admin/dataIbu')->with('error', 'Data Data Orang Tua tidak ditemukan');
         }
 
         try {
             AnggotaKeluargaModel::destroy($nik);
-            return redirect('admin/dataIbu')->with('success', 'Data Data Ibu berhasil dihapus');
+            return redirect('admin/dataIbu')->with('success', 'Data Data Orang Tua berhasil dihapus');
         } catch (\Illuminate\Database\QueryException $e) {
-            return redirect('admin/dataIbu')->with('error', 'Data Data Ibu gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+            return redirect('admin/dataIbu')->with('error', 'Data Data Orang Tua gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
         }
     }
 
     public function list(Request $request)
     {
-        $anggota_keluargas = AnggotaKeluargaModel::select('nik', 'no_kk', 'nama', 'tanggal_lahir', 'jk', 'status')
-                                ->where('status', 'ibu'); // Menambahkan kondisi status 'ibu'
-
-        // $anggota_keluargas = AnggotaKeluargaModel::select('anggota_keluarga.nik', 'anggota_keluarga.no_kk', 'user.nama', 'anggota_keluarga.tanggal_lahir', 'anggota_keluarga.jk', 'anggota_keluarga.status')
-        // ->join('user', 'anggota_keluarga.nik', '=', 'nik') // Melakukan join dengan tabel users berdasarkan user_id
-        // ->where('anggota_keluarga.status', 'ibu')
-        // ->get();
+        $query = AnggotaKeluargaModel::where('status', 'ibu');
     
-        if ($request->no_kk) {
-            $anggota_keluargas->where('no_kk', $request->no_kk);
+        if ($request->nama) {
+            $query->where('nama', $request->nama);
         }
+    
+        $anggota_keluargas = $query->get();
     
         return DataTables::of($anggota_keluargas)
             ->addIndexColumn() // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)

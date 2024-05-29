@@ -153,6 +153,7 @@ Route::group(['prefix' => 'user'], function () {
     Route::group(['prefix' => 'jadwal'], function () {
         Route::get('/', [JadwalUserController::class, 'index']); // menampilkan halaman awal user
         Route::post('/list', [JadwalUserController::class, 'list']); // menampilkan data user dalam bentuk json untuk datatables
+        Route::post('/listDashboard', [JadwalUserController::class, 'listDashboard']); // menampilkan data user dalam bentuk json untuk datatables
     });
     Route::group(['prefix' => 'dataUser'], function () {
         Route::get('/', [UserDataUserController::class, 'index']); // menampilkan halaman awal user

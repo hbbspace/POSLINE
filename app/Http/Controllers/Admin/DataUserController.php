@@ -28,58 +28,58 @@ class DataUserController extends Controller
         return view('admin.dataUser.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'user' => $user, 'activeMenu' => $activeMenu]);
     }
 
-    public function create()
-    {
-        $breadcrumb = (object) [
-            'title' => 'Tambah Data User',
-            'list' => ['Home', 'Data User', 'Tambah']
-        ];
+    // public function create()
+    // {
+    //     $breadcrumb = (object) [
+    //         'title' => 'Tambah Data User',
+    //         'list' => ['Home', 'Data User', 'Tambah']
+    //     ];
     
-        $page = (object) [
-            'title' => 'Tambah Data User baru'
-        ];
+    //     $page = (object) [
+    //         'title' => 'Tambah Data User baru'
+    //     ];
     
-        // Mengambil data NIK dari tabel AnggotaKeluargaModel dengan status 'ibu'
-        $nik = AnggotaKeluargaModel::select('nik')
-                    ->where('status', 'ibu')
-                    ->whereNotIn('nik', function($query) {
-                        $query->select('nik')->from('user');
-                    })
-                    ->get();
+    //     // Mengambil data NIK dari tabel AnggotaKeluargaModel dengan status 'ibu'
+    //     $nik = AnggotaKeluargaModel::select('nik')
+    //                 ->where('status', 'ibu')
+    //                 ->whereNotIn('nik', function($query) {
+    //                     $query->select('nik')->from('user');
+    //                 })
+    //                 ->get();
     
-        $activeMenu = 'dataUser';
+    //     $activeMenu = 'dataUser';
     
-        return view('admin.dataUser.create', [
-            'breadcrumb' => $breadcrumb, 
-            'page' => $page, 
-            'nik' => $nik, 
-            'activeMenu' => $activeMenu
-        ]);
-    }
+    //     return view('admin.dataUser.create', [
+    //         'breadcrumb' => $breadcrumb, 
+    //         'page' => $page, 
+    //         'nik' => $nik, 
+    //         'activeMenu' => $activeMenu
+    //     ]);
+    // }
     
-    public function store(Request $request)
-    {
-        // Validasi input
-        $request->validate([
-            'nik' => 'required|string|min:3',
-            'password' => 'required|min:3',
-            'username' => 'required|string|max:50'
-        ]);
+    // public function store(Request $request)
+    // {
+    //     // Validasi input
+    //     $request->validate([
+    //         'nik' => 'required|string|min:3',
+    //         'password' => 'required|min:3',
+    //         'username' => 'required|string|max:50'
+    //     ]);
     
-        // Pengecekan apakah NIK sudah ada di tabel users
-        if (UserModel::where('nik', $request->nik)->exists()) {
-            return redirect('admin/dataUser')->with('error', 'Gagal menambah data user, NIK sudah terdaftar.');
-        }
+    //     // Pengecekan apakah NIK sudah ada di tabel users
+    //     if (UserModel::where('nik', $request->nik)->exists()) {
+    //         return redirect('admin/dataUser')->with('error', 'Gagal menambah data user, NIK sudah terdaftar.');
+    //     }
     
-        // Membuat user baru jika NIK belum ada
-        UserModel::create([
-            'nik' => $request->nik,
-            'password' => Hash::make($request->password), // Hash password
-            'username' => $request->username
-        ]);
+    //     // Membuat user baru jika NIK belum ada
+    //     UserModel::create([
+    //         'nik' => $request->nik,
+    //         'password' => Hash::make($request->password), // Hash password
+    //         'username' => $request->username
+    //     ]);
     
-        return redirect('admin/dataUser')->with('success', 'Data User berhasil disimpan');
-    }
+    //     return redirect('admin/dataUser')->with('success', 'Data User berhasil disimpan');
+    // }
     
     
 
@@ -104,12 +104,12 @@ class DataUserController extends Controller
     public function edit(string $id)
     {
         $user = UserModel::find($id);
-        $nik = AnggotaKeluargaModel::select('nik')
-                    ->where('status', 'ibu')
-                    ->whereNotIn('nik', function($query) {
-                        $query->select('nik')->from('user');
-                    })
-                    ->get();
+        // $nik = AnggotaKeluargaModel::select('nik')
+        //             ->where('status', 'ibu')
+        //             ->whereNotIn('nik', function($query) {
+        //                 $query->select('nik')->from('user');
+        //             })
+        //             ->get();
         $breadcrumb = (object) [
             'title' => 'Edit Data User',
             'list' => ['Home', 'Data User', 'Edit']
@@ -122,7 +122,7 @@ class DataUserController extends Controller
         $activeMenu = 'dataUser';
 
         return view('admin.dataUser.edit', ['breadcrumb' => $breadcrumb, 
-         'page' => $page, 'user' => $user, 'nik' => $nik, 'activeMenu' => $activeMenu]);
+         'page' => $page, 'user' => $user, 'activeMenu' => $activeMenu]);
     }
 
     public function update(Request $request, string $id)

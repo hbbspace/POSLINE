@@ -54,5 +54,19 @@ class JadwalUserController extends Controller
             ->rawColumns(['Keterangan']) // memberitahu bahwa kolom aksi adalah html
             ->make(true);
     }
+
+    public function listDashboard()
+    {
+        $jadwal_pemeriksaan = PemeriksaanModel::select('pemeriksaan_id', 'agenda', 'tanggal', 'tempat')
+        ->where('tanggal', '>=', now())
+        ->get();
+        
+    
+        return DataTables::of($jadwal_pemeriksaan)
+            ->addIndexColumn() // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
+            ->make(true);
+    }
+
+
     
 }    

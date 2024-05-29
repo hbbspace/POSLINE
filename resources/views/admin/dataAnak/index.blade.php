@@ -15,32 +15,33 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-    @endif
-    
-    @if(session('error'))
+        @endif
+
+        @if(session('error'))
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <span class="">{{ session('error') }}</span>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-    @endif
+        @endif
+
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Filter :</label>
                     <div class="col-3">
-                        <select class="form-control" id="no_kk" name="no_kk" required>
+                        <select class="form-control" id="nama" name="nama">
                             <option value="">- Semua -</option>
                             @foreach($anggota_keluarga as $item)
-                                <option value="{{ $item->no_kk }}">{{ $item->no_kk }}</option>
+                                <option value="{{ $item->nama }}">{{ $item->nama }}</option>
                             @endforeach
                         </select>
-                        <small class="form-text text-muted">Nomor KK</small>
+                        <small class="form-text text-muted">Nama</small>
                     </div>
                 </div>
             </div>
-        </div>        
+        </div>
         <table class="table table-bordered table-striped table-hover table-sm" id="table_anak">
             <thead>
                 <tr>
@@ -60,21 +61,20 @@
 @endsection
 
 @push('css')
-
 @endpush
 
 @push('js')
 <script>
     $(document).ready(function() {
-        var dataKeluarga = $('#table_anak').DataTable({
+        var dataAnak = $('#table_anak').DataTable({
             processing: true,
-            serverSide : true,
+            serverSide: true,
             ajax: {
-                "url": "{{ url('admin/dataAnak/list') }}",
-                "dataType": "json",
-                "type": "POST",
-                "data": function (d) {
-                    d.no_kk = $('#no_kk').val();
+                url: "{{ url('admin/dataAnak/list') }}",
+                type: "POST",
+                data: function (d) {
+                    d._token = "{{ csrf_token() }}";
+                    d.nama = $('#nama').val();
                 }
             },
             columns: [
@@ -87,52 +87,18 @@
                         return meta.row + 1; // Nomor indeks baris dimulai dari 0, jadi tambahkan 1
                     }
                 },
-                {
-                    data: "no_kk",
-                    className: "",
-                    orderable: true,
-                    searchable: true
-                },
-                {
-                    data: "nik",
-                    className: "",
-                    orderable: true,
-                    searchable: true
-                },
-                {
-                    data: "nama",
-                    className: "",
-                    orderable: true,
-                    searchable: true
-                },
-                {
-                    data: "tanggal_lahir",
-                    className: "",
-                    orderable: true,
-                    searchable: true
-                },
-                {
-                    data: "jk",
-                    className: "",
-                    orderable: true,
-                    searchable: true
-                },
-                {
-                    data: "status",
-                    className: "",
-                    orderable: true,
-                    searchable: true
-                },
-                {
-                    data: "aksi",
-                    className: "",
-                    orderable: false,
-                    searchable: false
-                }
+                { data: "no_kk", className: "", orderable: true, searchable: true },
+                { data: "nik", className: "", orderable: true, searchable: true },
+                { data: "nama", className: "", orderable: true, searchable: true },
+                { data: "tanggal_lahir", className: "", orderable: true, searchable: true },
+                { data: "jk", className: "", orderable: true, searchable: true },
+                { data: "status", className: "", orderable: true, searchable: true },
+                { data: "aksi", className: "", orderable: false, searchable: false }
             ]
         });
-        $('#no_kk').on('change', function() {
-            tableAnak.ajax.reload();
+
+        $('#nama').on('change', function() {
+            dataAnak.ajax.reload();
         });
     });
 </script>

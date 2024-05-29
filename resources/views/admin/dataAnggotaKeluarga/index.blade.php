@@ -30,13 +30,13 @@
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Filter :</label>
                     <div class="col-3">
-                        <select class="form-control" id="no_kk" name="no_kk" required>
+                        <select class="form-control" id="nama" name="nama" required>
                             <option value="">- Semua -</option>
                             @foreach($anggota_keluarga as $item)
-                                <option value="{{ $item->no_kk }}">{{ $item->no_kk }}</option>
+                                <option value="{{ $item->nama }}">{{ $item->nama }}</option>
                             @endforeach
                         </select>
-                        <small class="form-text text-muted">Nomor KK</small>
+                        <small class="form-text text-muted">Nama</small>
                     </div>
                 </div>
             </div>
@@ -74,7 +74,7 @@
                 "dataType": "json",
                 "type": "POST",
                 "data": function (d) {
-                    d.no_kk = $('#no_kk').val();
+                    d.nama = $('#nama').val();
                 }
             },
             columns: [
@@ -131,7 +131,7 @@
                 }
             ]
         });
-        $('#no_kk').on('change', function() {
+        $('#nama').on('change', function() {
             dataKeluarga.ajax.reload();
         });
     });

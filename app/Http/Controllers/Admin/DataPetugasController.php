@@ -165,7 +165,7 @@ class DataPetugasController extends Controller
             'title' => 'Edit Data Admin'
         ];
 
-        $activeMenu = 'admin.dataPetugas'; // set menu yang sedang aktif
+        $activeMenu = 'dataPetugas'; // set menu yang sedang aktif
 
         return view('admin.dataPetugas.edit', [
             'breadcrumb' => $breadcrumb,

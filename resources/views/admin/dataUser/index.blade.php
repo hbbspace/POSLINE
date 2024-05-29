@@ -69,7 +69,7 @@
                 "dataType": "json",
                 "type": "POST",
                 "data": function (d) {
-                    d.nik = $('#nik').val();
+                    d.user_id = $('#user_id').val();
                 }
             },
             columns: [
@@ -99,7 +99,7 @@
                 }
             ]
         });
-        $('#nik').on('change', function() {
+        $('#user_id').on('change', function() {
             dataTable.ajax.reload();
         });
     });
