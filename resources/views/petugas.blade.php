@@ -42,8 +42,32 @@
                             </a>
                         </div>
                     </div>
+                    <div class="col-lg-6">
+                        <div class="card card-info">
+                            <div class="card-header">
+                                <h3>Perbandingan Berat Balita</h3>
+                            </div>
+                            <div class="card-body">
+                                <div style="width: 100%; max-width: 600px; margin: 0 auto;">
+                                    <canvas id="beratChart" width="400" height="200"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="card card-info">
+                            <div class="card-header">
+                                <h3>Perbandingan Tinggi Balita</h3>
+                            </div>
+                            <div class="card-body">
+                                <div style="width: 100%; max-width: 600px; margin: 0 auto;">
+                                    <canvas id="tinggiChart" width="400" height="200"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <a href="{{ route('logout') }}" class="btn btn-danger mt-3">Logout</a>
             </div>
         </div>
     </div>
@@ -53,7 +77,7 @@
     <div class="card card-info">
         <div class="card-header">
             <a href="{{ url('/petugas/jadwal')}}">
-                <h3>Jadwal Yang Akan Datang</h3>
+                <h3>Jadwal Terbaru</h3>
             </a>
         </div>
         <div class="card-body">
@@ -126,7 +150,68 @@
                     orderable: true,
                     searchable: true
                 }
-            ]
+            ],
+            dom: 'rtip' // Menghilangkan search bar dan show entries
+
+        });
+    });
+</script>
+@endpush
+
+
+@push('js')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var ctx = document.getElementById('beratChart').getContext('2d');
+        var beratChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Laki-laki' , 'Perempuan'],
+                datasets: [{
+                    label: 'Berat Rata-rata (Kg)',
+                    data: [{{ $beratRataLaki }}, {{ $beratRataPerempuan }}],
+                    backgroundColor: ['#36A2EB', '#FF6384'],
+                    borderColor: ['#36A2EB', '#FF6384'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: true
+            }
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var ctx = document.getElementById('tinggiChart').getContext('2d');
+        var tinggiChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Laki-laki' , 'Perempuan'],
+                datasets: [{
+                    label: 'Tinggi Rata-rata (Cm)',
+                    data: [{{ $tinggiRataLaki }}, {{ $tinggiRataPerempuan }}],
+                    backgroundColor: ['#36A2EB', '#FF6384'],
+                    borderColor: ['#36A2EB', '#FF6384'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: true
+            }
         });
     });
 </script>

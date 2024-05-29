@@ -47,9 +47,10 @@
                             <option value="Anak">Anak</option>
                         </select>
                     </div>
-                </div>
-                <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <div class="d-flex justify-content-center mt-2">
+                        <button type="submit" class="btn btn-primary mx-2" >Tambah</button>
+                        <a href="{{ url('admin/dataAnak') }}" class="btn btn-secondary mx-2" >Kembali</a>
+                    </div>  
                 </div>
             </form>
         </div>

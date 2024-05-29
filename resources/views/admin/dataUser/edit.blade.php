@@ -16,7 +16,7 @@
                 @csrf
                 @method('PUT')
 
-                <div class="card">
+   
                     <div class="card-body">
                         <div class="form-group">
                             {{-- <label for="nik">NIK</label>
@@ -36,13 +36,14 @@
                             <label for="password">Password</label>
                             <input type="password" class="form-control" id="password" name="password">
                             <small class="text-muted">Kosongkan jika tidak ingin mengubah password</small>
+                        </div>
+                        
+                                            <div class="d-flex justify-content-center mt-2">
+                                                <button type="submit" class="btn btn-primary mx-2" >Simpan Perubahan</button>
+                                                <a href="{{ url('admin/dataUser') }}" class="btn btn-secondary mx-2" >Kembali</a>
+                                            </div>  
+                                        </div>
                     </div>
-                    </div>
-
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                    </div>
-                </div>
             </form>
         </div>
     </div>

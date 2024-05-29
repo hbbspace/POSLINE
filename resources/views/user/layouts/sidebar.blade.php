@@ -29,24 +29,28 @@
             <li class="nav-header">Balita</li>
             <li class="nav-item">
                 <a href="{{ url('user/dataBalitaUser') }}" class="nav-link {{ $activeMenu == 'dataBalitaUser' ? 'active' : '' }}">
-                    <i class="nav-icon far fa-bookmark"></i>
+                    <i class="nav-icon fas fa-child"></i>
                     <p>Data Balita</p>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{{ url('user/dataPemeriksaanBalita') }}" class="nav-link {{ $activeMenu == 'dataPemeriksaanBalita' ? 'active' : '' }}">
-                    <i class="nav-icon far fa-user"></i>
+                    <i class="nav-icon far fa-calendar-check"></i>
                     <p>Riwayat Pemeriksaan</p>
                 </a>
             </li>
             <li class="nav-header">Data Jadwal</li>
             <li class="nav-item">
                 <a href="{{ url('user/jadwal') }}" class="nav-link {{ $activeMenu == 'jadwal' ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-cubes"></i>
+                    <i class="nav-icon fas fa-calendar-alt"></i>
                     <p>Jadwal</p>
                 </a>
             </li>
-            <li class="nav-header">                <a href="{{ route('logout') }}">Logout</a>
+            <li class="nav-item">
+                <a href="{{ route('logout') }}" class="nav-link">
+                    <i class="nav-icon fas fa-sign-out-alt"></i>
+                    <p>Logout</p>
+                </a>
             </li>
         </ul>
     </nav>

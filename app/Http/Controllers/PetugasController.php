@@ -6,6 +6,7 @@ use App\Models\HasilPemeriksaanModel;
 use App\Models\PemeriksaanModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class PetugasController extends Controller
@@ -24,6 +25,33 @@ class PetugasController extends Controller
         ->where('hasil_pemeriksaan.admin_id', $admin_id)
         ->distinct()
         ->count('pemeriksaan.pemeriksaan_id');
+
+        $maxPemeriksaanId = HasilPemeriksaanModel::max('pemeriksaan_id');
+
+        
+        $beratRataLaki = HasilPemeriksaanModel::select(DB::raw('AVG(hasil_pemeriksaan.berat_badan) as berat_rata_laki'))
+        ->join('anggota_keluarga', 'anggota_keluarga.nik', '=', 'hasil_pemeriksaan.nik')
+        ->where('anggota_keluarga.jk', 'L')
+        ->where('hasil_pemeriksaan.pemeriksaan_id', $maxPemeriksaanId)
+        ->value('berat_rata_laki');
+
+        $beratRataPerempuan = HasilPemeriksaanModel::select(DB::raw('AVG(hasil_pemeriksaan.berat_badan) as berat_rata_perempuan'))
+            ->join('anggota_keluarga', 'anggota_keluarga.nik', '=', 'hasil_pemeriksaan.nik')
+            ->where('anggota_keluarga.jk', 'P')
+            ->where('hasil_pemeriksaan.pemeriksaan_id', $maxPemeriksaanId)
+            ->value('berat_rata_perempuan');
+            
+        $tinggiRataLaki = HasilPemeriksaanModel::select(DB::raw('AVG(hasil_pemeriksaan.tinggi_badan) as tinggi_rata_laki'))
+            ->join('anggota_keluarga', 'anggota_keluarga.nik', '=', 'hasil_pemeriksaan.nik')
+            ->where('anggota_keluarga.jk', 'L')
+            ->where('hasil_pemeriksaan.pemeriksaan_id', $maxPemeriksaanId)
+            ->value('tinggi_rata_laki');
+
+        $tinggiRataPerempuan = HasilPemeriksaanModel::select(DB::raw('AVG(hasil_pemeriksaan.tinggi_badan) as tinggi_rata_perempuan'))
+            ->join('anggota_keluarga', 'anggota_keluarga.nik', '=', 'hasil_pemeriksaan.nik')
+            ->where('anggota_keluarga.jk', 'P')
+            ->where('hasil_pemeriksaan.pemeriksaan_id', $maxPemeriksaanId)
+            ->value('tinggi_rata_perempuan');
     
         // session()->flush();
         $breadcrumb = (object) [
@@ -36,6 +64,10 @@ class PetugasController extends Controller
         return view('petugas', ['breadcrumb' => $breadcrumb, 
         'activeMenu' => $activeMenu,
         'total_pemeriksaan'=> $total_pemeriksaan,
+        'beratRataLaki'=>$beratRataLaki,
+        'beratRataPerempuan'=>$beratRataPerempuan,
+        'tinggiRataLaki'=>$tinggiRataLaki,
+        'tinggiRataPerempuan'=>$tinggiRataPerempuan,
         'total_jadwal'=>$total_jadwal]);
     }
 

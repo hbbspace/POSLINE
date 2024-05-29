@@ -51,8 +51,10 @@
                                     <option value="2">Admin</option>
                                 </select>
                             </div>
-                            <button type="submit" class="btn btn-primary">Tambah</button>
-                        </form>
+                            <div class="d-flex justify-content-center mt-2">
+                                <button type="submit" class="btn btn-primary mx-2" >Tambah</button>
+                                <a href="{{ url('admin/dataPetugas') }}" class="btn btn-secondary mx-2" >Kembali</a>
+                            </div>                          </form>
                     </div>
                 </div>
             </div>

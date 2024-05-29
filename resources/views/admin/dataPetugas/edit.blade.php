@@ -54,7 +54,10 @@
                             <option value="2" {{ $admin->level == '2' ? 'selected' : '' }}>Admin</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                    <div class="d-flex justify-content-center mt-2">
+                        <button type="submit" class="btn btn-primary mx-2" >Simpan Perubahan</button>
+                        <a href="{{ url('admin/dataPetugas') }}" class="btn btn-secondary mx-2" >Kembali</a>
+                    </div>  
                 </form>
             </div>
         </div>

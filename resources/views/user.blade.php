@@ -37,7 +37,6 @@
                         </div>
                     </div>
                 </div>
-                <a href="{{ route('logout') }}" class="btn btn-danger mt-3">Logout</a>
             </div>
         </div>
     </div>
@@ -47,7 +46,7 @@
     <div class="card card-info">
         <div class="card-header">
             <a href="{{ url('/user/jadwal')}}">
-                <h3>Jadwal Yang Akan Datang</h3>
+                <h3>Jadwal Terbaru</h3>
             </a>
         </div>
         <div class="card-body">
@@ -120,7 +119,9 @@
                     orderable: true,
                     searchable: true
                 }
-            ]
+            ],
+            dom: 'rtip' // Menghilangkan search bar dan show entries
+
         });
     });
 </script>

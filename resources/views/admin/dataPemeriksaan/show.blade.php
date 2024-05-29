@@ -64,7 +64,9 @@
                 </tr>
             </table>
         @endif
-        <a href="{{ url('admin/dataPemeriksaan') }}" class="btn btn-sm btn-primary mt-2">Kembali</a>
+        <div class="d-flex justify-content-center mt-2">
+            <a href="{{ url('admin/dataPemeriksaan') }}" class="btn btn-sm btn-primary mt-2">Kembali</a>
+        </div>  
     </div>
 </div>
 @endsection

@@ -1,28 +1,28 @@
 @extends('petugas.layouts.template')
 
 @section('content')
+@if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <span>{{ session('success') }}</span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <span>{{ session('error') }}</span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+@endif
     <div class="container">
         <div class="card card-info">
             <div class="card-header">
                 <h3 class="card-title">Edit Data Profile</h3>
             </div>            
-            @if(session('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <span>{{ session('success') }}</span>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            @endif
-        
-            @if(session('error'))
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <span>{{ session('error') }}</span>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            @endif
             <div class="card-body">
                 <form action="{{ url('petugas/dataPetugas', Auth::guard('admin')->user()->admin_id) }}" method="POST">
                     @csrf
@@ -47,7 +47,12 @@
                             <option value="P" {{ old('jk', $admin->jk) == 'P' ? 'selected' : '' }}>Perempuan</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                        <a href="{{url('petugas/dataPetugas')}}">
+                            <button type="button" class="btn btn-secondary">Kembali</button>
+                        </a>
+                    </div>
                 </form>
             </div>
         </div>

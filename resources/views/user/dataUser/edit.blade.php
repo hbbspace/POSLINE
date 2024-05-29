@@ -1,7 +1,24 @@
 @extends('user.layouts.template')
 
 @section('content')
-    <div class="container">
+<div class="container">
+        @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <span>{{ session('success') }}</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
+        
+        @if(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <span>{{ session('error') }}</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
         <div class="card card-info">
             
             <div class="card-header">
@@ -27,7 +44,7 @@
                     </div> --}}
                     <div class="d-flex justify-content-center mt-2">
                         <button type="submit" class="btn btn-primary mx-2" >Simpan Perubahan</button>
-                        <a href="{{ url('user/dataUser') }}" class="btn btn-warning mx-2" >Kembali</a>
+                        <a href="{{ url('user/dataUser') }}" class="btn btn-secondary mx-2" >Kembali</a>
                     </div>
                 </form>
             </div>

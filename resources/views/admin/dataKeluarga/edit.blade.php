@@ -16,7 +16,7 @@
                 @csrf
                 @method('PUT')
 
-                <div class="card">
+ 
                     <div class="card-body">
                         <div class="form-group">
                             <label for="no_kk">Nomor Kartu Keluarga</label>
@@ -27,12 +27,16 @@
                             <label for="alamat">Alamat</label>
                             <input type="text" class="form-control" id="alamat" name="alamat" value="{{ $keluarga->alamat }}">
                         </div>
+                        <div class="form-group">
+                            <label for="pendapatan">Pendapatan</label>
+                            <input type="text" class="form-control" id="pendapatan" name="pendapatan" value="{{ $keluarga->pendapatan }}">
+                        </div>
+                        <div class="d-flex justify-content-center mt-2">
+                            <button type="submit" class="btn btn-primary mx-2" >Simpan Perubahan</button>
+                            <a href="{{ url('admin/dataKeluarga') }}" class="btn btn-secondary mx-2" >Kembali</a>
+                        </div>  
                     </div>
 
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                    </div>
-                </div>
             </form>
         </div>
     </div>

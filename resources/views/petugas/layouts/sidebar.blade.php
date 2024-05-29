@@ -28,24 +28,28 @@
             <li class="nav-header">Pemeriksaan</li>
             <li class="nav-item">
                 <a href="{{ url('petugas/pemeriksaanBalita') }}" class="nav-link {{ $activeMenu == 'pemeriksaanBalita' ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-list-ul"></i>
+                    <i class="nav-icon fas fa-notes-medical"></i>
                     <p>List Pemeriksaan Balita</p>
                 </a>
             </li>   
             <li class="nav-item">
                 <a href="{{ url('petugas/historyPemeriksaan') }}" class="nav-link {{ $activeMenu == 'hasilPemeriksaanBalita' ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-list-ul"></i>
+                    <i class="nav-icon fas fa-history"></i>
                     <p>History Pemeriksaan Balita</p>
                 </a>
             </li>   
             <li class="nav-header">Jadwal Pemeriksaan</li>
             <li class="nav-item">
                 <a href="{{ url('petugas/jadwal') }}" class="nav-link {{ $activeMenu == 'jadwal' ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-list-ul"></i>
+                    <i class="nav-icon far fa-calendar-alt"></i>
                     <p>Jadwal</p>
                 </a>
             </li>   
-            <li class="nav-header">                <a href="{{ route('logout') }}">Logout</a>
+            <li class="nav-item">
+                <a href="{{ route('logout') }}" class="nav-link">
+                    <i class="nav-icon fas fa-sign-out-alt"></i>
+                    <p>Logout</p>
+                </a>
             </li>
         </ul>
     </nav>

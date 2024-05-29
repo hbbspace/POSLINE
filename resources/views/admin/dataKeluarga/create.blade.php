@@ -16,21 +16,20 @@
                     <div class="form-group">
                         <label for="no_kk">Nomor Kartu Keluarga</label>
                         <input type="text" class="form-control" id="no_kk" name="no_kk">
-                        @error('no_kk')
-                        <div class="alert alert-danger">{{$message}}</div>
-                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="alamat">Alamat</label>
                         <input type="text" class="form-control" id="alamat" name="alamat">
-                        @error('no_kk')
-                            <div class="alert alert-danger">{{$message}}</div>
-                        @enderror
                     </div>
-                </div>
-
-                <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <div class="form-group">
+                        <label for="pendapatan">Pendapatan</label>
+                        <input type="text" class="form-control" id="pendapatan" name="pendapatan" step="0.01">
+                    </div>
+                    
+                        <div class="d-flex justify-content-center mt-2">
+                            <button type="submit" class="btn btn-primary mx-2" >Simpan Perubahan</button>
+                            <a href="{{ url('admin/dataKeluarga') }}" class="btn btn-secondary mx-2" >Kembali</a>
+                        </div>  
                 </div>
    
             </form>

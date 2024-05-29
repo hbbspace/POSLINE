@@ -5,16 +5,276 @@
 @section('content_header_subtitle', 'Admin')
 
 @section('content')
-    <div class="container">
-        <div class="card">
-            <div class="card-header">
-                Tampilan Admin
-            </div>
+<div class="container col-lg-12">
+    <div class="card card-info">
+        <div class="card-header">
+            <h3>Dashboard</h3>
+        </div>
+        <div class="card-body">
+            <div class="container-fluid">
+                <!-- Small boxes (Stat box) -->
+                <div class="row">
+                    {{-- <div class="col-lg-4 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-success">
+                            <div class="inner">
+                                <h3>Jumlah User</h3>
+                                <p>{{ $jumlahUser }} User</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-person"></i>
+                            </div>
+                            <a href="{{ url('/admin/dataUser') }}" class="small-box-footer">
+                                <i class="fas fa-arrow-circle-right"></i>
+                            </a>
+                        </div>
+                    </div> --}}
+                    <div class="col-lg-6 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-success">
+                            <div class="inner">
+                                <h3>Anak yang Terdaftar</h3>
+                                <p>{{ $anakTerdaftar }} Orang Balita</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-person"></i>
+                            </div>
+                            <a class="small-box-footer" href="{{ url('/admin/dataAnak') }}">
+                                <i class="fas fa-arrow-circle-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-success">
+                            <div class="inner">
+                                <h3>Jumlah KK Terdaftar</h3>
+                                <p>{{ $jumlahKK }} KK</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-person"></i>
+                            </div>
+                            <a class="small-box-footer" href="{{ url('/admin/dataKeluarga') }}">
+                                <i class="fas fa-arrow-circle-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-info">
+                            <div class="inner">
+                                <h3>Jumlah Pemeriksaan</h3>
+                                <p>{{ $jumlahPemeriksaan }} Hasil Pemeriksaan</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-medkit"></i>
+                            </div>
+                            <a class="small-box-footer" href="{{ url('/admin/dataPemeriksaan') }}">
+                                <i class="fas fa-arrow-circle-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-info">
+                            <div class="inner">
+                                <h3>Orang Tua Terdaftar</h3>
+                                <p>{{ $ortuTerdaftar }} Orang tua</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-person"></i>
+                            </div>
+                            <a class="small-box-footer" href="{{ url('/admin/dataIbu') }}">
+                                <i class="fas fa-arrow-circle-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-info">
+                            <div class="inner">
+                                <h3>Jadwal Terlaksana</h3>
+                                <p>{{ $jadwalTerlaksana }} Jadwal</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-calendar"></i>
+                            </div>
+                            <a class="small-box-footer" href="{{ url('/admin/jadwal') }}">
+                                <i class="fas fa-arrow-circle-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Chart Box -->
+                    <div class="col-lg-6">
+                        <div class="card card-info">
+                            <div class="card-header">
+                                <h3>Perbandingan Berat Balita</h3>
+                            </div>
+                            <div class="card-body">
+                                <div style="width: 100%; max-width: 600px; margin: 0 auto;">
+                                    <canvas id="beratChart" width="400" height="200"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-            <div class="card-body">
-                <h1>Login Sebagai Admin</h1>
-                <a href="{{ route('logout') }}">Logout</a>
+                    <div class="col-lg-6">
+                        <div class="card card-info">
+                            <div class="card-header">
+                                <h3>Perbandingan Tinggi Balita</h3>
+                            </div>
+                            <div class="card-body">
+                                <div style="width: 100%; max-width: 600px; margin: 0 auto;">
+                                    <canvas id="tinggiChart" width="400" height="200"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+</div>
+<div class="container col-lg-12 mt-4">
+    <div class="card card-info">
+        <div class="card-header">
+            <a href="{{ url('/admin/jadwal') }}">
+                <h3>Jadwal Terbaru</h3>
+            </a>
+        </div>
+        <div class="card-body">
+            <section class="content">
+                <table class="table table-bordered table-striped table-hover table-sm" id="table_jadwal">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Pemeriksaan ID</th>
+                            <th>Agenda</th>
+                            <th>Tanggal</th>
+                            <th>Tempat</th>
+                        </tr>
+                    </thead>
+                </table>
+            </section>
+        </div>
+    </div>
+</div>
+
+@push('css')
+<!-- Tambahkan CSS tambahan di sini -->
+@endpush
+
+@push('js')
+<script>
+    $(document).ready(function() {
+        $('#table_jadwal').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ url('user/jadwal/listDashboard') }}",
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            },
+            columns: [
+                {
+                    data: null,
+                    className: "text-center",
+                    orderable: false,
+                    searchable: false,
+                    render: function(data, type, row, meta) {
+                        return meta.row + 1; // Nomor indeks baris dimulai dari 0, jadi tambahkan 1
+                    }
+                },
+                {
+                    data: "pemeriksaan_id",
+                    className: "",
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: "agenda",
+                    className: "",
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: "tanggal",
+                    className: "",
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: "tempat",
+                    className: "",
+                    orderable: true,
+                    searchable: true
+                }
+            ],
+            dom: 'rtip' // Menghilangkan search bar dan show entries
+        });
+    });
+</script>
+@endpush
 @endsection
+
+@push('js')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var ctx = document.getElementById('beratChart').getContext('2d');
+        var beratChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Laki-laki' , 'Perempuan'],
+                datasets: [{
+                    label: 'Berat Rata-rata (Kg)',
+                    data: [{{ $beratRataLaki }}, {{ $beratRataPerempuan }}],
+                    backgroundColor: ['#36A2EB', '#FF6384'],
+                    borderColor: ['#36A2EB', '#FF6384'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: true
+            }
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var ctx = document.getElementById('tinggiChart').getContext('2d');
+        var tinggiChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Laki-laki' , 'Perempuan'],
+                datasets: [{
+                    label: 'Tinggi Rata-rata (Cm)',
+                    data: [{{ $tinggiRataLaki }}, {{ $tinggiRataPerempuan }}],
+                    backgroundColor: ['#36A2EB', '#FF6384'],
+                    borderColor: ['#36A2EB', '#FF6384'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: true
+            }
+        });
+    });
+</script>
+@endpush
+
+

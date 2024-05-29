@@ -45,7 +45,10 @@ class DataUserController extends Controller
         $data = [
             'username' => $request->username,
         ];    
-
+        $existingAdmin = UserModel::where('username', $request->username)->first();
+        if ($existingAdmin && Hash::check($request->password, $existingAdmin->password)) {
+            return redirect('user/dataUser/edit')->with('error', 'Request Tidak Tersedia, Gunakan Data Lain');
+        }
         // Jika password diberikan, perbarui password
         if ($request->filled('password')) {
             $request->validate([

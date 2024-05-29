@@ -22,9 +22,15 @@
                     <th>Alamat</th>
                     <td>{{ $keluarga->alamat }}</td>
                 </tr>
+                <tr>
+                    <th>Pendapatan</th>
+                    <td>{{ $keluarga->pendapatan }}</td>
+                </tr>
             </table>
         @endempty
-        <a href="{{ url('admin/dataKeluarga') }}" class="btn btn-sm btn-primary mt-2">Kembali</a>
+        <div class="d-flex justify-content-center mt-2">
+            <a href="{{ url('admin/dataKeluarga') }}" class="btn btn-sm btn-primary mt-2">Kembali</a>
+        </div>  
     </div>
 </div>
 @endsection

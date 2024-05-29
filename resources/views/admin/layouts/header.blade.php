@@ -4,9 +4,9 @@
     <li class="nav-item">
       <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
     </li>
-    <li class="nav-item d-none d-sm-inline-block">
+    {{-- <li class="nav-item d-none d-sm-inline-block">
       <a href="../../index3.html" class="nav-link">Home</a>
-    </li>
+    </li> --}}
     
   </ul>
   
@@ -35,7 +35,7 @@
     </li> --}}
     
     <li class="nav-item">
-      <a class="nav-link" href="#">
+      <a class="nav-link" href="{{url('/admin/dataAdmin/'.Auth::guard('admin')->user()->admin_id)}}">
         <i class="fas fa-user"></i> <!-- Icon user -->
         {{ Auth::guard('admin')->user()->nama_admin }}
       </a>
@@ -47,3 +47,4 @@
     </li>
   </ul>
 </nav>
+

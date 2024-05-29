@@ -54,12 +54,15 @@ class KeluargaController extends Controller
     {
         $request->validate([
             'no_kk' => 'required|string|min:3|unique:keluarga,no_kk',
-            'alamat' => 'required|string|max:100'
+            'alamat' => 'required|string|max:100',
+            'pendapatan' => 'required|numeric|min:5'
+
         ]);
 
         KeluargaModel::create([
             'no_kk' => $request->no_kk,
-            'alamat' => $request->alamat
+            'alamat' => $request->alamat,
+            'pendapatan'=>$request->pendapatan
         ]);
 
         return redirect('admin/dataKeluarga')->with('success', 'Data keluarga berhasil disimpan');
@@ -117,7 +120,8 @@ class KeluargaController extends Controller
     {
         $request->validate([
             'no_kk' => 'required|string|min:3',
-            'alamat' => 'required|string|max:100'
+            'alamat' => 'required|string|max:100',
+            'pendapatan' => 'required|numeric|min:5'
         ]);
 
         $keluarga = KeluargaModel::find( $no_kk);
@@ -128,6 +132,7 @@ class KeluargaController extends Controller
 
         $keluarga->no_kk = $request->no_kk;
         $keluarga->alamat = $request->alamat;
+        $keluarga->pendapatan = $request->pendapatan;
         $keluarga->save();
 
         return redirect('admin/dataKeluarga')->with('success', 'Data keluarga berhasil diubah');

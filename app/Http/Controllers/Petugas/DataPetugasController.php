@@ -42,6 +42,11 @@ class DataPetugasController extends Controller
             'nama_admin' => 'required|string|min:3',
             'jk' => 'required|in:L,P',
         ]);
+
+        $existingAdmin = AdminModel::where('username', $request->username)->first();
+        if ($existingAdmin && Hash::check($request->password, $existingAdmin->password)) {
+            return redirect('petugas/dataPetugas/edit')->with('error', 'Request Tidak Tersedia, Gunakan Inputan Lain');
+        }
     
         $data = [
             'username' => $request->username,

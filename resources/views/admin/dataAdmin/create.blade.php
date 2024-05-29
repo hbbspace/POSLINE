@@ -51,7 +51,10 @@
                                     <option value="1">Super Admin</option>
                                 </select>
                             </div>
-                            <button type="submit" class="btn btn-primary">Tambah</button>
+                            <div class="d-flex justify-content-center mt-2">
+                                <button type="submit" class="btn btn-primary mx-2" >Tambah</button>
+                                <a href="{{ url('admin/dataAdmin') }}" class="btn btn-secondary mx-2" >Kembali</a>
+                            </div>  
                         </form>
                     </div>
                 </div>

@@ -16,7 +16,6 @@
                 @csrf
                 @method('PUT')
 
-                <div class="card">
                     <div class="card-body">
                         <div class="form-group">
                             <label for="tinggi_badan">Tinggi Badan</label>
@@ -54,12 +53,12 @@
                             <input type="text" class="form-control" id="catatan" name="catatan" value="{{ $hasil_pemeriksaan->catatan }}">
                         </div>
                         <input type="hidden" id="admin_id" name="admin_id" value="{{ Auth::guard('admin')->user()->admin_id }}">
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <a href="{{ url('petugas/hasilPemeriksaan') }}" class="btn btn-secondary ml-2">Kembali</a>
+                        </div> 
                     </div>
-
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-info">Simpan</button>
-                    </div>
-                </div>
+                
             </form>
         </div>
     </div>

@@ -58,9 +58,10 @@
                         <option value="Ibu">Ibu</option>
                     </select>
                 </div>
-            </div>
-            <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Simpan</button>
+                <div class="d-flex justify-content-center mt-2">
+                    <button type="submit" class="btn btn-primary mx-2" >Tambah</button>
+                    <a href="{{ url('admin/dataIbu') }}" class="btn btn-secondary mx-2" >Kembali</a>
+                </div>  
             </div>
         </form>
     </div>
