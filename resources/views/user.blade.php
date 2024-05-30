@@ -66,62 +66,53 @@
         </div>
     </div>
 </div>
+
+<!-- Grafik Garis -->
+<div class="container col-lg-12 mt-4">
+    <div class="card card-info">
+        <div class="card-header">
+            <h3>Grafik Tinggi Badan</h3>
+        </div>
+        <div class="card-body">
+            <canvas id="heightChart" width="800" height="200"></canvas> <!-- Atur panjang dan lebar grafik di sini -->
+        </div>
+    </div>
+</div>
+<!-- Akhir Grafik Garis -->
+
 @endsection
 
-@push('css')
-<!-- Tambahkan CSS tambahan di sini -->
-@endpush
-
 @push('js')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     $(document).ready(function() {
-        $('#table_jadwal').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: {
-                url: "{{ url('user/jadwal/listDashboard') }}",
-                type: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                }
-            },
-            columns: [
-                {
-                    data: null,
-                    className: "text-center",
-                    orderable: false,
-                    searchable: false,
-                    render: function(data, type, row, meta) {
-                        return meta.row + 1; // Nomor indeks baris dimulai dari 0, jadi tambahkan 1
+        $.ajax({
+            url: "{{ route('user.chart.data') }}", // Sesuaikan dengan route yang telah Anda buat
+            method: 'GET',
+            success: function(response) {
+                var ctx = document.getElementById('heightChart').getContext('2d');
+                var heightChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: response.labels,
+                        datasets: [{
+                            label: 'Tinggi Badan',
+                            data: response.data,
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1,
+                            fill: false
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
                     }
-                },
-                {
-                    data: "pemeriksaan_id",
-                    className: "",
-                    orderable: true,
-                    searchable: true
-                },
-                {
-                    data: "agenda",
-                    className: "",
-                    orderable: true,
-                    searchable: true
-                },
-                {
-                    data: "tanggal",
-                    className: "",
-                    orderable: true,
-                    searchable: true
-                },
-                {
-                    data: "tempat",
-                    className: "",
-                    orderable: true,
-                    searchable: true
-                }
-            ],
-            dom: 'rtip' // Menghilangkan search bar dan show entries
-
+                });
+            }
         });
     });
 </script>

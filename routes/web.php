@@ -155,6 +155,10 @@ Route::group(['prefix' => 'user'], function () {
         Route::post('/list', [JadwalUserController::class, 'list']); // menampilkan data user dalam bentuk json untuk datatables
         Route::post('/listDashboard', [JadwalUserController::class, 'listDashboard']); // menampilkan data user dalam bentuk json untuk datatables
     });
+
+    // Tambahkan rute untuk grafik tinggi badan di sini
+    Route::get('/user/chart/data', [HasilPemeriksaanUserController::class, 'getChartData'])->name('user.chart.data');
+
     Route::group(['prefix' => 'dataUser'], function () {
         Route::get('/', [UserDataUserController::class, 'index']); // menampilkan halaman awal user
         Route::post('/list', [UserDataUserController::class, 'list']); // menampilkan data user dalam bentuk json untuk datatables
