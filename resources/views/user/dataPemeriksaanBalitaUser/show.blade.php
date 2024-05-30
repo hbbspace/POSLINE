@@ -44,7 +44,7 @@
                 </tr>
                 <tr>
                     <th>Lingkar Badan</th>
-                    <td>{{ $hasil_pemeriksaan->lingkar_kepala }} Cm</td>
+                    <td>{{ $hasil_pemeriksaan->lingkar_badan }} Cm</td>
                 </tr>
                 <tr>
                     <th>Riwayat Penyakit</th>

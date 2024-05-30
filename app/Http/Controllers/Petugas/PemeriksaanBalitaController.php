@@ -164,10 +164,6 @@ public function update(Request $request, string $id)
             'stunting' => $nilaiStunting,
         ]);
 
-
-
-
-
     return redirect('petugas/pemeriksaanBalita')->with('success', 'Data Pemeriksaan Balita berhasil diubah');
 }
 
@@ -205,7 +201,8 @@ public function update(Request $request, string $id)
     }
     
 
-    public function calculate(string $id){
+    public function calculate(string $id)
+    {
         // Mendefinisikan bobot kriteria
         $kriteria = [
             'jam_kerja' => 0.1,
@@ -214,12 +211,12 @@ public function update(Request $request, string $id)
             'kondisi_ekonomi' => 0.3,
             'riwayat_penyakit' => 0.2,
         ];
-    
+
         // Mendapatkan seluruh data dengan status "Selesai" dan pemeriksaan_id tertentu
         $pemeriksaan = HasilPemeriksaanModel::select(
-            'hasil_pemeriksaan.id',
-            'keluarga.jam_kerja', 
-            'keluarga.pendapatan', 
+            'hasil_pemeriksaan.hasil_id',
+            'keluarga.jam_kerja',
+            'keluarga.pendapatan',
             'hasil_pemeriksaan.riwayat_penyakit',
             'hasil_pemeriksaan.malnutrisi',
             'hasil_pemeriksaan.stunting'
@@ -227,17 +224,20 @@ public function update(Request $request, string $id)
         ->join('anggota_keluarga', 'anggota_keluarga.nik', '=', 'hasil_pemeriksaan.nik')
         ->join('keluarga', 'keluarga.no_kk', '=', 'anggota_keluarga.no_kk')
         ->where('hasil_pemeriksaan.status', 'Selesai')
+        ->where('hasil_pemeriksaan.stunting', '!=', 'Tidak')
         ->where('hasil_pemeriksaan.pemeriksaan_id', $id)
         ->get();
-    
+
         $n = count($kriteria);
         $n2 = count($pemeriksaan);
         $nilai = array_fill(0, $n2, array_fill(0, $n, 0.0));
+        $normalisasi = array_fill(0, $n2, array_fill(0, $n, 0.0));
+        $utility = array_fill(0, $n2, array_fill(0, $n, 0.0));
         $total_nilai = array_fill(0, $n2, 0.0);
-    
-        for($i = 0; $i < $n2; $i++){
+
+        for ($i = 0; $i < $n2; $i++) {
             $j = 0;
-            
+
             $jam_kerja = $pemeriksaan[$i]->jam_kerja;
             if ($jam_kerja <= 8) {
                 $nilai[$i][$j] = 3;
@@ -247,9 +247,8 @@ public function update(Request $request, string $id)
                 $nilai[$i][$j] = 1;
             }
             $j++;
-    
-            // Asumsikan nilai malnutrisi didapat dari hasil perhitungan tertentu
-            $malnutrisi = $pemeriksaan[$i]->malnutrisi; // Misal ini sudah hasil perhitungan (BB-BB_min)+(LB-LB_min)
+
+            $malnutrisi = $pemeriksaan[$i]->malnutrisi;
             if ($malnutrisi == 'Rendah') {
                 $nilai[$i][$j] = 1;
             } elseif ($malnutrisi == 'Sedang') {
@@ -258,8 +257,8 @@ public function update(Request $request, string $id)
                 $nilai[$i][$j] = 3;
             }
             $j++;
-    
-            $stunting = $pemeriksaan[$i]->stunting; // Misal ini sudah nilai perbandingan tinggi badan
+
+            $stunting = $pemeriksaan[$i]->stunting;
             if ($stunting == 'Rendah') {
                 $nilai[$i][$j] = 1;
             } elseif ($stunting == 'Sedang') {
@@ -268,7 +267,7 @@ public function update(Request $request, string $id)
                 $nilai[$i][$j] = 3;
             }
             $j++;
-    
+
             $pendapatan = $pemeriksaan[$i]->pendapatan;
             if ($pendapatan >= 10000000) {
                 $nilai[$i][$j] = 1;
@@ -282,41 +281,120 @@ public function update(Request $request, string $id)
                 $nilai[$i][$j] = 5;
             }
             $j++;
-    
+
             $riwayat_penyakit = $pemeriksaan[$i]->riwayat_penyakit;
-            if($riwayat_penyakit == 'Tidak ada'){
+            if ($riwayat_penyakit == 'Tidak ada') {
                 $nilai[$i][$j] = 1;
-            } else if($riwayat_penyakit == 'Ringan'){
+            } elseif ($riwayat_penyakit == 'Ringan') {
                 $nilai[$i][$j] = 2;
             } else {
                 $nilai[$i][$j] = 3;
             }
-    
-            // Menghitung skor utilitas untuk setiap alternatif
-            $j = 0;
-            foreach($kriteria as $key => $bobot){
-                $total_nilai[$i] += $nilai[$i][$j] * $bobot;
-                $j++;
+        }
+
+        foreach ($nilai as $row) {
+            $nilaiC1[] = $row[0];
+            $nilaiC2[] = $row[1];
+            $nilaiC3[] = $row[2];
+            $nilaiC4[] = $row[3];
+            $nilaiC5[] = $row[4];
+        }
+
+        for ($i = 0; $i < $n2; $i++) {
+            for ($j = 0; $j < $n; $j++) {
+                switch ($j) {
+                    case 0:
+                        $normalisasi[$i][$j] = (min($nilaiC1)/$nilai[$i][$j]);
+                      break;
+                    case 1:
+                        $normalisasi[$i][$j] = ($nilai[$i][$j]/max($nilaiC2));
+                      break;
+                    case 2:
+                        $normalisasi[$i][$j] = ($nilai[$i][$j]/max($nilaiC3));
+                      break;
+                    case 3:
+                        $normalisasi[$i][$j] = ($nilai[$i][$j]/max($nilaiC4));
+                      break;
+                    case 4:
+                        $normalisasi[$i][$j] = ($nilai[$i][$j]/max($nilaiC5));
+                      break;
+                  }
             }
         }
-    
-        // Menyusun total nilai beserta ID pemeriksaan
-        $nilai_dan_id = [];
-        for($i = 0; $i < $n2; $i++){
-            $nilai_dan_id[] = ['id' => $pemeriksaan[$i]->id, 'nilai' => $total_nilai[$i]];
+
+        for ($i = 0; $i < $n2; $i++) {
+            for ($j = 0; $j < $n; $j++) {
+                switch ($j) {
+                    case 0:
+                        $utility[$i][$j] = ($normalisasi[$i][$j] * $kriteria['jam_kerja']);
+                      break;
+                    case 1:
+                        $utility[$i][$j] = ($normalisasi[$i][$j] * $kriteria['malnutrisi']);
+                      break;
+                    case 2:
+                        $utility[$i][$j] = ($normalisasi[$i][$j] * $kriteria['kondisi_stunting']);
+                      break;
+                    case 3:
+                        $utility[$i][$j] = ($normalisasi[$i][$j] * $kriteria['kondisi_ekonomi']);
+                      break;
+                    case 4:
+                        $utility[$i][$j] = ($normalisasi[$i][$j] * $kriteria['riwayat_penyakit']);
+                      break;
+                  }
+            }
         }
-    
-        // Mengurutkan berdasarkan nilai total dari terbesar ke terkecil
-        usort($nilai_dan_id, function($a, $b) {
+
+        
+        for ($i = 0; $i < $n2; $i++) {
+            for ($j = 0; $j < $n; $j++) {
+                $total_nilai[$i] += $utility[$i][$j];
+            }
+        }
+
+        $nilai_dan_id = [];
+        for ($i = 0; $i < $n2; $i++) {
+            $nilai_dan_id[] = ['hasil_id' => $pemeriksaan[$i]->hasil_id, 'nilai' => $total_nilai[$i]];
+        }
+
+        usort($nilai_dan_id, function ($a, $b) {
             return $b['nilai'] <=> $a['nilai'];
         });
-    
-        // Memperbarui kolom rangking berdasarkan peringkat
-        foreach($nilai_dan_id as $rank => $item) {
-            HasilPemeriksaanModel::where('id', $item['id'])
-                ->update(['rangking' => $rank + 1]);
+
+        foreach ($nilai_dan_id as $rank => $item) {
+            HasilPemeriksaanModel::where('hasil_id', $item['hasil_id'])
+                ->update(['ranking' => $rank + 1]);
         }
-    
-        return $nilai_dan_id; // Mengembalikan daftar nilai dan ID pemeriksaan beserta peringkatnya
+
+        $breadcrumb = (object) [
+            'title' => 'Pemeriksaan',
+            'list' => ['Home', 'Jadwal']
+        ];
+
+        $page = (object) [
+            'title' => 'Daftar Agenda Pemeriksaan'
+        ];
+
+        $activeMenu = 'jadwal';
+
+        $rankingBalita = HasilPemeriksaanModel::select(
+            'anggota_keluarga.nama',
+            //'anggota_keluarga.nama as nama_orang_tua',
+            'hasil_pemeriksaan.usia',
+            'hasil_pemeriksaan.riwayat_penyakit',
+            'hasil_pemeriksaan.malnutrisi',
+            'hasil_pemeriksaan.stunting',
+            'keluarga.jam_kerja',
+            'keluarga.pendapatan',
+            'hasil_pemeriksaan.ranking',
+        )
+        ->join('anggota_keluarga', 'anggota_keluarga.nik', '=', 'hasil_pemeriksaan.nik')
+        ->join('keluarga', 'keluarga.no_kk', '=', 'anggota_keluarga.no_kk')
+        ->where('hasil_pemeriksaan.pemeriksaan_id', $id)
+        ->where('anggota_keluarga.status', 'anak')
+        ->where('hasil_pemeriksaan.ranking','!=','null')
+        ->orderBy('hasil_pemeriksaan.ranking', 'asc')
+        ->get();
+
+        return view('petugas.jadwal.ranking', ['breadcrumb' => $breadcrumb, 'page' => $page, 'rankingBalita' => $rankingBalita, 'activeMenu' => $activeMenu]);
     }
 }

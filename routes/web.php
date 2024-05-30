@@ -214,7 +214,8 @@ Route::group(['prefix'=>'petugas'], function(){
     Route::group(['prefix' => 'jadwal'], function () {
         Route::get('/', [JadwalPetugasController::class, 'index']); // menampilkan halaman awal user
         Route::post('/list', [JadwalPetugasController::class, 'list']); // menampilkan data user dalam bentuk json untuk datatables
-        Route::post('/prosesSPK/{id}', [PemeriksaanBalitaController::class, 'calculate']); // menampilkan data user dalam bentuk json untuk datatables
+        Route::get('/prosesSPK/{id}', [PemeriksaanBalitaController::class, 'calculate']);
+        //Route::get('/{id}', [PemeriksaanBalitaController::class, 'rankingBalita'])->name('ranking.balita');
     });
 });
 
