@@ -13,17 +13,17 @@ return new class extends Migration
     {
         Schema::create('data_acuan', function (Blueprint $table) {
             $table->integer('usia', 2)->primary();
-            $table->float('TB-L_min', 3);
+            $table->float('TB_L', 3);
             // $table->float('BB-L_max', 3);
-            $table->float('TB-P_min', 3);
+            $table->float('TB_P', 3);
             // $table->float('BB-P_max', 3);
-            $table->float('BB-L_min', 3);
+            $table->float('BB_L', 3);
             // $table->float('TB-L_max', 3);
-            $table->float('BB-P_min', 3);
+            $table->float('BB_P', 3);
             // $table->float('TB-P_max', 3);
-            $table->float('LB-L_min', 3);
+            $table->float('LB_L', 3);
             // $table->float('LK-L_max', 3);
-            $table->float('LB-P_min', 3);
+            $table->float('LB_P', 3);
             // $table->float('LK-P_max', 3);
             // Tambahkan kolom lain sesuai kebutuhan
         });

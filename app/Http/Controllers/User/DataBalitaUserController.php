@@ -43,6 +43,7 @@ class DataBalitaUserController extends Controller
             ,'anggota_keluarga.no_kk','anggota_keluarga.jk','anggota_keluarga.tanggal_lahir',
             DB::raw('TIMESTAMPDIFF(MONTH, anggota_keluarga.tanggal_lahir, CURDATE()) as usia')
         )                ->where('anggota_keluarga.no_kk', '=', $no_kk)
+                         ->where('anggota_keluarga.status', '=', 'anak')
             ->get();
 
 
@@ -72,7 +73,8 @@ class DataBalitaUserController extends Controller
         'anggota_keluarga.jk',
         'anggota_keluarga.tanggal_lahir',
         DB::raw('TIMESTAMPDIFF(MONTH, anggota_keluarga.tanggal_lahir, CURDATE()) as usia')
-    )->where('anggota_keluarga.no_kk', $no_kk);
+    )->where('anggota_keluarga.no_kk', $no_kk)
+    ->where('anggota_keluarga.status', '=', 'anak');
 
     if ($request->nama) {
         $query->where('anggota_keluarga.nama', $request->nama );
