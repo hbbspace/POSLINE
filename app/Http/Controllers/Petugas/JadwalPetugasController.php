@@ -48,7 +48,8 @@ class JadwalPetugasController extends Controller
                 } else {
                     $btn = '<a class="btn btn-danger btn-sm">Telah Dilaksanakan</a> ';
                 }
-    
+                $btn .= '<a href="' . url('jadwal/prosesSPK/' . $jadwal_pemeriksaan->pemeriksaan_id) . '" class="btn btn-warning btn-sm">Proses</a> ';
+
                 return $btn;
             })
             ->rawColumns(['Keterangan']) // memberitahu bahwa kolom aksi adalah html

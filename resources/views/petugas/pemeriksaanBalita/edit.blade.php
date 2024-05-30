@@ -28,9 +28,9 @@
                         <input type="number" class="form-control" id="berat_badan" name="berat_badan" step="0.01" required>
                     </div>
                     <div class="form-group">
-                        <label for="lingkar_kepala">Lingkar Kepala</label>
+                        <label for="lingkar_badan">Lingkar Badan</label>
                         <small style="color: red">Gunakan tanda "." (titik) sebagai nilai koma jika terdapat bilangan desimal</small>
-                        <input type="number" class="form-control" id="lingkar_kepala" name="lingkar_kepala" step="0.01" required>
+                        <input type="number" class="form-control" id="lingkar_badan" name="lingkar_badan" step="0.01" required>
                     </div>
                     
                     <div class="form-group">

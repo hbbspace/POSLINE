@@ -15,11 +15,11 @@ class DataAcuanModel extends Model
 
     protected $fillable = [
         'usia',
-        'BB-L_min',
-        'BB-P_min',
-        'TB-L_min',
-        'TB-P_min',
-        'LB-L_min',
-        'LB-P_min'
+        'BB_L',
+        'BB_P',
+        'TB_L',
+        'TB_P',
+        'LB_L',
+        'LB_P'
     ];
 }

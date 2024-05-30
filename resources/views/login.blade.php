@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
     <title>POSLINE</title>
+    <link rel="icon" href="{{ asset('img/logo.png') }}" type="image/png"> <!-- Favicon ditambahkan -->
     <style>
         .custom-border {
             border-color: #098DB3;

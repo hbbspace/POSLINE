@@ -26,8 +26,8 @@
                             <input type="number" class="form-control" id="berat_badan" name="berat_badan" step="0.01" value="{{ $hasil_pemeriksaan->berat_badan }}">
                         </div>
                         <div class="form-group">
-                            <label for="lingkar_kepala">Lingkar Kepala</label>
-                            <input type="number" class="form-control" id="lingkar_kepala" name="lingkar_kepala" step="0.01" value="{{ $hasil_pemeriksaan->lingkar_kepala }}">
+                            <label for="lingkar_badan">Lingkar Badan</label>
+                            <input type="number" class="form-control" id="lingkar_badan" name="lingkar_badan" step="0.01" value="{{ $hasil_pemeriksaan->lingkar_badan }}">
                         </div>
                         <div class="form-group">
                             <label for="riwayat_penyakit">Riwayat Penyakit</label>
@@ -55,7 +55,7 @@
                         <input type="hidden" id="admin_id" name="admin_id" value="{{ Auth::guard('admin')->user()->admin_id }}">
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary">Simpan</button>
-                            <a href="{{ url('petugas/hasilPemeriksaan') }}" class="btn btn-secondary ml-2">Kembali</a>
+                            <a href="{{ url('petugas/historyPemeriksaan') }}" class="btn btn-secondary ml-2">Kembali</a>
                         </div> 
                     </div>
                 

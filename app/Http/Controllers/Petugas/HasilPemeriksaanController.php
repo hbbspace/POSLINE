@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Petugas;
 
 use App\Http\Controllers\Admin\JadwalPemeriksaanController;
 use App\Http\Controllers\Controller;
+use App\Models\DataAcuanModel;
 use App\Models\HasilPemeriksaanModel;
 use App\Models\PemeriksaanModel;
 use Illuminate\Http\Request;
@@ -142,7 +143,7 @@ class HasilPemeriksaanController extends Controller
         $request->validate([
             'tinggi_badan' => 'required|numeric|min:1', 
             'berat_badan' => 'required|numeric|min:1', 
-            'lingkar_kepala' => 'required|numeric|min:1', 
+            'lingkar_badan' => 'required|numeric|min:1', 
             'riwayat_penyakit' => 'required|in:Tidak ada,Ringan,Berat', // Menyesuaikan dengan opsi yang diberikan sebelumnya
             'catatan' => 'nullable|string'
         ]);
@@ -150,9 +151,72 @@ class HasilPemeriksaanController extends Controller
         HasilPemeriksaanModel::find($id)->update([
             'tinggi_badan' => $request->tinggi_badan,
             'berat_badan' => $request->berat_badan,
-            'lingkar_kepala' => $request->lingkar_kepala,
+            'lingkar_badan' => $request->lingkar_badan,
             'riwayat_penyakit' => $request->riwayat_penyakit,
             'catatan' => $request->catatan,
+        ]);
+
+
+        $hasil_pemeriksaan = HasilPemeriksaanModel::select('keluarga.jam_kerja', 'keluarga.pendapatan', 'anggota_keluarga.jk', 'hasil_pemeriksaan.berat_badan',
+        'hasil_pemeriksaan.tinggi_badan','hasil_pemeriksaan.lingkar_badan','hasil_pemeriksaan.usia', 'hasil_pemeriksaan.berat_badan')
+        ->join('anggota_keluarga', 'anggota_keluarga.nik', '=', 'hasil_pemeriksaan.nik')
+        ->join('keluarga', 'keluarga.no_kk', '=', 'anggota_keluarga.no_kk')
+        ->where('hasil_pemeriksaan.hasil_id', $id)
+        ->get(); 
+
+        $firstResult = $hasil_pemeriksaan->first();
+
+        $jk=$firstResult->jk;
+        $usia=$firstResult->usia;
+
+        $acuan=DataAcuanModel::all()->where('usia',$usia);
+        $acuanFirst = $acuan->first();
+        if($jk=='L'){
+            $Malnutrisi=($firstResult->berat_badan-$acuanFirst->BB_L)+($firstResult->lingkar_badan-$acuanFirst->LB_L);
+
+            if($Malnutrisi >= 0){
+                $nilaiMalnutrisi = 'Rendah';
+            }else if($Malnutrisi >= -3){
+                $nilaiMalnutrisi = 'Sedang';
+            }else{
+                $nilaiMalnutrisi = 'Tinggi';
+            }
+
+            if($firstResult->tinggi_badan >= $acuanFirst->TB_L){
+                $nilaiStunting = 'Tidak';
+            }else if($firstResult->tinggi_badan >= $acuanFirst->TB_L - 2){
+                $nilaiStunting = 'Rendah';
+            }else if($firstResult->tinggi_badan >= $acuanFirst->TB_L - 5){
+                $nilaiStunting = 'Sedang';
+            }else{
+                $nilaiStunting = 'Tinggi';
+            }
+
+        }else if($jk=='P'){
+            $Malnutrisi=($firstResult->berat_badan-$acuanFirst->BB_P)+($firstResult->lingkar_badan-$acuanFirst->LB_P);
+
+            if($Malnutrisi >= 0){
+                $nilaiMalnutrisi = 'Rendah';
+            }else if($Malnutrisi >= -3){
+                $nilaiMalnutrisi = 'Sedang';
+            }else{
+                $nilaiMalnutrisi = 'Tinggi';
+            }
+
+            if($firstResult->tinggi_badan >= $acuanFirst->TB_P){
+                $nilaiStunting = 'Tidak';
+            }else if($firstResult->tinggi_badan >= $acuanFirst->TB_P - 2){
+                $nilaiStunting = 'Rendah';
+            }else if($firstResult->tinggi_badan >= $acuanFirst->TB_P - 5){
+                $nilaiStunting = 'Sedang';
+            }else{
+                $nilaiStunting = 'Tinggi';
+            }
+        }
+
+        HasilPemeriksaanModel::find($id)->update([
+            'malnutrisi' => $nilaiMalnutrisi,
+            'stunting' => $nilaiStunting,
         ]);
 
         return redirect('petugas/historyPemeriksaan')->with('success', 'Data Pemeriksaan Balita berhasil diubah');

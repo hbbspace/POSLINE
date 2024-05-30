@@ -102,53 +102,67 @@ public function update(Request $request, string $id)
     ]);
 
 
-    
+    $hasil_pemeriksaan = HasilPemeriksaanModel::select('keluarga.jam_kerja', 'keluarga.pendapatan', 'anggota_keluarga.jk', 'hasil_pemeriksaan.berat_badan',
+        'hasil_pemeriksaan.tinggi_badan','hasil_pemeriksaan.lingkar_badan','hasil_pemeriksaan.usia', 'hasil_pemeriksaan.berat_badan')
+        ->join('anggota_keluarga', 'anggota_keluarga.nik', '=', 'hasil_pemeriksaan.nik')
+        ->join('keluarga', 'keluarga.no_kk', '=', 'anggota_keluarga.no_kk')
+        ->where('hasil_pemeriksaan.hasil_id', $id)
+        ->get(); 
 
-    $hasil_pemeriksaan = HasilPemeriksaanModel::select('keluarga.jam_kerja', 'keluarga.pendapatan', 'anggoa_keluarga.jk', 'hasil_pemeriksaan.berat_badan',
-    'hasil_pemeriksaan.tinggi_badan','hasil_pemeriksaan.lingkar_badan','hasil_pemeriksaan.usia', 'hasil_pemeriksaan.berat_badan')
-    ->join('anggota_keluarga', 'anggota_keluarga.nik', '=', 'hasil_pemeriksaan.nik')
-    ->join('keluarga', 'keluarga.no_kk', '=', 'anggota_keluarga.no_kk')
-    ->where('hasil_pemeriksaan.hasil_id', $id)
-    ->get(); 
+        $firstResult = $hasil_pemeriksaan->first();
 
-    $jk=$hasil_pemeriksaan->jk;
-    $usia=$hasil_pemeriksaan->usia;
+        $jk=$firstResult->jk;
+        $usia=$firstResult->usia;
 
-    $acuan=DataAcuanModel::all()->where('usia',$usia);
-    if($jk=='L'){
-        $bbmin=$acuan->BB_L;
-        $Malnutrisi=($hasil_pemeriksaan->berat_badan-$bbmin)+($hasil_pemeriksaan->lingkar_badan-$acuan->LB_L);
-        if($Malnutrisi >= 0){
-            $nilaiMalnutrisi = 1;
-        }else if($Malnutrisi<0 && $Malnutrisi<=-3){
-            $nilaiMalnutrisi= 2;
-        }else{
-$nilaiMalnutrisi=3;
+        $acuan=DataAcuanModel::all()->where('usia',$usia);
+        $acuanFirst = $acuan->first();
+        if($jk=='L'){
+            $Malnutrisi=($firstResult->berat_badan-$acuanFirst->BB_L)+($firstResult->lingkar_badan-$acuanFirst->LB_L);
+
+            if($Malnutrisi >= 0){
+                $nilaiMalnutrisi = 'Rendah';
+            }else if($Malnutrisi >= -3){
+                $nilaiMalnutrisi = 'Sedang';
+            }else{
+                $nilaiMalnutrisi = 'Tinggi';
+            }
+
+            if($firstResult->tinggi_badan >= $acuanFirst->TB_L){
+                $nilaiStunting = 'Tidak';
+            }else if($firstResult->tinggi_badan >= $acuanFirst->TB_L - 2){
+                $nilaiStunting = 'Rendah';
+            }else if($firstResult->tinggi_badan >= $acuanFirst->TB_L - 5){
+                $nilaiStunting = 'Sedang';
+            }else{
+                $nilaiStunting = 'Tinggi';
+            }
+
+        }else if($jk=='P'){
+            $Malnutrisi=($firstResult->berat_badan-$acuanFirst->BB_P)+($firstResult->lingkar_badan-$acuanFirst->LB_P);
+
+            if($Malnutrisi >= 0){
+                $nilaiMalnutrisi = 'Rendah';
+            }else if($Malnutrisi >= -3){
+                $nilaiMalnutrisi = 'Sedang';
+            }else{
+                $nilaiMalnutrisi = 'Tinggi';
+            }
+
+            if($firstResult->tinggi_badan >= $acuanFirst->TB_P){
+                $nilaiStunting = 'Tidak';
+            }else if($firstResult->tinggi_badan >= $acuanFirst->TB_P - 2){
+                $nilaiStunting = 'Rendah';
+            }else if($firstResult->tinggi_badan >= $acuanFirst->TB_P - 5){
+                $nilaiStunting = 'Sedang';
+            }else{
+                $nilaiStunting = 'Tinggi';
+            }
         }
-        if($hasil_pemeriksaan->tinggi_badan >= $acuan->TB_L){
 
-            $nilaiStunting=='Tidak'
-        }else if($hasil_pemeriksaan->tinggi_badan < $acuan->TB_L && $hasil_pemeriksaan->tinggi_badan >= $acuan->TB_L-2){
-
-        }else if($hasil_pemeriksaan->tinggi_badan < $acuan->TB_L && $hasil_pemeriksaan->tinggi_badan >= ($acuan->TB_L-2){
-
-        }else{
-
-        }
-    }else if($jk=='P'){
-        $bbmin=$acuan->BB_P;
-        $Malnutrisi=($hasil_pemeriksaan->berat_badan-$bbmin)+($hasil_pemeriksaan->lingkar_badan-$acuan->LB_P);
-        if($Malnutrisi >= 0){
-            $nilaiMalnutrisi = 1;
-        }else if($Malnutrisi<0 && $Malnutrisi<=-3){
-            $nilaiMalnutrisi= 2;
-        }else{
-            $nilaiMalnutrisi=3;
-        }
-
-        
-    }
-
+        HasilPemeriksaanModel::find($id)->update([
+            'malnutrisi' => $nilaiMalnutrisi,
+            'stunting' => $nilaiStunting,
+        ]);
 
 
 
@@ -192,110 +206,117 @@ $nilaiMalnutrisi=3;
     
 
     public function calculate(string $id){
-        // $pemeriksaanId = HasilPemeriksaanModel::where('status', 'Selesai')->where($id);
+        // Mendefinisikan bobot kriteria
         $kriteria = [
             'jam_kerja' => 0.1,
-            'malnutrisi	' => 0.1,
+            'malnutrisi' => 0.1,
             'kondisi_stunting' => 0.3,
             'kondisi_ekonomi' => 0.3,
             'riwayat_penyakit' => 0.2,
         ];
-
-        // Mendapatkan seluruh data dengan status "Selesai" dan pemeriksaan_id terbesar
-        $pemeriksaan = HasilPemeriksaanModel::select('keluarga.jam_kerja', 'keluarga.pendapatan', 'anggota_keluarga.jk', 'hasil_pemeriksaan.berat_badan',
-        'hasil_pemeriksaan.tinggi_badan','hasil_pemeriksaan.lingkar_badan','hasil_pemeriksaan.usia')
+    
+        // Mendapatkan seluruh data dengan status "Selesai" dan pemeriksaan_id tertentu
+        $pemeriksaan = HasilPemeriksaanModel::select(
+            'hasil_pemeriksaan.id',
+            'keluarga.jam_kerja', 
+            'keluarga.pendapatan', 
+            'hasil_pemeriksaan.riwayat_penyakit',
+            'hasil_pemeriksaan.malnutrisi',
+            'hasil_pemeriksaan.stunting'
+        )
         ->join('anggota_keluarga', 'anggota_keluarga.nik', '=', 'hasil_pemeriksaan.nik')
-        ->join('keluarga', 'keluarga.no_kk', '=', 'anggota_keluarga.no_kk')->where('hasil_pemeriksaan.status', 'Selesai')
-            ->where('hasil_pemeriksaan.pemeriksaan_id', $id)
-            ->get();
+        ->join('keluarga', 'keluarga.no_kk', '=', 'anggota_keluarga.no_kk')
+        ->where('hasil_pemeriksaan.status', 'Selesai')
+        ->where('hasil_pemeriksaan.pemeriksaan_id', $id)
+        ->get();
+    
         $n = count($kriteria);
-        $n2=count($pemeriksaan);
+        $n2 = count($pemeriksaan);
         $nilai = array_fill(0, $n2, array_fill(0, $n, 0.0));
-        $j=0;
-        for($i=0;$i<$n2;$i++){
-                $jam_kerja=$pemeriksaan->jam_krja;
-                if ($jam_kerja <= 8) {
-                    $nilai[$i][$j] = 3;
-                } elseif ($jam_kerja > 8 && $jam_kerja <= 12) {
-                    $nilai[$i][$j] = 2;
-                } else {
-                    $nilai[$i][$j] = 1;
-                }
-            $j++;
-
-                $pendapatan=$pemeriksaan->pendapatan;
-                if ($pendapatan >= 10000000) {
-                    $nilai[$i][$j] = 5;
-                } elseif ($pendapatan >= 7000000 && $pendapatan < 10000000) {
-                    $nilai[$i][$j] = 4;
-                } elseif ($pendapatan >= 5000000 && $pendapatan < 7000000) {
-                    $nilai[$i][$j] = 3;
-                } elseif ($pendapatan >= 3000000 && $pendapatan < 5000000) {
-                    $nilai[$i][$j] = 2;
-                } else {
-                    $nilai[$i][$j] = 1;
-                }
-            $j++;
-                $riwayat_penyakit=$pemeriksaan->riwayat_penyakit;
-                if($riwayat_penyakit == 'Tidak ada'){
-                    $nilai[$i][$j] = 3;
-                }else if($riwayat_penyakit == 'Ringan'){
-                    $nilai[$i][$j] = 2;
-                }else{
-                    $nilai[$i][$j] = 3;
-                }
-            $j++;
-
-            //teus nganti kabeh oleh nilaine
-
-            if($j=$n-1){
-                $j=0;
-            }
+        $total_nilai = array_fill(0, $n2, 0.0);
+    
+        for($i = 0; $i < $n2; $i++){
+            $j = 0;
             
+            $jam_kerja = $pemeriksaan[$i]->jam_kerja;
+            if ($jam_kerja <= 8) {
+                $nilai[$i][$j] = 3;
+            } elseif ($jam_kerja <= 12) {
+                $nilai[$i][$j] = 2;
+            } else {
+                $nilai[$i][$j] = 1;
+            }
+            $j++;
+    
+            // Asumsikan nilai malnutrisi didapat dari hasil perhitungan tertentu
+            $malnutrisi = $pemeriksaan[$i]->malnutrisi; // Misal ini sudah hasil perhitungan (BB-BB_min)+(LB-LB_min)
+            if ($malnutrisi == 'Rendah') {
+                $nilai[$i][$j] = 1;
+            } elseif ($malnutrisi == 'Sedang') {
+                $nilai[$i][$j] = 2;
+            } else {
+                $nilai[$i][$j] = 3;
+            }
+            $j++;
+    
+            $stunting = $pemeriksaan[$i]->stunting; // Misal ini sudah nilai perbandingan tinggi badan
+            if ($stunting == 'Rendah') {
+                $nilai[$i][$j] = 1;
+            } elseif ($stunting == 'Sedang') {
+                $nilai[$i][$j] = 2;
+            } else {
+                $nilai[$i][$j] = 3;
+            }
+            $j++;
+    
+            $pendapatan = $pemeriksaan[$i]->pendapatan;
+            if ($pendapatan >= 10000000) {
+                $nilai[$i][$j] = 1;
+            } elseif ($pendapatan >= 7000000) {
+                $nilai[$i][$j] = 2;
+            } elseif ($pendapatan >= 5000000) {
+                $nilai[$i][$j] = 3;
+            } elseif ($pendapatan >= 3000000) {
+                $nilai[$i][$j] = 4;
+            } else {
+                $nilai[$i][$j] = 5;
+            }
+            $j++;
+    
+            $riwayat_penyakit = $pemeriksaan[$i]->riwayat_penyakit;
+            if($riwayat_penyakit == 'Tidak ada'){
+                $nilai[$i][$j] = 1;
+            } else if($riwayat_penyakit == 'Ringan'){
+                $nilai[$i][$j] = 2;
+            } else {
+                $nilai[$i][$j] = 3;
+            }
+    
+            // Menghitung skor utilitas untuk setiap alternatif
+            $j = 0;
+            foreach($kriteria as $key => $bobot){
+                $total_nilai[$i] += $nilai[$i][$j] * $bobot;
+                $j++;
+            }
         }
-
-        
-    //     $nilai = array_fill(0, $n2, array_fill(0, $n, 0.0));
-    //     $i=0;
-    //     $j=0;
-
-    // foreach ($pemeriksaans as $pemeriksaan){
-    //     $jam_kerja=$pemeriksaan->jam_krja;
-    //     if ($jam_kerja <= 8) {
-    //         $nilai[$i][$j] = 3;
-    //     } elseif ($jam_kerja > 8 && $jam_kerja <= 12) {
-    //         $nilai[$i][$j] = 2;
-    //     } else {
-    //         $nilai[$i][$j] = 1;
-    //     }
-    //     $j++;
-    //     $pendapatan=$pemeriksaan->pendapatan;
-    //     if ($pendapatan >= 10000000) {
-    //         $nilai[$i][$j] = 5;
-    //     } elseif ($pendapatan >= 7000000 && $pendapatan < 10000000) {
-    //         $nilai[$i][$j] = 4;
-    //     } elseif ($pendapatan >= 5000000 && $pendapatan < 7000000) {
-    //         $nilai[$i][$j] = 3;
-    //     } elseif ($pendapatan >= 3000000 && $pendapatan < 5000000) {
-    //         $nilai[$i][$j] = 2;
-    //     } else {
-    //         $nilai[$i][$j] = 1;
-    //     }
-    //     $j++;
-    //     $riwayat_penyakit=$pemeriksaan->riwayat_penyakit;
-    //     if($riwayat_penyakit == 'Tidak ada'){
-    //         $nilai[$i][$j] = 3;
-    //     }else if($riwayat_penyakit == 'Ringan'){
-    //         $nilai[$i][$j] = 2;
-    //     }else{
-    //         $nilai[$i][$j] = 3;
-    //     }
-
-
-    //     if($j=$n){
-    //         $j=0;
-    //     }
-    // }
+    
+        // Menyusun total nilai beserta ID pemeriksaan
+        $nilai_dan_id = [];
+        for($i = 0; $i < $n2; $i++){
+            $nilai_dan_id[] = ['id' => $pemeriksaan[$i]->id, 'nilai' => $total_nilai[$i]];
+        }
+    
+        // Mengurutkan berdasarkan nilai total dari terbesar ke terkecil
+        usort($nilai_dan_id, function($a, $b) {
+            return $b['nilai'] <=> $a['nilai'];
+        });
+    
+        // Memperbarui kolom rangking berdasarkan peringkat
+        foreach($nilai_dan_id as $rank => $item) {
+            HasilPemeriksaanModel::where('id', $item['id'])
+                ->update(['rangking' => $rank + 1]);
+        }
+    
+        return $nilai_dan_id; // Mengembalikan daftar nilai dan ID pemeriksaan beserta peringkatnya
     }
-
 }

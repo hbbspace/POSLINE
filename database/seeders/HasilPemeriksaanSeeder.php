@@ -23,6 +23,8 @@ class HasilPemeriksaanSeeder extends Seeder
                 'berat_badan' => 9,
                 'lingkar_badan' => 43,
                 'riwayat_penyakit' => 'Tidak ada',
+                'malnutrisi' => 'Rendah',
+                'stunting' => 'Tidak',
                 'status' => 'Selesai',
             ],
             [
@@ -34,6 +36,8 @@ class HasilPemeriksaanSeeder extends Seeder
                 'berat_badan' => 14,
                 'lingkar_badan' => 53,
                 'riwayat_penyakit' => 'Ringan',
+                'malnutrisi' => 'Sedang',
+                'stunting' => 'Sedang',
                 'status' => 'Selesai',
             ],
             [
@@ -45,6 +49,8 @@ class HasilPemeriksaanSeeder extends Seeder
                 'berat_badan' => 9,
                 'lingkar_badan' => 43,
                 'riwayat_penyakit' => 'Berat',
+                'malnutrisi' => 'Tinggi',
+                'stunting' => 'Rendah',
                 'status' => 'Selesai',
             ],
             [
@@ -56,6 +62,8 @@ class HasilPemeriksaanSeeder extends Seeder
                 'berat_badan' => 12,
                 'lingkar_badan' => 52,
                 'riwayat_penyakit' => 'Ringan',
+                'malnutrisi' => 'Rendah',
+                'stunting' => 'Sedang',
                 'status' => 'Selesai',
             ],
             [
@@ -67,6 +75,8 @@ class HasilPemeriksaanSeeder extends Seeder
                 'berat_badan' => 9,
                 'lingkar_badan' => 44,
                 'riwayat_penyakit' => 'Berat',
+                'malnutrisi' => 'Rendah',
+                'stunting' => 'Sedang',
                 'status' => 'Selesai',
             ],
             [
@@ -78,6 +88,8 @@ class HasilPemeriksaanSeeder extends Seeder
                 'berat_badan' => 10,
                 'lingkar_badan' => 47,
                 'riwayat_penyakit' => 'Ringan',
+                'malnutrisi' => 'Rendah',
+                'stunting' => 'Sedang',
                 'status' => 'Selesai',
             ],
             [
@@ -89,6 +101,8 @@ class HasilPemeriksaanSeeder extends Seeder
                 'berat_badan' => 15,
                 'lingkar_badan' => 55,
                 'riwayat_penyakit' => 'Tidak ada',
+                'malnutrisi' => 'Rendah',
+                'stunting' => 'Sedang',
                 'status' => 'Selesai',
             ],
             [
@@ -100,6 +114,8 @@ class HasilPemeriksaanSeeder extends Seeder
                 'berat_badan' => 9.5,
                 'lingkar_badan' => 44,
                 'riwayat_penyakit' => 'Tidak ada',
+                'malnutrisi' => 'Sedang',
+                'stunting' => 'Rendah',
                 'status' => 'Selesai',
             ],
             [
@@ -111,6 +127,8 @@ class HasilPemeriksaanSeeder extends Seeder
                 'berat_badan' => 7.5,
                 'lingkar_badan' => 35,
                 'riwayat_penyakit' => 'Ringan',
+                'malnutrisi' => 'Tinggi',
+                'stunting' => 'Sedang',
                 'status' => 'Selesai',
             ],
             [
@@ -122,6 +140,8 @@ class HasilPemeriksaanSeeder extends Seeder
                 'berat_badan' => 11,
                 'lingkar_badan' => 44.5,
                 'riwayat_penyakit' => 'Tidak ada',
+                'malnutrisi' => 'Rendah',
+                'stunting' => 'Sedang',
                 'status' => 'Selesai',
             ],
             [
@@ -133,6 +153,8 @@ class HasilPemeriksaanSeeder extends Seeder
                 'berat_badan' => 7.5,
                 'lingkar_badan' => 38,
                 'riwayat_penyakit' => 'Tidak ada',
+                'malnutrisi' => 'Sedang',
+                'stunting' => 'Sedang',
                 'status' => 'Selesai',
             ],
         ]);
