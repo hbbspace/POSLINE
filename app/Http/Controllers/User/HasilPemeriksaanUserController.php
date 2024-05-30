@@ -83,8 +83,7 @@ class HasilPemeriksaanUserController extends Controller
             ->join('admin', 'hasil_pemeriksaan.admin_id', '=', 'admin.admin_id')
             ->join('pemeriksaan', 'hasil_pemeriksaan.pemeriksaan_id', '=', 'pemeriksaan.pemeriksaan_id')
             ->where('anggota_keluarga.no_kk', '=', $no_kk)->where('hasil_pemeriksaan.status','=','Selesai')
-            ->get(); // Menggunakan get() untuk mengambil hasil
-        
+;        
         if ($request->tanggal) {
             $hasil_pemeriksaan->where('pemeriksaan.tanggal', $request->tanggal);
         }
