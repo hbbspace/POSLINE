@@ -26,7 +26,7 @@ class PetugasController extends Controller
         ->distinct()
         ->count('pemeriksaan.pemeriksaan_id');
 
-        $maxPemeriksaanId = HasilPemeriksaanModel::max('pemeriksaan_id');
+        $maxPemeriksaanId = HasilPemeriksaanModel::where('status','Selesai')->max('pemeriksaan_id');
 
         
         $beratRataLaki = HasilPemeriksaanModel::select(DB::raw('AVG(hasil_pemeriksaan.berat_badan) as berat_rata_laki'))

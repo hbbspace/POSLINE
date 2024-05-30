@@ -24,7 +24,11 @@
                 </tr>
                 <tr>
                     <th>Pendapatan</th>
-                    <td>{{ $keluarga->pendapatan }}</td>
+                    <td>Rp.{{ $keluarga->pendapatan }}</td>
+                </tr>
+                <tr>
+                    <th>Jam Kerja</th>
+                    <td>{{ $keluarga->jam_kerja }} Jam</td>
                 </tr>
             </table>
         @endempty

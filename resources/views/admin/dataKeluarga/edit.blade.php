@@ -31,6 +31,10 @@
                             <label for="pendapatan">Pendapatan</label>
                             <input type="text" class="form-control" id="pendapatan" name="pendapatan" value="{{ $keluarga->pendapatan }}">
                         </div>
+                        <div class="form-group">
+                            <label for="jam_kerja">Jam Kerja</label>
+                            <input type="text" class="form-control" id="jam_kerja" name="jam_kerja" value="{{ $keluarga->jam_kerja }}">
+                        </div>
                         <div class="d-flex justify-content-center mt-2">
                             <button type="submit" class="btn btn-primary mx-2" >Simpan Perubahan</button>
                             <a href="{{ url('admin/dataKeluarga') }}" class="btn btn-secondary mx-2" >Kembali</a>

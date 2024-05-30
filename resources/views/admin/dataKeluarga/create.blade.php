@@ -25,6 +25,10 @@
                         <label for="pendapatan">Pendapatan</label>
                         <input type="text" class="form-control" id="pendapatan" name="pendapatan" step="0.01">
                     </div>
+                    <div class="form-group">
+                        <label for="jam_kerja">jam_kerja</label>
+                        <input type="text" class="form-control" id="jam_kerja" name="jam_kerja">
+                    </div>
                     
                         <div class="d-flex justify-content-center mt-2">
                             <button type="submit" class="btn btn-primary mx-2" >Simpan Perubahan</button>

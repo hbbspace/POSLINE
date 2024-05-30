@@ -24,7 +24,7 @@ class AdminController extends Controller
         ->where('tanggal', '<=', now())
         ->count();
 
-        $maxPemeriksaanId = HasilPemeriksaanModel::max('pemeriksaan_id');
+        $maxPemeriksaanId = HasilPemeriksaanModel::where('status','Selesai')->max('pemeriksaan_id');
 
         // dd($maxPemeriksaanId);
         

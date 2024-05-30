@@ -91,6 +91,7 @@ class JadwalPemeriksaanController extends Controller
     public function show($pemeriksaan_id)
     {
         $jadwal_pemeriksaan = PemeriksaanModel::find($pemeriksaan_id);
+        
         $breadcrumb = (object) [
             'title' => 'Detail Jadwal',
             'list' => ['Home', 'Jadwal', 'Detail']

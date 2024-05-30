@@ -19,7 +19,7 @@
                     <td>{{ $hasil_pemeriksaan->hasil_id }}</td>
                 </tr>
                 <tr>
-                    <th>Balita Id</th>
+                    <th>NIK</th>
                     <td>{{ $hasil_pemeriksaan->nik }}</td>
                 </tr>
                 <tr>
@@ -27,8 +27,8 @@
                     <td>{{ $hasil_pemeriksaan->nama }}</td>
                 </tr>
                 <tr>
-                    <th>Admin ID</th>
-                    <td>{{ $hasil_pemeriksaan->admin_id }}</td>
+                    <th>Usia</th>
+                    <td>{{ $hasil_pemeriksaan->usia }} Bulan</td>
                 </tr>
                 <tr>
                     <th>Nama Admin</th>
@@ -37,10 +37,6 @@
                 <tr>
                     <th>Pemeriksaan ID</th>
                     <td>{{ $hasil_pemeriksaan->pemeriksaan_id }}</td>
-                </tr>
-                <tr>
-                    <th>Agenda Pemeriksaan</th>
-                    <td>{{ $hasil_pemeriksaan->agenda }}</td>
                 </tr>
                 <tr>
                     <th>Tanggal Pemeriksaan</th>
@@ -56,11 +52,19 @@
                 </tr>
                 <tr>
                     <th>Lingkar Kepala</th>
-                    <td>{{ $hasil_pemeriksaan->lingkar_kepala }} Cm</td>
+                    <td>{{ $hasil_pemeriksaan->lingkar_badan }} Cm</td>
                 </tr>
                 <tr>
                     <th>Riwayat Pemyakit</th>
                     <td>{{ $hasil_pemeriksaan->riwayat_penyakit }}</td>
+                </tr>
+                <tr>
+                    <th>Malnutrisi</th>
+                    <td>{{ $hasil_pemeriksaan->malnutrisi }}</td>
+                </tr>
+                <tr>
+                    <th>Stunting</th>
+                    <td>{{ $hasil_pemeriksaan->stunting }}</td>
                 </tr>
             </table>
         @endif
