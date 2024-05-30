@@ -33,10 +33,6 @@
     @endif
             <table class="table table-bordered table-striped table-hover table-sm">
                 <tr>
-                    <th>ID</th>
-                    <td>{{ $user->user_id }}</td>
-                </tr>
-                <tr>
                     <th>Username</th>
                     <td>{{ $user->username }}</td>
                 </tr>

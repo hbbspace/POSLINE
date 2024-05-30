@@ -43,7 +43,6 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Pemeriksaan ID</th>
                     <th>agenda</th>
                     <th>Tanggal</th>
                     <th>Tempat</th>
@@ -82,12 +81,6 @@
                     render: function(data, type, row, meta) {
                         return meta.row + 1; // Nomor indeks baris dimulai dari 0, jadi tambahkan 1
                     }
-                },
-                {
-                    data: "pemeriksaan_id",
-                    className: "",
-                    orderable: true,
-                    searchable: true
                 },
                 {
                     data: "agenda",

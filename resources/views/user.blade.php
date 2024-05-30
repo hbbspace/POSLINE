@@ -55,7 +55,6 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Pemeriksaan ID</th>
                             <th>Agenda</th>
                             <th>Tanggal</th>
                             <th>Tempat</th>
