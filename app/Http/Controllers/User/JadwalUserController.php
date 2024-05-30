@@ -30,11 +30,13 @@ class JadwalUserController extends Controller
 
     public function list(Request $request)
     {
-        $jadwal_pemeriksaan = PemeriksaanModel::select('pemeriksaan_id', 'agenda', 'tanggal', 'tempat');
-    
-        if ($request->pemeriksaan_id) {
-            $jadwal_pemeriksaan->where('pemeriksaan_id', $request->pemeriksaan_id);
+        $query = PemeriksaanModel::query();
+
+        if ($request->tanggal) {
+            $query->where('tanggal', $request->tanggal);
         }
+    
+        $jadwal_pemeriksaan = $query->get();
     
         return DataTables::of($jadwal_pemeriksaan)
             ->addIndexColumn() // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)

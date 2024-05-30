@@ -7,6 +7,8 @@ use App\Models\AnggotaKeluargaModel;
 use App\Models\HasilPemeriksaanModel;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
+use App\Models\PemeriksaanModel;
+
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -55,8 +57,12 @@ class HasilPemeriksaanUserController extends Controller
     }
     
 
-    public function list()
+    public function list(Request $request)
     {
+        // $query = PemeriksaanModel::query();
+
+   
+        // $jadwal_pemeriksaan = $query->get();
         $user_id = Auth::guard('user')->user()->user_id;
 
         // Mengambil data no_kk dari user
@@ -79,8 +85,12 @@ class HasilPemeriksaanUserController extends Controller
             ->where('anggota_keluarga.no_kk', '=', $no_kk)->where('hasil_pemeriksaan.status','=','Selesai')
             ->get(); // Menggunakan get() untuk mengambil hasil
         
-        
-        
+        if ($request->tanggal) {
+            $hasil_pemeriksaan->where('pemeriksaan.tanggal', $request->tanggal);
+        }
+
+        // $hasil_pemeriksaan->get();
+
         return DataTables::of($hasil_pemeriksaan)
             ->addIndexColumn() // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
             ->addColumn('aksi', function ($hasil_pemeriksaan) { // menambahkan kolom aksi
@@ -89,6 +99,8 @@ class HasilPemeriksaanUserController extends Controller
             })
             ->rawColumns(['aksi'])
             ->make(true);
+
+        
     }
 
     public function show(String $hasil_id)

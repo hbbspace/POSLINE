@@ -28,10 +28,10 @@
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Filter :</label>
                     <div class="col-3">
-                        <select class="form-control" id="pemeriksaan_id" name="pemeriksaan_id" required>
+                        <select class="form-control" id="tanggal" name="tanggal" required>
                             <option value="">- Semua -</option>
                             @foreach($jadwal_pemeriksaan as $item)
-                                <option value="{{ $item->pemeriksaan_id }}">{{ $item->pemeriksaan_id }}</option>
+                                <option value="{{ $item->tanggal }}">{{ $item->tanggal }}</option>
                             @endforeach
                         </select>
                         <small class="form-text text-muted">Pemeriksaan ID</small>
@@ -69,7 +69,7 @@
                 "dataType": "json",
                 "type": "POST",
                 "data": function (d) {
-                    d.pemeriksaan_id = $('#pemeriksaan_id').val();
+                    d.tanggal = $('#tanggal').val();
                 }
             },
             columns: [
@@ -108,7 +108,7 @@
                 }
             ]
         });
-        $('#pemeriksaan_id').on('change', function() {
+        $('#tanggal').on('change', function() {
             jadwal.ajax.reload();
         });
     });
