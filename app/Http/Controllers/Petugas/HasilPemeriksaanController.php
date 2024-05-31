@@ -98,7 +98,11 @@ class HasilPemeriksaanController extends Controller
     ->where('hasil_pemeriksaan.hasil_id', $hasil_id)
     ->first();
 
-    $nama_ibu=AnggotaKeluargaModel::where('no_kk',$hasil_pemeriksaan->no_kk)->first();
+    $nama_ibu=AnggotaKeluargaModel::select(
+        'anggota_keluarga.nama'
+    )
+    ->where('no_kk',$hasil_pemeriksaan->no_kk)
+    ->where('status', 'ibu')->first();
     $namaIbu=$nama_ibu->nama;
     if (!$hasil_pemeriksaan) {
         return redirect('petugas/historyPemeriksaan')->with('error', 'Data yang Anda cari tidak ditemukan.');

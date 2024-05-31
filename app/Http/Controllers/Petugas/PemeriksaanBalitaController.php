@@ -7,6 +7,7 @@ use App\Models\BalitaModel;
 use App\Models\DataAcuanModel;
 use App\Models\HasilPemeriksaanModel;
 use App\Models\KeluargaModel;
+use App\Models\PemeriksaanModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -365,17 +366,6 @@ public function update(Request $request, string $id)
                 ->update(['ranking' => $rank + 1]);
         }
 
-        $breadcrumb = (object) [
-            'title' => 'Pemeriksaan',
-            'list' => ['Home', 'Jadwal']
-        ];
-
-        $page = (object) [
-            'title' => 'Daftar Agenda Pemeriksaan'
-        ];
-
-        $activeMenu = 'jadwal';
-
         $rankingBalita = HasilPemeriksaanModel::select(
             'anggota_keluarga.nama',
             //'anggota_keluarga.nama as nama_orang_tua',
@@ -394,6 +384,25 @@ public function update(Request $request, string $id)
         ->where('hasil_pemeriksaan.ranking','!=','null')
         ->orderBy('hasil_pemeriksaan.ranking', 'asc')
         ->get();
+
+        $tanggalPemeriksaan = PemeriksaanModel::select(
+            'pemeriksaan.tanggal',
+        )
+        ->where('pemeriksaan.pemeriksaan_id', $id)
+        ->get();
+
+        $tanggal = $tanggalPemeriksaan->first();
+
+        $breadcrumb = (object) [
+            'title' => $tanggal['tanggal'],
+            'list' => ['Home', 'Jadwal']
+        ];
+
+        $page = (object) [
+            'title' => 'Daftar Agenda Pemeriksaan'
+        ];
+
+        $activeMenu = 'jadwal';
 
         return view('petugas.jadwal.ranking', ['breadcrumb' => $breadcrumb, 'page' => $page, 'rankingBalita' => $rankingBalita, 'activeMenu' => $activeMenu]);
     }

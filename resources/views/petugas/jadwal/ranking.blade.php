@@ -33,8 +33,8 @@
                     <th>Riwayat Penyakit</th>
                     <th>Malnutrisi</th>
                     <th>Stunting</th>
-                    <th>Jam Kerja</th>
-                    <th>Pendapatan</th>
+                    <th>Jam Kerja Orang Tua</th>
+                    <th>Pendapatan Orang Tua</th>
                     <th>Ranking</th>
                 </tr>
             </thead>
