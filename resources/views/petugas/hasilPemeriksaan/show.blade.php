@@ -23,6 +23,11 @@
                     <td>{{ $hasil_pemeriksaan->nama }}</td>
                 </tr>
                 <tr>
+                <tr>
+                    <th>Nama Ibu</th>
+                    <td>{{ $namaIbu }}</td>
+                </tr>
+                <tr>
                     <th>Nama Admin</th>
                     <td>{{ $hasil_pemeriksaan->nama_admin }}</td>
                 </tr>
