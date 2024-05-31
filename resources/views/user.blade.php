@@ -90,18 +90,23 @@
             method: 'GET',
             success: function(response) {
                 var ctx = document.getElementById('heightChart').getContext('2d');
+                var datasets = [];
+
+                for (var nama in response) {
+                    datasets.push({
+                        label: nama,
+                        data: response[nama].data,
+                        fill: false,
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        tension: 0.1
+                    });
+                }
+
                 var heightChart = new Chart(ctx, {
                     type: 'line',
                     data: {
-                        labels: response.labels,
-                        datasets: [{
-                            label: 'Tinggi Badan',
-                            data: response.data,
-                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                            borderColor: 'rgba(54, 162, 235, 1)',
-                            borderWidth: 1,
-                            fill: false
-                        }]
+                        labels: response[Object.keys(response)[0]].labels,
+                        datasets: datasets
                     },
                     options: {
                         scales: {
