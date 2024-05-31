@@ -73,7 +73,7 @@
             <h3>Grafik Tinggi Badan</h3>
         </div>
         <div class="card-body">
-            <canvas id="heightChart" width="800" height="200"></canvas> <!-- Atur panjang dan lebar grafik di sini -->
+            <canvas id="heightChart" width="650" height="150"></canvas> <!-- Atur panjang dan lebar grafik di sini -->
         </div>
     </div>
 </div>
