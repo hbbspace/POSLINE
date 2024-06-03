@@ -170,6 +170,7 @@ Route::group(['prefix' => 'user'], function () {
 
     // Tambahkan rute untuk grafik tinggi badan di sini
     Route::get('/user/chart/data', [HasilPemeriksaanUserController::class, 'getChartData'])->name('user.chart.data');
+    Route::get('/user/balita/names', [HasilPemeriksaanUserController::class, 'getBalitaNames'])->name('user.balita.names');
     Route::get('/admin/chart/data', [AdminController::class, 'getChartData'])->name('admin.chart.data');
 
     Route::group(['prefix' => 'dataUser'], function () {
