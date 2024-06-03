@@ -5,6 +5,8 @@
 @section('content_header_subtitle', 'Petugas Posyandu')
 
 @section('content')
+<div class="table-responsive" style="max-height: 550px; overflow-y: auto;">
+
 <div class="container col-lg-12">
     <div class="card card-info">
         <div class="card-header">
@@ -96,6 +98,7 @@
             </section>
         </div>
     </div>
+</div>
 </div>
 @endsection
 

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AnggotaKeluargaModel;
+use App\Models\HasilPemeriksaanModel;
 use App\Models\KeluargaModel;
+use App\Models\UserModel;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -174,16 +177,38 @@ class KeluargaController extends Controller
     {
         $keluarga = KeluargaModel::where('no_kk', $no_kk)->first();
 
+        // Jika keluarga tidak ditemukan, kembalikan pesan error
         if (!$keluarga) {
             return redirect('admin/dataKeluarga')->with('error', 'Data Keluarga tidak ditemukan');
         }
-
-        try {
+    
+        $anggota_keluarga = AnggotaKeluargaModel::where('no_kk', $no_kk)->where('status', 'anak')
+            ->pluck('nik')->toArray();
+        $ibu = AnggotaKeluargaModel::where('no_kk', $no_kk)->where('status', 'ibu')
+            ->pluck('nik')->toArray();
+    
+        if (!empty($ibu)) {
+            HasilPemeriksaanModel::whereIn('nik', $anggota_keluarga)->delete();
+            AnggotaKeluargaModel::whereIn('nik', $anggota_keluarga)->delete();
+            UserModel::whereIn('nik', $ibu)->delete(); // Jika ibu juga ada di UserModel
+            AnggotaKeluargaModel::whereIn('nik', $ibu)->delete();
             $keluarga->delete();
-            return redirect('admin/dataKeluarga')->with('success', 'Data Keluarga berhasil dihapus');
-        } catch (\Illuminate\Database\QueryException $e) {
-            // Jika terjadi error ketika menghapus data, redirect kembali ke halaman dengan membawa pesan error
-            return redirect('admin/dataKeluarga')->with('error', 'Data keluarga gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+            return redirect('admin/dataKeluarga')->with('success', 'Data Keluarga, anggota keluarga, dan hasil pemeriksaan terkait berhasil dihapus');
+        } else {
+            $keluarga->delete();
+
+            return redirect('admin/dataKeluarga')->with('success', 'Data Keluarga, anggota keluarga, dan hasil pemeriksaan terkait berhasil dihapus');
         }
+    
+
+        
+
+        // try {
+
+        //     return redirect('admin/dataKeluarga')->with('success', 'Data Keluarga, anggota keluarga, dan hasil pemeriksaan terkait berhasil dihapus');
+        // } catch (\Illuminate\Database\QueryException $e) {
+        //     // Jika terjadi error ketika menghapus data, redirect kembali ke halaman dengan membawa pesan error
+        //     return redirect('admin/dataKeluarga')->with('error', 'Data keluarga gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+        // }
     }
 }

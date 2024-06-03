@@ -1,6 +1,8 @@
 @extends('admin.layouts.template')
 
 @section('content')
+<div class="table-responsive" style="max-height: 550px; overflow-y: auto;">
+
 <div class="card card-outline card-info">
     <div class="card-header">
         <h3 class="card-title">{{ $page->title }}</h3>
@@ -72,6 +74,7 @@
             <a href="{{ url('admin/dataPemeriksaan') }}" class="btn btn-sm btn-primary mt-2">Kembali</a>
         </div>  
     </div>
+</div>
 </div>
 @endsection
 

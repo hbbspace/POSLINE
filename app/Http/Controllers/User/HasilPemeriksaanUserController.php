@@ -124,47 +124,36 @@ class HasilPemeriksaanUserController extends Controller
             'activeMenu' => $activeMenu
         ]);
     }
+
+    
     public function getChartData()
     {
-    //     $user_id = Auth::guard('user')->user()->user_id;
+        $user_id = Auth::guard('user')->user()->user_id;
 
-    // // Mengambil data no_kk dari user
-    // $nokk_user = UserModel::select('anggota_keluarga.no_kk')
-    //     ->join('anggota_keluarga', 'user.nik', '=', 'anggota_keluarga.nik')
-    //     ->where('user.user_id', $user_id)
-    //     ->first(); 
-    // $no_kk = $nokk_user->no_kk;
-
-    //     $query = AnggotaKeluargaModel::select(
-    //         'anggota_keluarga.nama', 
-    //         'anggota_keluarga.nik',
-    //         'anggota_keluarga.no_kk',
-    //         'anggota_keluarga.jk',
-    //         'anggota_keluarga.tanggal_lahir',
-    //         DB::raw('TIMESTAMPDIFF(MONTH, anggota_keluarga.tanggal_lahir, CURDATE()) as usia')
-    //     )->where('anggota_keluarga.no_kk', $no_kk)
-    //     ->where('anggota_keluarga.status', '=', 'anak')
-    //     ->get();
-
-
-        
+    // Mengambil data no_kk dari user
+    $nokk_user = UserModel::select('anggota_keluarga.no_kk')
+        ->join('anggota_keluarga', 'user.nik', '=', 'anggota_keluarga.nik')
+        ->where('user.user_id', $user_id)
+        ->first(); 
+    $no_kk = $nokk_user->no_kk;
     //     $id = $query->first();
+    $anak = AnggotaKeluargaModel::where('no_kk', $no_kk)
+    ->where('status', 'anak')->first();
+    $nik=$anak->nik;
+    $data = DB::table('hasil_pemeriksaan')
+    ->select('pemeriksaan_id', 'tinggi_badan')
+    ->where('nik', $nik)
+    //->orderBy('pemeriksaan_id')
+    ->get();
 
-        // Ambil data tinggi badan dari database
-        $data = DB::table('hasil_pemeriksaan')
-                    ->select('pemeriksaan_id', 'tinggi_badan')
-                    ->where('nik', '3501011111800011')
-                    //->orderBy('pemeriksaan_id')
-                    ->get();
+    // Pisahkan hasil_id dan tinggi_badan ke dalam dua array terpisah
+    $labels = $data->pluck('pemeriksaan_id');
+    $heightData = $data->pluck('tinggi_badan');
 
-        // Pisahkan hasil_id dan tinggi_badan ke dalam dua array terpisah
-        $labels = $data->pluck('pemeriksaan_id');
-        $heightData = $data->pluck('tinggi_badan');
-
-        // Kirimkan data dalam format JSON
-        return response()->json([
-            'labels' => $labels,
-            'data' => $heightData
-        ]);
+    // Kirimkan data dalam format JSON
+    return response()->json([
+    'labels' => $labels,
+    'data' => $heightData
+    ]);
     }
 }

@@ -1,4 +1,4 @@
-@extends('petugas.layouts.template')
+@extends('admin.layouts.template')
 
 {{-- Customize layout sections --}}
 @section('subtitle', 'Pemeriksaan Balita')
@@ -14,7 +14,7 @@
                 <h3 class="card-title">Input Pemeriksaan Balita</h3>
             </div>
 
-            <form method="post" action="{{ url('petugas/pemeriksaanBalita', $hasil_pemeriksaan->hasil_id) }}">
+            <form method="post" action="{{ url('admin/pemeriksaan', $hasil_pemeriksaan->hasil_id) }}">
                 @csrf
                 @method('PUT')
 

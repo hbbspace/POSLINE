@@ -16,6 +16,7 @@ use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Petugas\DataPetugasController as PetugasDataPetugasController;
 use App\Http\Controllers\Petugas\HasilPemeriksaanController as PetugasHasilPemeriksaanController;
+use App\Http\Controllers\Admin\InputPemeriksaan;
 use App\Http\Controllers\Petugas\JadwalPetugasController;
 use App\Http\Controllers\Petugas\PemeriksaanBalitaController;
 use App\Http\Controllers\User\DataBalitaUserController;
@@ -130,6 +131,13 @@ Route::group(['prefix' => 'admin'], function () {
         Route::delete('/{id}', [DataPetugasController::class, 'destroy'])->name('admin.dataPetugas.destroy'); // menghapus data user
     });
 
+    Route::group(['prefix' => 'pemeriksaan'], function () {
+        Route::get('/', [InputPemeriksaan::class, 'index']); // menampilkan halaman awal user
+        Route::post('/list', [InputPemeriksaan::class, 'list']); // menampilkan halaman awal user
+        Route::get('{id}/edit', [InputPemeriksaan::class, 'edit']); // menampilkan halaman awal user
+        Route::put('/{id}', [InputPemeriksaan::class, 'update']); // menyimpan perubahan data user
+    });
+
     Route::group(['prefix' => 'jadwal'], function () {
         Route::get('/', [JadwalPemeriksaanController::class, 'index']); // menampilkan halaman awal user
         Route::post('/list', [JadwalPemeriksaanController::class, 'list']); // menampilkan data user dalam bentuk json untuk datatables
@@ -146,6 +154,8 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/list', [HasilPemeriksaanController::class, 'list']); // menampilkan data user dalam bentuk json untuk datatables
         Route::get('/{id}', [HasilPemeriksaanController::class, 'show']); // menampilkan detail user
         Route::delete('/{id}', [HasilPemeriksaanController::class, 'destroy']); // menghapus data user
+        Route::get('/{id}/edit', [HasilPemeriksaanController::class, 'edit']); // menampilkan halaman form edit user
+        Route::put('/{id}', [HasilPemeriksaanController::class, 'update']); // menyimpan perubahan data user
     });
 
 });
@@ -158,6 +168,7 @@ Route::group(['prefix' => 'user'], function () {
 
     // Tambahkan rute untuk grafik tinggi badan di sini
     Route::get('/user/chart/data', [HasilPemeriksaanUserController::class, 'getChartData'])->name('user.chart.data');
+    Route::get('/admin/chart/data', [AdminController::class, 'getChartData'])->name('admin.chart.data');
 
     Route::group(['prefix' => 'dataUser'], function () {
         Route::get('/', [UserDataUserController::class, 'index']); // menampilkan halaman awal user
@@ -214,7 +225,7 @@ Route::group(['prefix'=>'petugas'], function(){
     Route::group(['prefix' => 'jadwal'], function () {
         Route::get('/', [JadwalPetugasController::class, 'index']); // menampilkan halaman awal user
         Route::post('/list', [JadwalPetugasController::class, 'list']); // menampilkan data user dalam bentuk json untuk datatables
-        Route::post('/prosesSPK/{id}', [PemeriksaanBalitaController::class, 'calculate']); // menampilkan data user dalam bentuk json untuk datatables
+        Route::get('/prosesSPK/{id}', [PemeriksaanBalitaController::class, 'calculate']); // menampilkan data user dalam bentuk json untuk datatables
     });
 });
 

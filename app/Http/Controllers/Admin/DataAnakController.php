@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 // use App\Models\KeluargaModel;
 use App\Models\AnggotaKeluargaModel;
 use App\Models\BalitaModel;
+use App\Models\HasilPemeriksaanModel;
 use App\Models\KeluargaModel;
+use App\Models\PemeriksaanModel;
 use Yajra\DataTables\Facades\DataTables;
 
 class DataAnakController extends Controller
@@ -69,12 +71,19 @@ class DataAnakController extends Controller
             'jk' => $request->jk,
             'status' => $request->status
         ]);
-    
-        // Buat entri baru di tabel balita menggunakan nik anak yang baru saja dibuat
-        // BalitaModel::create([
-        //     'nik' => $request->nik,
-        //     // Tambahkan atribut lain yang diperlukan di sini
-        // ]);
+
+        //create hasil pemeriksaan baru bagi balita yang baru terdaftar terhadap pemeriksaan posyandu yang belum dilaksanakan
+        $pemeriksaan = PemeriksaanModel::select('pemeriksaan_id')->where('tanggal', '<', now())->get();
+
+        foreach($pemeriksaan as $pemeriksaans){
+            HasilPemeriksaanModel::create([
+                'nik' => $request->nik,
+                'pemeriksaan_id' => $pemeriksaans->pemeriksaan_id,
+                'status' => 'Terdaftar'
+                // Anda juga bisa menambahkan atribut lain yang diperlukan di sini
+            ]);
+        }
+        
     
         return redirect('admin/dataAnak')->with('success', 'Data Anak berhasil disimpan');
     }
@@ -112,9 +121,11 @@ class DataAnakController extends Controller
         ];
 
         $activeMenu = 'dataAnak';
+        $kk=KeluargaModel::all();
+
 
         return view('admin.dataAnak.edit', ['breadcrumb' => $breadcrumb, 
-         'page' => $page, 'anggota_keluarga' => $anggota_keluarga, 'activeMenu' => $activeMenu]);
+         'page' => $page, 'anggota_keluarga' => $anggota_keluarga,'kk'=>$kk, 'activeMenu' => $activeMenu]);
     }
 
     public function update(Request $request, String $id)
@@ -156,14 +167,17 @@ class DataAnakController extends Controller
         $check = AnggotaKeluargaModel::find($nik);
         if (!$check) {
             return redirect('admin/dataAnak')->with('error', 'Data Anak tidak ditemukan');
+        }else{
+            HasilPemeriksaanModel::whereIn('nik', $check)->delete();
+            AnggotaKeluargaModel::whereIn('nik', $check)->delete();
+            return redirect('admin/dataAnak')->with('success', 'Data Anak berhasil dihapus');
         }
 
-        try {
-            AnggotaKeluargaModel::destroy($nik);
-            return redirect('admin/dataAnak')->with('success', 'Data Anak berhasil dihapus');
-        } catch (\Illuminate\Database\QueryException $e) {
-            return redirect('admin/dataAnak')->with('error', 'Data Anak gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
-        }
+        // try {
+        //     AnggotaKeluargaModel::destroy($nik);
+        // } catch (\Illuminate\Database\QueryException $e) {
+        //     return redirect('admin/dataAnak')->with('error', 'Data Anak gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+        // }
     }
 
     public function list(Request $request)

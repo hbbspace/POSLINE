@@ -1,6 +1,8 @@
 @extends('admin.layouts.template')
 
 @section('content')
+<div class="table-responsive" style="max-height: 550px; overflow-y: auto;">
+
     <div class="container">
         <div class="card card-info">
             <div class="card-header">
@@ -62,4 +64,5 @@
             </div>
         </div>
     </div>
+</div>
 @endsection

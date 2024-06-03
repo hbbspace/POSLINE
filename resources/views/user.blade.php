@@ -66,8 +66,6 @@
         </div>
     </div>
 </div>
-
-<!-- Grafik Garis -->
 <div class="container col-lg-12 mt-4">
     <div class="card card-info">
         <div class="card-header">
@@ -78,9 +76,69 @@
         </div>
     </div>
 </div>
-<!-- Akhir Grafik Garis -->
+@push('css')
+<!-- Tambahkan CSS tambahan di sini -->
+@endpush
 
+@push('js')
+<script>
+    $(document).ready(function() {
+        $('#table_jadwal').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ url('user/jadwal/listDashboard') }}",
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            },
+            columns: [
+                {
+                    data: null,
+                    className: "text-center",
+                    orderable: false,
+                    searchable: false,
+                    render: function(data, type, row, meta) {
+                        return meta.row + 1; // Nomor indeks baris dimulai dari 0, jadi tambahkan 1
+                    }
+                },
+                {
+                    data: "pemeriksaan_id",
+                    className: "",
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: "agenda",
+                    className: "",
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: "tanggal",
+                    className: "",
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: "tempat",
+                    className: "",
+                    orderable: true,
+                    searchable: true
+                }
+            ],
+            dom: 'rtip' // Menghilangkan search bar dan show entries
+        });
+    });
+</script>
+@endpush
 @endsection
+
+@push('js')
+<!-- Grafik Garis -->
+
+<!-- Akhir Grafik Garis -->
 
 @push('js')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

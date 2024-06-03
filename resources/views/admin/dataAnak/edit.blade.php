@@ -7,6 +7,8 @@
 @section('content_header_subtitle', 'Edit')
 
 @section('content')
+<div class="table-responsive" style="max-height: 550px; overflow-y: auto;">
+
     <div class="container">
         <div class="card card-info">
             <div class="card-header">
@@ -20,7 +22,7 @@
                     <div class="card-body">
                         <div class="mb-3">
                             <label for="nik">NIK</label>
-                            <input type="text" class="form-control" id="nik" name="nik" value="{{ $anggota_keluarga->nik }}">
+                            <input type="text" class="form-control" id="nik" name="nik"maxlength="16" value="{{ $anggota_keluarga->nik }}">
                         </div>
                         <div class="mb-3">
                             <label for="nama">Nama</label>
@@ -44,9 +46,14 @@
                                 <option value="anak" {{ $anggota_keluarga->status == 'anak' ? 'selected' : '' }}>Anak</option>
                             </select>
                         </div>
-                        <div class="mb-3">
-                            <label for="no_kk">Nomor Kartu Keluarga</label>
-                            <input type="text" class="form-control" id="no_kk" name="no_kk" value="{{ $anggota_keluarga->no_kk }}">
+                        <div class="form-group">
+                            <label for="no_kk">Nomor KK:</label>
+                            <select class="form-control" id="no_kk" name="no_kk" required>
+                                <option value="{{ $anggota_keluarga->no_kk }}">{{ $anggota_keluarga->no_kk }}</option>
+                                @foreach($kk as $item)
+                                    <option value="{{ $item->no_kk }}" {{ $item->no_kk == $anggota_keluarga->no_kk ? 'selected' : '' }}>{{ $item->no_kk }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="d-flex justify-content-center mt-2">
                             <button type="submit" class="btn btn-primary mx-2" >Simpan Perubahan</button>
@@ -56,4 +63,5 @@
             </form>
         </div>
     </div>
+</div>
 @endsection

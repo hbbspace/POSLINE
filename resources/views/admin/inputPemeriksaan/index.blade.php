@@ -27,31 +27,33 @@
             </button>
         </div>
     @endif
-        <div class="row">
+    
+    
+        {{-- <div class="row">
             <div class="col-md-12">
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Filter :</label>
                     <div class="col-3">
-                        <select class="form-control" id="hasil_id" name="hasil_id" required>
+                        <select class="form-control" id="pemeriksaan_id" name="pemeriksaan_id" required>
                             <option value="">- Semua -</option>
                             @foreach($hasil_pemeriksaan as $item)
-                                <option value="{{ $item->hasil_id }}">{{ $item->hasil_id }}</option>
+                                <option value="{{ $item->pemeriksaan_id }}">{{ $item->pemeriksaan_id }}</option>
                             @endforeach
                         </select>
                         <small class="form-text text-muted">Id Hasil Pemeriksaan</small>
                     </div>
                 </div>
             </div>
-        </div>
-        <table class="table table-bordered table-striped table-hover table-sm" id="table_hasil_pemeriksaan">
+        </div> --}}
+        <table class="table table-bordered table-striped table-hover table-sm" id="table_balita">
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Hasil ID</th>
                     <th>Nama Balita</th>
-                    <th>Nama Admin</th>
+                    <th>Tanggal lahir</th>
+                    <th>Umur (Bulan)</th>
+                    <th>Jenis Kelamin</th>
                     <th>Tanggal Pemeriksaan</th>
-                    <th>Catatan</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -61,18 +63,14 @@
 </div>
 @endsection
 
-@push('css')
-
-@endpush
-
 @push('js')
 <script>
     $(document).ready(function() {
-        var hasilPemeriksaanBalita = $('#table_hasil_pemeriksaan').DataTable({
+        var dataBalita = $('#table_balita').DataTable({
             processing: true,
             serverSide: true,
             ajax: {
-                url: "{{ url('admin/dataPemeriksaan/list') }}",
+                url: "{{ url('admin/pemeriksaan/list') }}",
                 dataType: "json",
                 type: "POST",
                 headers: {
@@ -92,20 +90,16 @@
                         return meta.row + 1; // Nomor indeks baris dimulai dari 0, jadi tambahkan 1
                     }
                 },
-                { data: "hasil_id", orderable: true, searchable: true },
                 { data: "nama", orderable: true, searchable: true },
-                { data: "nama_admin", orderable: true, searchable: true },
+                { data: "tanggal_lahir", orderable: false, searchable: false },
+                { data: "umur", orderable: true, searchable: true },
+                { data: "jk", orderable: true, searchable: true },
                 { data: "tanggal", orderable: true, searchable: true },
-                { data: "catatan", orderable: true, searchable: true },
-                {
-                    data: "aksi",
-                    orderable: false,
-                    searchable: false
-                }
+                { data: "action", orderable: false, searchable: false }
             ]
         });
         $('#hasil_id').on('change', function() {
-            hasilPemeriksaanBalita.ajax.reload();
+            dataBalita.ajax.reload();
         });
     });
 </script>

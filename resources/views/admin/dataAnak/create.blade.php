@@ -5,6 +5,7 @@
 @section('content_header_subtitle', '')
 
 @section('content')
+<div class="table-responsive" style="max-height: 550px; overflow-y: auto;">
     <div class="container">
         <div class="card card-info">
             <div class="card-header">
@@ -24,7 +25,7 @@
                     </div>
                     <div class="form-group">
                         <label for="nik">NIK:</label>
-                        <input type="text" class="form-control" id="nik" name="nik" required>
+                        <input type="text" class="form-control" id="nik" name="nik" maxlength="16"required>
                     </div>
                     <div class="form-group">
                         <label for="nama">Nama:</label>
@@ -55,4 +56,5 @@
             </form>
         </div>
     </div>
+</div>
 @endsection

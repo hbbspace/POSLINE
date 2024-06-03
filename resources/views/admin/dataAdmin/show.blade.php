@@ -1,6 +1,8 @@
 @extends('admin.layouts.template')
 
 @section('content')
+<div class="table-responsive" style="max-height: 550px; overflow-y: auto;">
+
 <div class="card card-outline card-info">
     <div class="card-header">
         <h3 class="card-title">{{ $page->title }}</h3>
@@ -41,12 +43,18 @@
                 </tr>
             </table>
         @endempty
-        <a href="{{ url('admin/dataAdmin') }}" class="btn btn-sm btn-primary mt-2">Kembali</a>
+        <div class="d-flex justify-content-center mt-3">
+            <a href="{{ url('admin/dataAdmin') }}" class="btn btn-primary btn-sm mx-2">Kembali</a>
+            @php
+                if (Auth::guard('admin')->user()->admin_id == $admin->admin_id) {
+            @endphp
+                    <a href="{{ url('admin/dataAdmin/' . $admin->admin_id . '/edit') }}" class="btn btn-warning btn-sm mx-2">Edit Profile</a>
+            @php
+                }
+            @endphp
+        </div>
+        
     </div>
 </div>
+</div>
 @endsection
-
-@push('css')
-@endpush
-@push('js')
-@endpush

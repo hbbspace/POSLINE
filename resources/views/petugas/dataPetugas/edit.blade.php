@@ -1,6 +1,8 @@
 @extends('petugas.layouts.template')
 
 @section('content')
+<div class="table-responsive" style="max-height: 550px; overflow-y: auto;">
+
 @if(session('success'))
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         <span>{{ session('success') }}</span>
@@ -57,4 +59,5 @@
             </div>
         </div>
     </div>
+</div>
 @endsection

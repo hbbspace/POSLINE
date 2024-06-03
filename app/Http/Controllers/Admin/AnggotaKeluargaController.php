@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\KeluargaModel;
 use App\Models\AnggotaKeluargaModel;
+use App\Models\HasilPemeriksaanModel;
 use App\Models\UserModel;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
@@ -24,6 +25,7 @@ class AnggotaKeluargaController extends Controller
         ];
 
         $activeMenu = 'dataAnggotaKeluarga';
+        
 
         $anggota_keluarga = AnggotaKeluargaModel::all();
         return view('admin.dataAnggotaKeluarga.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'anggota_keluarga' => $anggota_keluarga, 'activeMenu' => $activeMenu]);
@@ -106,7 +108,7 @@ class AnggotaKeluargaController extends Controller
     {
         $anggota_keluarga = AnggotaKeluargaModel::find($nik);
         $keluarga = KeluargaModel::all();
-
+        
         $breadcrumb = (object) [
             'title' => 'Edit Data Orang Tua',
             'list' => ['Home', 'Data Orang Tua', 'Edit']
@@ -115,10 +117,10 @@ class AnggotaKeluargaController extends Controller
         $page = (object) [
             'title' => 'Edit Data Orang Tua'
         ];
-
+        $kk=KeluargaModel::all();
         $activeMenu = 'dataAnggotaKeluarga';
         return view('admin.dataAnggotaKeluarga.edit', ['breadcrumb' => $breadcrumb, 
-         'page' => $page, 'anggota_keluarga' => $anggota_keluarga, 'keluarga' => $keluarga, 'activeMenu' => $activeMenu]);
+         'page' => $page, 'anggota_keluarga' => $anggota_keluarga, 'keluarga' => $keluarga, 'kk'=>$kk, 'activeMenu' => $activeMenu]);
     }
 
     public function update(Request $request, String $id)
@@ -159,20 +161,22 @@ class AnggotaKeluargaController extends Controller
     
     
 
-    public function destroy($nik)
-    {
-        $check = AnggotaKeluargaModel::find($nik);
-        if (!$check) {
-            return redirect('admin/dataIbu')->with('error', 'Data Data Orang Tua tidak ditemukan');
-        }
+    // public function destroy($nik)
+    // {
+    //     $check = AnggotaKeluargaModel::find($nik);
+    //     HasilPemeriksaanModel::whereIn('nik', $check)->delete();
+    //     AnggotaKeluargaModel::whereIn('nik', $check)->delete();
+    //     if (!$check) {
+    //         return redirect('admin/dataIbu')->with('error', 'Data Data Orang Tua tidak ditemukan');
+    //     }
 
-        try {
-            AnggotaKeluargaModel::destroy($nik);
-            return redirect('admin/dataIbu')->with('success', 'Data Data Orang Tua berhasil dihapus');
-        } catch (\Illuminate\Database\QueryException $e) {
-            return redirect('admin/dataIbu')->with('error', 'Data Data Orang Tua gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
-        }
-    }
+    //     try {
+    //         AnggotaKeluargaModel::destroy($nik);
+    //         return redirect('admin/dataIbu')->with('success', 'Data Data Orang Tua berhasil dihapus');
+    //     } catch (\Illuminate\Database\QueryException $e) {
+    //         return redirect('admin/dataIbu')->with('error', 'Data Data Orang Tua gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+    //     }
+    // }
 
     public function list(Request $request)
     {
@@ -189,9 +193,9 @@ class AnggotaKeluargaController extends Controller
             ->addColumn('aksi', function ($anggota_keluarga) { // menambahkan kolom aksi
                 $btn = '<a href="' . url('admin/dataIbu/' .$anggota_keluarga->nik) . '" class="btn btn-info btn-sm">Detail</a> ';
                 $btn .= '<a href="' . url('admin/dataIbu/' .$anggota_keluarga->nik . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
-                $btn .= '<form class="d-inline-block" method="POST" action="' . url('admin/dataIbu/' .$anggota_keluarga->nik) . '">'
-                    . csrf_field() . method_field('DELETE') .
-                    '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
+                // $btn .= '<form class="d-inline-block" method="POST" action="' . url('admin/dataIbu/' .$anggota_keluarga->nik) . '">'
+                //     . csrf_field() . method_field('DELETE') .
+                //     '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
                 return $btn;
             })
             ->rawColumns(['aksi']) // memberitahu bahwa kolom aksi adalah html

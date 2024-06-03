@@ -62,11 +62,12 @@ class JadwalPemeriksaanController extends Controller
             'tempat' => $request->tempat,
             'tanggal' => $request->tanggal,
         ]);
-
-        HasilPemeriksaanModel::whereNull('admin_id')->delete();
+        //menghapus seluruh hasil pemeriksaan 3 minggu kebelakang dengan syarat bayi tidak mengikuti pemeriksaan
+        $pemerisaanTerakhir=PemeriksaanModel::max('pemeriksaan_id');
+        $deleteHasilPemeriksaanById=$pemerisaanTerakhir-3;
+        HasilPemeriksaanModel::whereNull('admin_id')->where('pemeriksaan_id',$deleteHasilPemeriksaanById)->delete();
         
         // Dapatkan semua balita
-
         $umur60BulanSebelumnya = Carbon::now()->subMonths(60);
         
         $balitas = AnggotaKeluargaModel::where('status', 'anak')

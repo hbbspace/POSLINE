@@ -58,8 +58,8 @@ class HasilPemeriksaanController extends Controller
     public function list(Request $request)
 {
     $hasil_pemeriksaan = HasilPemeriksaanModel::select(
-        'hasil_pemeriksaan.hasil_id', 'admin.admin_id', 
-        'pemeriksaan.pemeriksaan_id', 'hasil_pemeriksaan.catatan', 'anggota_keluarga.nama', 
+        'hasil_pemeriksaan.hasil_id', 'admin.admin_id', 'anggota_keluarga.nik'
+,         'pemeriksaan.pemeriksaan_id', 'hasil_pemeriksaan.catatan', 'anggota_keluarga.nama', 
         'admin.nama_admin', 'pemeriksaan.tanggal'
     )
     ->join('anggota_keluarga', 'hasil_pemeriksaan.nik', '=', 'anggota_keluarga.nik')
@@ -74,18 +74,18 @@ class HasilPemeriksaanController extends Controller
     return DataTables::of($hasil_pemeriksaan)
         ->addIndexColumn() // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
         ->addColumn('aksi', function ($hasil_pemeriksaan) { // menambahkan kolom aksi
-            $btn = '<a href="' . url('petugas/historyPemeriksaan/' . $hasil_pemeriksaan->hasil_id) . '" class="btn btn-info btn-sm">Detail</a> ';
-            $btn .= '<a href="' . url('petugas/historyPemeriksaan/' . $hasil_pemeriksaan->hasil_id . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
-            $btn .= '<form class="d-inline-block" method="POST" action="' . url('petugas/historyPemeriksaan/' . $hasil_pemeriksaan->hasil_id) . '">'
-                . csrf_field() . method_field('DELETE') .
-                '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
+            $btn = '<a href="' . url('petugas/historyPemeriksaan/' . $hasil_pemeriksaan->nik) . '" class="btn btn-info btn-sm">Detail</a> ';
+            // $btn .= '<a href="' . url('petugas/historyPemeriksaan/' . $hasil_pemeriksaan->hasil_id . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
+            // $btn .= '<form class="d-inline-block" method="POST" action="' . url('petugas/historyPemeriksaan/' . $hasil_pemeriksaan->hasil_id) . '">'
+            //     . csrf_field() . method_field('DELETE') .
+            //     '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
             return $btn;
         })
         ->rawColumns(['aksi'])
         ->make(true);
 }
 
-    public function show(String $hasil_id)
+    public function show(String $nik)
 {
     $hasil_pemeriksaan = HasilPemeriksaanModel::select(
         'hasil_pemeriksaan.*', 'anggota_keluarga.nama', 'admin.nama_admin', 'pemeriksaan.agenda', 'pemeriksaan.tanggal'
@@ -93,8 +93,10 @@ class HasilPemeriksaanController extends Controller
     ->join('anggota_keluarga', 'hasil_pemeriksaan.nik', '=', 'anggota_keluarga.nik')
     ->join('admin', 'hasil_pemeriksaan.admin_id', '=', 'admin.admin_id')
     ->join('pemeriksaan', 'hasil_pemeriksaan.pemeriksaan_id', '=', 'pemeriksaan.pemeriksaan_id')
-    ->where('hasil_pemeriksaan.hasil_id', $hasil_id)
-    ->first();
+    ->where('hasil_pemeriksaan.nik', $nik)
+    ->get();
+
+    // dd($hasil_pemeriksaan);
 
     if (!$hasil_pemeriksaan) {
         return redirect('petugas/historyPemeriksaan')->with('error', 'Data yang Anda cari tidak ditemukan.');

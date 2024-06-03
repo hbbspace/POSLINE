@@ -40,6 +40,7 @@ class UserController extends Controller
         ];
 
         $activeMenu = 'dashboard';
+        
         // return $dataTable->render('admin.dataUser.index');
         return view('user', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'jumlahAnak'=>$jumlahAnak, 'hasil_pemeriksaan'=>$hasil_pemeriksaan]);
     }

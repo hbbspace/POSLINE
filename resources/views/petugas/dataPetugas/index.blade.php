@@ -1,6 +1,8 @@
 @extends('petugas.layouts.template')
 
 @section('content')
+<div class="table-responsive" style="max-height: 550px; overflow-y: auto;">
+
 <div class="card card-outline card-info">
     <div class="card-header">
         <h3 class="card-title">{{ $page->title }}</h3>
@@ -50,7 +52,9 @@
         <div class="d-flex justify-content-center mt-3">
             <a href="{{ url('petugas/') }}" class="btn btn-primary btn-sm mx-2">Kembali</a>
             <a href="{{ url('petugas/dataPetugas/edit') }}" class="btn btn-warning btn-sm mx-2">Edit Profile</a>
-        </div>    </div>
+        </div>    
+    </div>
+</div>
 </div>
 @endsection
 
