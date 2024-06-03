@@ -57,7 +57,7 @@
                         <input type="hidden" id="admin_id" name="admin_id" value="{{ Auth::guard('admin')->user()->admin_id }}">
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary">Simpan</button>
-                            <a href="{{ url('petugas/historyPemeriksaan') }}" class="btn btn-secondary ml-2">Kembali</a>
+                            <a href="{{ url('admin/dataPemeriksaan') }}" class="btn btn-secondary ml-2">Kembali</a>
                         </div> 
                     </div>
                 

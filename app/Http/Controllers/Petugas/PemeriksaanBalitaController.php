@@ -236,11 +236,11 @@ public function update(Request $request, string $id)
 
             $jam_kerja = $pemeriksaan[$i]->jam_kerja;
             if ($jam_kerja <= 8) {
-                $nilai[$i][$j] = 3;
+                $nilai[$i][$j] = 1;
             } elseif ($jam_kerja <= 12) {
                 $nilai[$i][$j] = 2;
             } else {
-                $nilai[$i][$j] = 1;
+                $nilai[$i][$j] = 3;
             }
             $j++;
 
@@ -300,19 +300,19 @@ public function update(Request $request, string $id)
             for ($j = 0; $j < $n; $j++) {
                 switch ($j) {
                     case 0:
-                        $normalisasi[$i][$j] = (min($nilaiC1)/$nilai[$i][$j]);
+                        $normalisasi[$i][$j] = (($nilai[$i][$j] - min($nilaiC1)) / (max($nilaiC1) - min($nilaiC1)));
                       break;
                     case 1:
-                        $normalisasi[$i][$j] = ($nilai[$i][$j]/max($nilaiC2));
+                        $normalisasi[$i][$j] = (($nilai[$i][$j] - min($nilaiC2)) / (max($nilaiC2) - min($nilaiC2)));
                       break;
                     case 2:
-                        $normalisasi[$i][$j] = ($nilai[$i][$j]/max($nilaiC3));
+                        $normalisasi[$i][$j] = (($nilai[$i][$j] - min($nilaiC3)) / (max($nilaiC3) - min($nilaiC3)));
                       break;
                     case 3:
-                        $normalisasi[$i][$j] = ($nilai[$i][$j]/max($nilaiC4));
+                        $normalisasi[$i][$j] = (($nilai[$i][$j] - min($nilaiC4)) / (max($nilaiC4) - min($nilaiC4)));
                       break;
                     case 4:
-                        $normalisasi[$i][$j] = ($nilai[$i][$j]/max($nilaiC5));
+                        $normalisasi[$i][$j] = (($nilai[$i][$j] - min($nilaiC5)) / (max($nilaiC5) - min($nilaiC5)));
                       break;
                   }
             }
@@ -379,14 +379,6 @@ public function update(Request $request, string $id)
         ->where('hasil_pemeriksaan.ranking','!=','null')
         ->orderBy('hasil_pemeriksaan.ranking', 'asc')
         ->get();
-
-        $tanggalPemeriksaan = PemeriksaanModel::select(
-            'pemeriksaan.tanggal',
-        )
-        ->where('pemeriksaan.pemeriksaan_id', $id)
-        ->get();
-
-        $tanggal = $tanggalPemeriksaan->first();
 
         $breadcrumb = (object) [
             'title' => 'Prioritas Balita Penerima Tambahan Gizi ',
