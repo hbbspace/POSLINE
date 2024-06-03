@@ -87,71 +87,123 @@
             </div>
         </div>
     </div>
-</div>
-@endsection
-
-@push('js')
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    $(document).ready(function() {
-        // Fetch list of Balita names
-        $.ajax({
-            url: "{{ route('user.balita.names') }}",
-            method: 'GET',
-            success: function(response) {
-                response.forEach(function(name) {
-                    $('#filterName').append(new Option(name, name));
-                });
-            }
-        });
-
-        function fetchChartData(nama_balita = '') {
-            $.ajax({
-                url: "{{ route('user.chart.data') }}",
-                method: 'GET',
-                data: {
-                    nama_balita: nama_balita
-                },
-                success: function(response) {
-                    var ctx = document.getElementById('heightChart').getContext('2d');
-                    var datasets = [];
-
-                    for (var nama in response) {
-                        datasets.push({
-                            label: nama,
-                            data: response[nama].data,
-                            fill: false,
-                            borderColor: 'rgba(54, 162, 235, 1)',
-                            tension: 0.1
-                        });
+    @endsection
+    
+    @push('js')
+    <script>
+        $(document).ready(function() {
+            $('#table_jadwal').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ url('user/jadwal/listDashboard') }}",
+                    type: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     }
-
-                    var heightChart = new Chart(ctx, {
-                        type: 'line',
-                        data: {
-                            labels: response[Object.keys(response)[0]].labels,
-                            datasets: datasets
-                        },
-                        options: {
-                            scales: {
-                                y: {
-                                    beginAtZero: true
-                                }
-                            }
+                },
+                columns: [
+                    {
+                        data: null,
+                        className: "text-center",
+                        orderable: false,
+                        searchable: false,
+                        render: function(data, type, row, meta) {
+                            return meta.row + 1; // Nomor indeks baris dimulai dari 0, jadi tambahkan 1
                         }
+                    },
+                    {
+                        data: "agenda",
+                        className: "",
+                        orderable: true,
+                        searchable: true
+                    },
+                    {
+                        data: "tanggal",
+                        className: "",
+                        orderable: true,
+                        searchable: true
+                    },
+                    {
+                        data: "tempat",
+                        className: "",
+                        orderable: true,
+                        searchable: true
+                    }
+                ],
+                dom: 'rtip' // Menghilangkan search bar dan show entries
+            });
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Fetch list of Balita names
+            $.ajax({
+                url: "{{ route('user.balita.names') }}",
+                method: 'GET',
+                success: function(response) {
+                    response.forEach(function(name) {
+                        $('#filterName').append(new Option(name, name));
                     });
                 }
             });
-        }
-
-        // Initial Fetch without Filter
-        fetchChartData();
-
-        // Fetch Data with Filter
-        $('#filterButton').click(function() {
-            var nama_balita = $('#filterName').val();
-            fetchChartData(nama_balita);
+    
+            var heightChart; // Global variable to hold the chart instance
+    
+            function fetchChartData(nama_balita = '') {
+                $.ajax({
+                    url: "{{ route('user.chart.data') }}",
+                    method: 'GET',
+                    data: {
+                        nama_balita: nama_balita
+                    },
+                    success: function(response) {
+                        if (heightChart) {
+                            heightChart.destroy(); // Destroy the previous chart instance if exists
+                        }
+    
+                        var ctx = document.getElementById('heightChart').getContext('2d');
+                        var datasets = [];
+    
+                        for (var nama in response) {
+                            datasets.push({
+                                label: nama,
+                                data: response[nama].data,
+                                fill: false,
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                tension: 0.1
+                            });
+                        }
+    
+                        heightChart = new Chart(ctx, {
+                            type: 'line',
+                            data: {
+                                labels: response[Object.keys(response)[0]].labels,
+                                datasets: datasets
+                            },
+                            options: {
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+    
+            // Initial Fetch without Filter
+            fetchChartData();
+    
+            // Fetch Data with Filter
+            $('#filterButton').click(function() {
+                var nama_balita = $('#filterName').val();
+                fetchChartData(nama_balita);
+            });
         });
-    });
+    </script>
+    
 </script>
 @endpush

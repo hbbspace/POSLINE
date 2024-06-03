@@ -183,7 +183,7 @@ class HasilPemeriksaanUserController extends Controller
 
             // Mengambil daftar nama balita berdasarkan no_kk
             $balitaNames = DB::table('anggota_keluarga')
-                ->where('anggota_keluarga.no_kk', $no_kk)
+                ->where('anggota_keluarga.no_kk', $no_kk)->where('status','anak')
                 ->pluck('nama');
 
             return response()->json($balitaNames);
