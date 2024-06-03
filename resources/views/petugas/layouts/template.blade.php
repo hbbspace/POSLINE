@@ -57,7 +57,6 @@
   </div>
   <!-- /.content-wrapper -->
 
-  @include('petugas.layouts.footer')
 </div>
 <!-- ./wrapper -->
 

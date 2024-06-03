@@ -27,7 +27,6 @@ class JadwalPetugasController extends Controller
         return view('petugas.jadwal.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'jadwal_pemeriksaan' => $jadwal_pemeriksaan, 'activeMenu' => $activeMenu]);
     }
 
-
     public function list(Request $request)
     {
         $jadwal_pemeriksaan = PemeriksaanModel::select('pemeriksaan_id', 'agenda', 'tanggal', 'tempat');
@@ -38,7 +37,7 @@ class JadwalPetugasController extends Controller
     
         return DataTables::of($jadwal_pemeriksaan)
             ->addIndexColumn() // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
-            ->addColumn('Keterangan', function ($jadwal_pemeriksaan) { // menambahkan kolom aksi
+            ->addColumn('Keterangan', function ($jadwal_pemeriksaan) { // menambahkan kolom Keterangan
                 $tanggal_pemeriksaan = Carbon::parse($jadwal_pemeriksaan->tanggal);
     
                 if ($tanggal_pemeriksaan->isFuture()) {
@@ -48,12 +47,16 @@ class JadwalPetugasController extends Controller
                 } else {
                     $btn = '<a class="btn btn-danger btn-sm">Telah Dilaksanakan</a> ';
                 }
-                $btn .= '<a href="' . url('petugas/jadwal/prosesSPK/' . $jadwal_pemeriksaan->pemeriksaan_id) . '" class="btn btn-warning btn-sm">Proses</a> ';
-
+    
                 return $btn;
             })
-            ->rawColumns(['Keterangan']) // memberitahu bahwa kolom aksi adalah html
+            ->addColumn('Rangking', function($jadwal_pemeriksaan) { // menambahkan kolom Rangking
+                $btn = '<a href="' . url('petugas/jadwal/prosesSPK/' . $jadwal_pemeriksaan->pemeriksaan_id) . '" class="btn btn-success btn-sm">Proses</a> ';
+                return $btn;
+            })
+            ->rawColumns(['Keterangan', 'Rangking']) // memberitahu bahwa kolom Keterangan dan Rangking adalah HTML
             ->make(true);
     }
+    
     
 }    

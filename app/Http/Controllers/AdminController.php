@@ -15,7 +15,8 @@ class AdminController extends Controller
 {
     public function index()
     {   
-        $jumlahUser=UserModel::all()->count();
+        if (Auth::guard('admin')->check()) {
+            $jumlahUser=UserModel::all()->count();
         $anakTerdaftar=AnggotaKeluargaModel::where('status','anak')->count();
         $ortuTerdaftar=AnggotaKeluargaModel::where('status','ibu')->count();
         $jumlahKK=KeluargaModel::all()->count();
@@ -71,6 +72,10 @@ class AdminController extends Controller
         'tinggiRataLaki'=>$tinggiRataLaki,
         'tinggiRataPerempuan'=>$tinggiRataPerempuan,
         'jadwalTerlaksana'=>$jadwalTerlaksana]);
+        }else{
+            return redirect('/login')->with('error', 'Session Anda sudah habis, silahkan login kembali');
+        }
+        
     }
 
     public function getChartData()

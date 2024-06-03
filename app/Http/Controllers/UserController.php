@@ -17,6 +17,8 @@ class UserController extends Controller
     public function index()
     {   
         // session()->flush();
+        if (Auth::guard('user')->check()) {
+
         $user_id = (Auth::guard('user')->user()->user_id);
         $user=UserModel::select('anggota_keluarga.nama','anggota_keluarga.no_kk')
         ->join('anggota_keluarga','user.nik','=','anggota_keluarga.nik')
@@ -43,6 +45,9 @@ class UserController extends Controller
         
         // return $dataTable->render('admin.dataUser.index');
         return view('user', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'jumlahAnak'=>$jumlahAnak, 'hasil_pemeriksaan'=>$hasil_pemeriksaan]);
+    }else{
+        return redirect('/login')->with('error', 'Session Anda sudah habis, silahkan login kembali');
+    }
     }
 
 

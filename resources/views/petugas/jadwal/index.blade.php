@@ -1,6 +1,6 @@
 @extends('petugas.layouts.template')
 @section('content')
-<div class="table-responsive" style="max-height: 550px; overflow-y: auto;">
+<div class="table-responsive" style="max-height: 620px; overflow-y: auto;">
 
 <div class="card card-outline card-info">
     <div class="card-header">
@@ -45,12 +45,12 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Pemeriksaan ID</th>
                     <th>agenda</th>
                     <th>Tanggal</th>
                     <th>Tempat</th>
-                    <th>Keterangan</th>
-                </tr>
+                <th>Keterangan</th>
+                <th>Rangking</th>
+                    </tr>
             </thead>
         </table>
     </div>
@@ -88,12 +88,6 @@
                     }
                 },
                 {
-                    data: "pemeriksaan_id",
-                    className: "",
-                    orderable: true,
-                    searchable: true
-                },
-                {
                     data: "agenda",
                     className: "",
                     orderable: true,
@@ -116,7 +110,13 @@
                     className: "",
                     orderable: false,
                     searchable: false
-                }
+                },
+                {
+                    data: "Rangking",
+                    className: "",
+                    orderable: false,
+                    searchable: false
+                },
             ]
         });
         $('#pemeriksaan_id').on('change', function() {

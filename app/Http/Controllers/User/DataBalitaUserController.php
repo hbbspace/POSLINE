@@ -17,19 +17,57 @@ class DataBalitaUserController extends Controller
    
     public function index()
     {
-        $breadcrumb = (object) [
-            'title' => 'Daftar Balita',
-            'list' => ['Home', 'Data Balita']
-        ];
-    
-        $page = (object) [
-            'title' => 'Daftar Hasil Pemeriksaan'
-        ];
-    
-        $activeMenu = 'dataBalitaUser';
-    
-        $user_id = Auth::guard('user')->user()->user_id;
+        if(Auth::guard('user')->check()){
+
+            $breadcrumb = (object) [
+                'title' => 'Daftar Balita',
+                'list' => ['Home', 'Data Balita']
+            ];
         
+            $page = (object) [
+                'title' => 'Daftar Hasil Pemeriksaan'
+            ];
+        
+            $activeMenu = 'dataBalitaUser';
+        
+            $user_id = Auth::guard('user')->user()->user_id;
+            
+            // Mengambil data no_kk dari user
+            $nokk_user = UserModel::select('anggota_keluarga.no_kk')
+                ->join('anggota_keluarga', 'user.nik', '=', 'anggota_keluarga.nik')
+                ->where('user.user_id', $user_id)
+                ->first(); 
+            $no_kk = $nokk_user->no_kk;
+        
+            $dataBalita = AnggotaKeluargaModel::select(
+                'anggota_keluarga.nama', 
+                'anggota_keluarga.nik'
+                ,'anggota_keluarga.no_kk','anggota_keluarga.jk','anggota_keluarga.tanggal_lahir',
+                DB::raw('TIMESTAMPDIFF(MONTH, anggota_keluarga.tanggal_lahir, CURDATE()) as usia')
+            )                ->where('anggota_keluarga.no_kk', '=', $no_kk)
+                             ->where('anggota_keluarga.status', '=', 'anak')
+                ->get();
+    
+    
+            return view('user.dataBalitaUser.index', [
+                'breadcrumb' => $breadcrumb,
+                'page' => $page,
+                'dataBalita' => $dataBalita,
+                'activeMenu' => $activeMenu
+            ]);
+        }else{
+            return redirect('/login')->with('error', 'Session Anda sudah habis, silahkan login kembali');
+
+        }
+    }
+
+
+        public function list(Request $request)
+{
+    if(Auth::guard('user')->check()){
+
+        $user_id = Auth::guard('user')->user()->user_id;
+    
         // Mengambil data no_kk dari user
         $nokk_user = UserModel::select('anggota_keluarga.no_kk')
             ->join('anggota_keluarga', 'user.nik', '=', 'anggota_keluarga.nik')
@@ -37,59 +75,34 @@ class DataBalitaUserController extends Controller
             ->first(); 
         $no_kk = $nokk_user->no_kk;
     
-        $dataBalita = AnggotaKeluargaModel::select(
+        $query = AnggotaKeluargaModel::select(
             'anggota_keluarga.nama', 
-            'anggota_keluarga.nik'
-            ,'anggota_keluarga.no_kk','anggota_keluarga.jk','anggota_keluarga.tanggal_lahir',
+            'anggota_keluarga.nik',
+            'anggota_keluarga.no_kk',
+            'anggota_keluarga.jk',
+            'anggota_keluarga.tanggal_lahir',
             DB::raw('TIMESTAMPDIFF(MONTH, anggota_keluarga.tanggal_lahir, CURDATE()) as usia')
-        )                ->where('anggota_keluarga.no_kk', '=', $no_kk)
-                         ->where('anggota_keluarga.status', '=', 'anak')
-            ->get();
+        )->where('anggota_keluarga.no_kk', $no_kk)
+        ->where('anggota_keluarga.status', '=', 'anak');
+    
+        if ($request->nama) {
+            $query->where('anggota_keluarga.nama', $request->nama );
+        }
+    
+        $dataBalita = $query->get();
+    
+        return DataTables::of($dataBalita)
+            ->addIndexColumn() // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
+            ->addColumn('aksi', function ($row) { // menambahkan kolom aksi
+                $btn = '<a href="' . url('user/dataPemeriksaanBalita') . '" class="btn btn-info btn-sm">Detail Imunisasi</a>';
+                return $btn;
+            })
+            ->rawColumns(['aksi']) // memberitahu bahwa kolom aksi adalah html
+            ->make(true);
+    }else{
+        return redirect('/login')->with('error', 'Session Anda sudah habis, silahkan login kembali');
 
-
-        return view('user.dataBalitaUser.index', [
-            'breadcrumb' => $breadcrumb,
-            'page' => $page,
-            'dataBalita' => $dataBalita,
-            'activeMenu' => $activeMenu
-        ]);}
-
-
-        public function list(Request $request)
-{
-    $user_id = Auth::guard('user')->user()->user_id;
-
-    // Mengambil data no_kk dari user
-    $nokk_user = UserModel::select('anggota_keluarga.no_kk')
-        ->join('anggota_keluarga', 'user.nik', '=', 'anggota_keluarga.nik')
-        ->where('user.user_id', $user_id)
-        ->first(); 
-    $no_kk = $nokk_user->no_kk;
-
-    $query = AnggotaKeluargaModel::select(
-        'anggota_keluarga.nama', 
-        'anggota_keluarga.nik',
-        'anggota_keluarga.no_kk',
-        'anggota_keluarga.jk',
-        'anggota_keluarga.tanggal_lahir',
-        DB::raw('TIMESTAMPDIFF(MONTH, anggota_keluarga.tanggal_lahir, CURDATE()) as usia')
-    )->where('anggota_keluarga.no_kk', $no_kk)
-    ->where('anggota_keluarga.status', '=', 'anak');
-
-    if ($request->nama) {
-        $query->where('anggota_keluarga.nama', $request->nama );
     }
-
-    $dataBalita = $query->get();
-
-    return DataTables::of($dataBalita)
-        ->addIndexColumn() // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
-        ->addColumn('aksi', function ($row) { // menambahkan kolom aksi
-            $btn = '<a href="' . url('user/dataPemeriksaanBalita') . '" class="btn btn-info btn-sm">Detail Imunisasi</a>';
-            return $btn;
-        })
-        ->rawColumns(['aksi']) // memberitahu bahwa kolom aksi adalah html
-        ->make(true);
 }
 
         

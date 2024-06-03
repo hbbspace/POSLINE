@@ -1,12 +1,13 @@
-@extends('petugas.layouts.template')
+@extends('admin.layouts.template')
 @section('content')
 <div class="card card-outline card-info">
     <div class="card-header">
         <h3 class="card-title">Ranking Balita yang Perlu Bantuan</h3>
-        <div class="card-tools">        
-            <a href="{{ url('petugas/jadwal') }}" class="btn btn-sm btn-primary">Kembali</a>
-        </div>
+    <div class="card-tools">        
+        <a href="{{ url('admin/jadwal') }}" class="btn btn-sm btn-primary">Kembali</a>
     </div>
+    </div>
+
     <div class="card-body">
         @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">

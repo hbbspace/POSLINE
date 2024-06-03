@@ -1,7 +1,8 @@
 @extends('user.layouts.template')
 
 @section('content')
-<div class="container col-lg-12">
+<div class="table-responsive" style="max-height: 620px; overflow-y: auto;">
+    <div class="container col-lg-12">
     <div class="card card-info">
         <div class="card-header">
             <h3>Dashboard</h3>
@@ -75,9 +76,8 @@
         </div>
     </div>
 </div>
-@push('css')
-<!-- Tambahkan CSS tambahan di sini -->
-@endpush
+</div>
+@endsection
 
 @push('js')
 <script>
@@ -103,12 +103,6 @@
                     }
                 },
                 {
-                    data: "pemeriksaan_id",
-                    className: "",
-                    orderable: true,
-                    searchable: true
-                },
-                {
                     data: "agenda",
                     className: "",
                     orderable: true,
@@ -132,12 +126,7 @@
     });
 </script>
 @endpush
-@endsection
 
-@push('js')
-<!-- Grafik Garis -->
-
-<!-- Akhir Grafik Garis -->
 
 @push('js')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

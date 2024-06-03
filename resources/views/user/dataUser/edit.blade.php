@@ -1,6 +1,7 @@
 @extends('user.layouts.template')
 
 @section('content')
+<div class="table-responsive" style="max-height: 620px; overflow-y: auto;">
 <div class="container">
         @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -50,4 +51,5 @@
             </div>
         </div>
     </div>
+</div>
 @endsection

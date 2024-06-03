@@ -35,15 +35,22 @@
     </li> --}}
     
     <li class="nav-item">
-      <a class="nav-link" href="#">
-        <i class="fas fa-user"></i> <!-- Icon user -->
-        {{ Auth::guard('admin')->user()->nama_admin }}
-      </a>
+      @if(Auth::guard('admin')->check())
+        <a class="nav-link" href="#">
+          <i class="fas fa-user"></i> <!-- Icon user -->
+          {{ Auth::guard('admin')->user()->nama_admin }}
+        </a>
+      @else
+        <script>
+          window.location.href = "{{ route('login') }}";
+        </script>
+      @endif
     </li>
     <li class="nav-item">
       <a class="nav-link" data-widget="fullscreen" href="#" role="button">
         <i class="fas fa-expand-arrows-alt"></i>
       </a>
     </li>
+    
   </ul>
 </nav>

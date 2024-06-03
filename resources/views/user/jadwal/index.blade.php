@@ -1,5 +1,7 @@
 @extends('user.layouts.template')
 @section('content')
+<div class="table-responsive" style="max-height: 620px; overflow-y: auto;">
+
 <div class="card card-outline card-info">
     <div class="card-header">
         <h3 class="card-title">{{ $page->title }}</h3>
@@ -52,11 +54,9 @@
         </table>
     </div>
 </div>
+</div>
 @endsection
 
-@push('css')
-
-@endpush
 
 @push('js')
 <script>

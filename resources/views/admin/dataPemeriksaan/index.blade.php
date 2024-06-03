@@ -32,10 +32,10 @@
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Filter :</label>
                     <div class="col-3">
-                        <select class="form-control" id="hasil_id" name="hasil_id" required>
+                        <select class="form-control" id="tanggal" name="tanggal" required>
                             <option value="">- Semua -</option>
                             @foreach($hasil_pemeriksaan as $item)
-                                <option value="{{ $item->hasil_id }}">{{ $item->hasil_id }}</option>
+                                <option value="{{ $item->tanggal }}">{{ $item->tanggal }}</option>
                             @endforeach
                         </select>
                         <small class="form-text text-muted">Id Hasil Pemeriksaan</small>
@@ -79,7 +79,7 @@
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
                 data: function (d) {
-                    d.hasil_id = $('#hasil_id').val();
+                    d.tanggal = $('#tanggal').val();
                 }
             },
             columns: [
@@ -104,7 +104,7 @@
                 }
             ]
         });
-        $('#hasil_id').on('change', function() {
+        $('#tanggal').on('change', function() {
             hasilPemeriksaanBalita.ajax.reload();
         });
     });

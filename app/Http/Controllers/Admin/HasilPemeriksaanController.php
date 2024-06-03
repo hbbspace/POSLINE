@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\DataAcuanModel;
 use App\Models\HasilPemeriksaanModel;
+use App\Models\PemeriksaanModel;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -34,7 +35,7 @@ class HasilPemeriksaanController extends Controller
         // ->join('pemeriksaan', 'hasil_pemeriksaan.pemeriksaan_id', '=', 'pemeriksaan.pemeriksaan_id')
         // ;
         
-        $hasil_pemeriksaan=HasilPemeriksaanModel::all();
+        $hasil_pemeriksaan=PemeriksaanModel::select('tanggal')->get();
         // dd($hasil_pemeriksaan);
         return view('admin.dataPemeriksaan.index', [
             'breadcrumb' => $breadcrumb,
@@ -82,8 +83,8 @@ class HasilPemeriksaanController extends Controller
     ->join('pemeriksaan', 'hasil_pemeriksaan.pemeriksaan_id', '=', 'pemeriksaan.pemeriksaan_id')
     ;
     
-    if ($request->hasil_id) {
-        $hasil_pemeriksaan->where('hasil_pemeriksaan.hasil_id', $request->hasil_id);
+    if ($request->tanggal) {
+        $hasil_pemeriksaan->where('pemeriksaan.tanggal', $request->tanggal);
     }
 
     return DataTables::of($hasil_pemeriksaan)

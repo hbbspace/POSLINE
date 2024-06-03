@@ -1,6 +1,6 @@
 @extends('petugas.layouts.template')
 @section('content')
-<div class="table-responsive" style="max-height: 550px; overflow-y: auto;">
+<div class="table-responsive" style="max-height: 620px; overflow-y: auto;">
 
 <div class="card card-outline card-info">
     <div class="card-header">
@@ -47,7 +47,7 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>ID Pemeriksaan</th>
+                    <th>NIK</th>
                     <th>Nama Balita</th>
                     <th>Nama Admin</th>
                     <th>Tanggal Pemeriksaan</th>
@@ -92,7 +92,7 @@
                         return meta.row + 1; // Nomor indeks baris dimulai dari 0, jadi tambahkan 1
                     }
                 },
-                { data: "pemeriksaan_id", orderable: true, searchable: true },
+                { data: "nik", orderable: true, searchable: true },
                 { data: "nama", orderable: true, searchable: true },
                 { data: "nama_admin", orderable: true, searchable: true },
                 { data: "tanggal", orderable: true, searchable: true },

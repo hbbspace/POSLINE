@@ -149,38 +149,51 @@ class JadwalPemeriksaanController extends Controller
         $check = PemeriksaanModel::find($pemeriksaan_id);
         if (!$check) {
             return redirect('admin/jadwal')->with('error', 'Data Jadwal tidak ditemukan');
+        }else{
+
+            HasilPemeriksaanModel::where('pemeriksaan_id',$pemeriksaan_id)->delete();
+            PemeriksaanModel::where('pemeriksaan_id',$pemeriksaan_id)->delete();
+            return redirect('admin/jadwal')->with('success', 'Data Jadwal Berhasil dihapus');
+
         }
 
-        try {
-            PemeriksaanModel::destroy($pemeriksaan_id);
-            return redirect('admin/jadwal')->with('success', 'Data Jadwal berhasil dihapus');
-        } catch (\Illuminate\Database\QueryException $e) {
-            return redirect('admin/jadwal')->with('error', 'Data Jadwal gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
-        }
+
+        // try {
+        //     PemeriksaanModel::destroy($pemeriksaan_id);
+        //     return redirect('admin/jadwal')->with('success', 'Data Jadwal berhasil dihapus');
+        // } catch (\Illuminate\Database\QueryException $e) {
+        //     return redirect('admin/jadwal')->with('error', 'Data Jadwal gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+        // }
     }
 
     public function list(Request $request)
-{
-    $query = PemeriksaanModel::query();
-
-    if ($request->tanggal) {
-        $query->where('tanggal', $request->tanggal);
+    {
+        $query = PemeriksaanModel::query();
+    
+        if ($request->tanggal) {
+            $query->where('tanggal', $request->tanggal);
+        }
+    
+        $jadwal_pemeriksaan = $query->get();
+    
+        return DataTables::of($jadwal_pemeriksaan)
+            ->addIndexColumn() // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
+            ->addColumn('aksi', function ($jadwal_pemeriksaan) { // menambahkan kolom aksi
+                $btn = '<a href="' . url('admin/jadwal/' . $jadwal_pemeriksaan->pemeriksaan_id) . '" class="btn btn-info btn-sm">Detail</a> ';
+                $btn .= '<a href="' . url('admin/jadwal/' . $jadwal_pemeriksaan->pemeriksaan_id . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
+                $btn .= '<form class="d-inline-block" method="POST" action="' . url('admin/jadwal/' . $jadwal_pemeriksaan->pemeriksaan_id) . '">'
+                    . csrf_field() . method_field('DELETE') .
+                    '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
+                
+                return $btn;
+            })
+            ->addColumn('Rangking', function($jadwal_pemeriksaan) { // menambahkan kolom Rangking
+                $btn = '<a href="' . url('admin/jadwal/prosesSPK/' . $jadwal_pemeriksaan->pemeriksaan_id) . '" class="btn btn-success btn-sm">Proses</a> ';
+                return $btn;
+            })
+            ->rawColumns(['aksi', 'Rangking']) // memberitahu bahwa kolom aksi dan Rangking adalah HTML
+            ->make(true);
     }
-
-    $jadwal_pemeriksaan = $query->get();
-
-    return DataTables::of($jadwal_pemeriksaan)
-        ->addIndexColumn() // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
-        ->addColumn('aksi', function ($jadwal_pemeriksaan) { // menambahkan kolom aksi
-            $btn = '<a href="' . url('admin/jadwal', $jadwal_pemeriksaan->pemeriksaan_id) . '" class="btn btn-info btn-sm">Detail</a> ';
-            $btn .= '<a href="' . url('admin/jadwal', $jadwal_pemeriksaan->pemeriksaan_id . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
-            $btn .= '<form class="d-inline-block" method="POST" action="' . url('admin/jadwal', $jadwal_pemeriksaan->pemeriksaan_id) . '">'
-                . csrf_field() . method_field('DELETE') .
-                '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
-            return $btn;
-        })
-        ->rawColumns(['aksi']) // memberitahu bahwa kolom aksi adalah html
-        ->make(true);
-}
+    
 
 }    

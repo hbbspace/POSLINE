@@ -1,7 +1,7 @@
 @extends('petugas.layouts.template')
 
 @section('content')
-<div class="table-responsive" style="max-height: 550px; overflow-y: auto;">
+<div class="table-responsive" style="max-height: 620px; overflow-y: auto;">
 
 <div class="card card-outline card-info">
     <div class="card-header">

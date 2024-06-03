@@ -34,8 +34,9 @@
       </div>
     </li> --}}
     
+    @if(Auth::guard('admin')->check())
     <li class="nav-item">
-      <a class="nav-link" href="{{url('/admin/dataAdmin/'.Auth::guard('admin')->user()->admin_id)}}">
+      <a class="nav-link" href="{{ url('/admin/dataAdmin/' . Auth::guard('admin')->user()->admin_id) }}">
         <i class="fas fa-user"></i> <!-- Icon user -->
         {{ Auth::guard('admin')->user()->nama_admin }}
       </a>
@@ -45,6 +46,12 @@
         <i class="fas fa-expand-arrows-alt"></i>
       </a>
     </li>
+  @else
+    <script>
+      window.location.href = "{{ route('login') }}";
+    </script>
+  @endif
+  
   </ul>
 </nav>
 

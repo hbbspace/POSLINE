@@ -146,7 +146,9 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/{id}', [JadwalPemeriksaanController::class, 'show'])->name('admin.jadwal.show'); // menampilkan detail user
         Route::get('/{id}/edit', [JadwalPemeriksaanController::class, 'edit'])->name('admin.jadwal.edit'); // menampilkan halaman form edit user
         Route::put('/{id}', [JadwalPemeriksaanController::class, 'update'])->name('admin.jadwal.update'); // menyimpan perubahan data user
-        Route::delete('/{id}', [JadwalPemeriksaanController::class, 'destroy'])->name('admin.jadwal.destroy'); // menghapus data user
+        Route::delete('/{id}', [JadwalPemeriksaanController::class, 'destroy'])->name('admin.jadwal.destroy');
+        Route::get('/prosesSPK/{id}', [InputPemeriksaan::class, 'calculate']); // menampilkan data user dalam bentuk json untuk datatables
+        // menghapus data user
     });
     
     Route::group(['prefix' => 'dataPemeriksaan'], function () {

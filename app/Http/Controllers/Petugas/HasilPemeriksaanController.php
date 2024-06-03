@@ -98,14 +98,13 @@ class HasilPemeriksaanController extends Controller
     ->where('hasil_pemeriksaan.nik', $nik)
     ->get();
 
-    // dd($hasil_pemeriksaan);
 
-    $nama_ibu=AnggotaKeluargaModel::select(
-        'anggota_keluarga.nama'
-    )
-    ->where('no_kk',$hasil_pemeriksaan->no_kk)
-    ->where('status', 'ibu')->first();
-    $namaIbu=$nama_ibu->nama;
+    // $nama_ibu=AnggotaKeluargaModel::select(
+    //     'anggota_keluarga.nama'
+    // )
+    // ->where('no_kk',$hasil_pemeriksaan->no_kk)
+    // ->where('status', 'ibu')->first();
+    // $namaIbu=$nama_ibu->nama;
     if (!$hasil_pemeriksaan) {
         return redirect('petugas/historyPemeriksaan')->with('error', 'Data yang Anda cari tidak ditemukan.');
     }
@@ -124,7 +123,7 @@ class HasilPemeriksaanController extends Controller
         'breadcrumb' => $breadcrumb,
         'page' => $page,
         'hasil_pemeriksaan' => $hasil_pemeriksaan,
-        'namaIbu'=>$namaIbu,
+        // 'namaIbu'=>$namaIbu,
         'activeMenu' => $activeMenu
     ]);
 }

@@ -52,6 +52,7 @@
                     <th>Tanggal</th>
                     <th>Tempat</th>
                     <th>Aksi</th>
+                    <th>Rangking</th>
                 </tr>
             </thead>
         </table>
@@ -117,7 +118,13 @@
                     className: "",
                     orderable: true,
                     searchable: true
-                }
+                },
+                {
+                    data: "Rangking",
+                    className: "",
+                    orderable: true,
+                    searchable: true
+                },
             ]
         });
         $('#tanggal').on('change', function() {

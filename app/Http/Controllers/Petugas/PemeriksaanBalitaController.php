@@ -29,17 +29,12 @@ public function index()
     ];
 
     $activeMenu = 'pemeriksaanBalita'; 
-    $hasil_pemeriksaan = HasilPemeriksaanModel::select(
-        'hasil_pemeriksaan.hasil_id', 'hasil_pemeriksaan.admin_id', 
-        'pemeriksaan.pemeriksaan_id', 'anggota_keluarga.nama', 
-        'pemeriksaan.tanggal', 'anggota_keluarga.tanggal_lahir', 'anggota_keluarga.jk',
-        DB::raw('TIMESTAMPDIFF(MONTH, anggota_keluarga.tanggal_lahir, CURDATE()) as umur')                
-    )
-    
-    ->join('anggota_keluarga', 'hasil_pemeriksaan.nik', '=', 'anggota_keluarga.nik')
+    $hasil_pemeriksaan=HasilPemeriksaanModel::select('tanggal')
     ->join('pemeriksaan', 'hasil_pemeriksaan.pemeriksaan_id', '=', 'pemeriksaan.pemeriksaan_id')
-    ->whereNull('hasil_pemeriksaan.admin_id')->get();
-    // dd($hasil_pemeriksaan);
+    ->whereNull('hasil_pemeriksaan.admin_id')
+    ->distinct()
+    ->get();
+
 
 
     
@@ -62,11 +57,11 @@ public function list(Request $request)
     
     ->join('anggota_keluarga', 'hasil_pemeriksaan.nik', '=', 'anggota_keluarga.nik')
     ->join('pemeriksaan', 'hasil_pemeriksaan.pemeriksaan_id', '=', 'pemeriksaan.pemeriksaan_id')
-    ->whereNull('hasil_pemeriksaan.admin_id')->get();
+    ->whereNull('hasil_pemeriksaan.admin_id');
 
 
-    if ($request->hasil_id) {
-        $hasil_pemeriksaan->where('hasil_pemeriksaan.hasil_id', $request->hasil_id);
+    if ($request->tanggal) {
+        $hasil_pemeriksaan->where('pemeriksaan.tanggal', $request->tanggal);
     }
 
     return DataTables::of($hasil_pemeriksaan)
@@ -394,7 +389,7 @@ public function update(Request $request, string $id)
         $tanggal = $tanggalPemeriksaan->first();
 
         $breadcrumb = (object) [
-            'title' => $tanggal['tanggal'],
+            'title' => 'Prioritas Balita Penerima Tambahan Gizi ',
             'list' => ['Home', 'Jadwal']
         ];
 
