@@ -7,6 +7,8 @@ use App\Models\AnggotaKeluargaModel;
 use App\Models\HasilPemeriksaanModel;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
+use App\Models\PemeriksaanModel;
+
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -55,8 +57,12 @@ class HasilPemeriksaanUserController extends Controller
     }
     
 
-    public function list()
+    public function list(Request $request)
     {
+        // $query = PemeriksaanModel::query();
+
+   
+        // $jadwal_pemeriksaan = $query->get();
         $user_id = Auth::guard('user')->user()->user_id;
 
         // Mengambil data no_kk dari user
@@ -77,10 +83,13 @@ class HasilPemeriksaanUserController extends Controller
             ->join('admin', 'hasil_pemeriksaan.admin_id', '=', 'admin.admin_id')
             ->join('pemeriksaan', 'hasil_pemeriksaan.pemeriksaan_id', '=', 'pemeriksaan.pemeriksaan_id')
             ->where('anggota_keluarga.no_kk', '=', $no_kk)->where('hasil_pemeriksaan.status','=','Selesai')
-            ->get(); // Menggunakan get() untuk mengambil hasil
-        
-        
-        
+;        
+        if ($request->tanggal) {
+            $hasil_pemeriksaan->where('pemeriksaan.tanggal', $request->tanggal);
+        }
+
+        // $hasil_pemeriksaan->get();
+
         return DataTables::of($hasil_pemeriksaan)
             ->addIndexColumn() // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
             ->addColumn('aksi', function ($hasil_pemeriksaan) { // menambahkan kolom aksi
@@ -89,6 +98,8 @@ class HasilPemeriksaanUserController extends Controller
             })
             ->rawColumns(['aksi'])
             ->make(true);
+
+        
     }
 
     public function show(String $hasil_id)
@@ -130,30 +141,29 @@ class HasilPemeriksaanUserController extends Controller
     {
         $user_id = Auth::guard('user')->user()->user_id;
 
-    // Mengambil data no_kk dari user
-    $nokk_user = UserModel::select('anggota_keluarga.no_kk')
-        ->join('anggota_keluarga', 'user.nik', '=', 'anggota_keluarga.nik')
-        ->where('user.user_id', $user_id)
-        ->first(); 
-    $no_kk = $nokk_user->no_kk;
-    //     $id = $query->first();
-    $anak = AnggotaKeluargaModel::where('no_kk', $no_kk)
-    ->where('status', 'anak')->first();
-    $nik=$anak->nik;
-    $data = DB::table('hasil_pemeriksaan')
-    ->select('pemeriksaan_id', 'tinggi_badan')
-    ->where('nik', $nik)
-    //->orderBy('pemeriksaan_id')
-    ->get();
+        // Mengambil data no_kk dari user
+        $nokk_user = UserModel::select('anggota_keluarga.no_kk')
+            ->join('anggota_keluarga', 'user.nik', '=', 'anggota_keluarga.nik')
+            ->where('user.user_id', $user_id)
+            ->first(); 
+        $no_kk = $nokk_user->no_kk;
 
-    // Pisahkan hasil_id dan tinggi_badan ke dalam dua array terpisah
-    $labels = $data->pluck('pemeriksaan_id');
-    $heightData = $data->pluck('tinggi_badan');
+        // Mengambil data pemeriksaan balita berdasarkan no_kk
+        $data = DB::table('hasil_pemeriksaan')
+                    ->join('anggota_keluarga', 'hasil_pemeriksaan.nik', '=', 'anggota_keluarga.nik')
+                    ->select('hasil_pemeriksaan.pemeriksaan_id', 'anggota_keluarga.nama', 'hasil_pemeriksaan.tinggi_badan')
+                    ->where('anggota_keluarga.no_kk', $no_kk)
+                    ->orderBy('hasil_pemeriksaan.pemeriksaan_id')
+                    ->get();
 
-    // Kirimkan data dalam format JSON
-    return response()->json([
-    'labels' => $labels,
-    'data' => $heightData
-    ]);
+        // Mengelompokkan data berdasarkan nama balita
+        $chartData = [];
+        foreach ($data as $item) {
+            $chartData[$item->nama]['labels'][] = $item->pemeriksaan_id;
+            $chartData[$item->nama]['data'][] = $item->tinggi_badan;
+        }
+
+        // Kirimkan data dalam format JSON
+        return response()->json($chartData);
     }
 }

@@ -15,11 +15,7 @@
         @else
             <table class="table table-bordered table-striped table-hover table-sm">
                 <tr>
-                    <th>ID</th>
-                    <td>{{ $hasil_pemeriksaan->hasil_id }}</td>
-                </tr>
-                <tr>
-                    <th>Balita Id</th>
+                    <th>NIK</th>
                     <td>{{ $hasil_pemeriksaan->nik }}</td>
                 </tr>
                 <tr>
@@ -27,16 +23,8 @@
                     <td>{{ $hasil_pemeriksaan->nama }}</td>
                 </tr>
                 <tr>
-                    <th>Admin ID</th>
-                    <td>{{ $hasil_pemeriksaan->admin_id }}</td>
-                </tr>
-                <tr>
-                    <th>Nama Admin</th>
+                    <th>Nama Petugas</th>
                     <td>{{ $hasil_pemeriksaan->nama_admin }}</td>
-                </tr>
-                <tr>
-                    <th>Pemeriksaan ID</th>
-                    <td>{{ $hasil_pemeriksaan->pemeriksaan_id }}</td>
                 </tr>
                 <tr>
                     <th>Agenda Pemeriksaan</th>
@@ -55,8 +43,8 @@
                     <td>{{ $hasil_pemeriksaan->berat_badan }} Kg</td>
                 </tr>
                 <tr>
-                    <th>Lingkar Kepala</th>
-                    <td>{{ $hasil_pemeriksaan->lingkar_kepala }} Cm</td>
+                    <th>Lingkar Badan</th>
+                    <td>{{ $hasil_pemeriksaan->lingkar_badan }} Cm</td>
                 </tr>
                 <tr>
                     <th>Riwayat Penyakit</th>

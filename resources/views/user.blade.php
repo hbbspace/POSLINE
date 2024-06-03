@@ -55,7 +55,6 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Pemeriksaan ID</th>
                             <th>Agenda</th>
                             <th>Tanggal</th>
                             <th>Tempat</th>
@@ -72,7 +71,7 @@
             <h3>Grafik Tinggi Badan</h3>
         </div>
         <div class="card-body">
-            <canvas id="heightChart" width="800" height="200"></canvas> <!-- Atur panjang dan lebar grafik di sini -->
+            <canvas id="heightChart" width="650" height="150"></canvas> <!-- Atur panjang dan lebar grafik di sini -->
         </div>
     </div>
 </div>
@@ -149,18 +148,23 @@
             method: 'GET',
             success: function(response) {
                 var ctx = document.getElementById('heightChart').getContext('2d');
+                var datasets = [];
+
+                for (var nama in response) {
+                    datasets.push({
+                        label: nama,
+                        data: response[nama].data,
+                        fill: false,
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        tension: 0.1
+                    });
+                }
+
                 var heightChart = new Chart(ctx, {
                     type: 'line',
                     data: {
-                        labels: response.labels,
-                        datasets: [{
-                            label: 'Tinggi Badan',
-                            data: response.data,
-                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                            borderColor: 'rgba(54, 162, 235, 1)',
-                            borderWidth: 1,
-                            fill: false
-                        }]
+                        labels: response[Object.keys(response)[0]].labels,
+                        datasets: datasets
                     },
                     options: {
                         scales: {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Petugas;
 
 use App\Http\Controllers\Admin\JadwalPemeriksaanController;
 use App\Http\Controllers\Controller;
+use App\Models\AnggotaKeluargaModel;
 use App\Models\DataAcuanModel;
 use App\Models\HasilPemeriksaanModel;
 use App\Models\PemeriksaanModel;
@@ -89,6 +90,7 @@ class HasilPemeriksaanController extends Controller
 {
     $hasil_pemeriksaan = HasilPemeriksaanModel::select(
         'hasil_pemeriksaan.*', 'anggota_keluarga.nama', 'admin.nama_admin', 'pemeriksaan.agenda', 'pemeriksaan.tanggal'
+        ,'anggota_keluarga.no_kk'
     )
     ->join('anggota_keluarga', 'hasil_pemeriksaan.nik', '=', 'anggota_keluarga.nik')
     ->join('admin', 'hasil_pemeriksaan.admin_id', '=', 'admin.admin_id')
@@ -98,6 +100,12 @@ class HasilPemeriksaanController extends Controller
 
     // dd($hasil_pemeriksaan);
 
+    $nama_ibu=AnggotaKeluargaModel::select(
+        'anggota_keluarga.nama'
+    )
+    ->where('no_kk',$hasil_pemeriksaan->no_kk)
+    ->where('status', 'ibu')->first();
+    $namaIbu=$nama_ibu->nama;
     if (!$hasil_pemeriksaan) {
         return redirect('petugas/historyPemeriksaan')->with('error', 'Data yang Anda cari tidak ditemukan.');
     }
@@ -116,6 +124,7 @@ class HasilPemeriksaanController extends Controller
         'breadcrumb' => $breadcrumb,
         'page' => $page,
         'hasil_pemeriksaan' => $hasil_pemeriksaan,
+        'namaIbu'=>$namaIbu,
         'activeMenu' => $activeMenu
     ]);
 }
