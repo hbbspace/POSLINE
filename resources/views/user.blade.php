@@ -131,40 +131,51 @@
 @push('js')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    $(document).ready(function() {
-        $.ajax({
-            url: "{{ route('user.chart.data') }}", // Sesuaikan dengan route yang telah Anda buat
-            method: 'GET',
-            success: function(response) {
-                var ctx = document.getElementById('heightChart').getContext('2d');
-                var datasets = [];
+$(document).ready(function() {
+    $.ajax({
+        url: "{{ route('user.chart.data') }}", // Sesuaikan dengan route yang telah Anda buat
+        method: 'GET',
+        success: function(response) {
+            var ctx = document.getElementById('heightChart').getContext('2d');
+            var datasets = [];
+            var colors = [
+                'rgba(54, 162, 235, 1)',  // Warna biru
+                'rgba(255, 99, 132, 1)',  // Warna merah
+                'rgba(75, 192, 192, 1)',  // Warna hijau
+                'rgba(153, 102, 255, 1)', // Warna ungu
+                'rgba(255, 159, 64, 1)',  // Warna oranye
+                'rgba(255, 206, 86, 1)'   // Warna kuning
+            ];
 
-                for (var nama in response) {
-                    datasets.push({
-                        label: nama,
-                        data: response[nama].data,
-                        fill: false,
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        tension: 0.1
-                    });
-                }
+            var colorIndex = 0;
+            for (var nama in response) {
+                datasets.push({
+                    label: nama,
+                    data: response[nama].data,
+                    fill: false,
+                    borderColor: colors[colorIndex % colors.length],
+                    tension: 0.5
+                });
+                colorIndex++;
+            }
 
-                var heightChart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: response[Object.keys(response)[0]].labels,
-                        datasets: datasets
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
+            var heightChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: response[Object.keys(response)[0]].labels,
+                    datasets: datasets
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
                         }
                     }
-                });
-            }
-        });
+                }
+            });
+        }
     });
+});
+
 </script>
 @endpush

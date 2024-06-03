@@ -99,6 +99,44 @@
         </div>
     </div>
 </div>
+<div class="container col-lg-12">
+    <div class="card card-info">
+        <div class="card-header">
+            <h3>Perbandingan Seluruh Pemeriksaan</h3>
+        </div>
+        <div class="card-body">
+            <div class="container-fluid">
+                <!-- Small boxes (Stat box) -->
+                <div class="row">
+                    <div class="col-lg-6 mt-3">
+                        <div class="card card-info">
+                            <div class="card-header">
+                                <h3>Perbandingan Tinggi Balita</h3>
+                            </div>
+                            <div class="card-body">
+                                <div style="width: 100%; max-width: 600px; margin: 0 auto;">
+                                    <canvas id="heightChart" width="400" height="200"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mt-3">
+                        <div class="card card-info">
+                            <div class="card-header">
+                                <h3>Perbandingan Berat Balita</h3>
+                            </div>
+                            <div class="card-body">
+                                <div style="width: 100%; max-width: 600px; margin: 0 auto;">
+                                    <canvas id="weightChart" width="400" height="200"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 @endsection
 
@@ -214,6 +252,83 @@
                 },
                 responsive: true,
                 maintainAspectRatio: true
+            }
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            url: "{{ route('admin.chart.data') }}",
+            method: 'GET',
+            success: function(response) {
+                // Grafik Tinggi Balita
+                var ctxHeight = document.getElementById('heightChart').getContext('2d');
+                var heightChart = new Chart(ctxHeight, {
+                    type: 'line',
+                    data: {
+                        labels: response.labels, // Menggunakan label yang sama untuk kedua dataset
+                        datasets: [
+                            {
+                                label: 'Tinggi Rata-rata Laki-laki',
+                                data: response.data, // Data tinggi rata-rata laki-laki
+                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                borderWidth: 1,
+                                fill: false
+                            },
+                            {
+                                label: 'Tinggi Rata-rata Perempuan',
+                                data: response.data2, // Data tinggi rata-rata perempuan
+                                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                borderColor: 'rgba(255, 99, 132, 1)',
+                                borderWidth: 1,
+                                fill: false
+                            }
+                        ]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+
+                // Grafik Berat Balita
+                var ctxWeight = document.getElementById('weightChart').getContext('2d');
+                var weightChart = new Chart(ctxWeight, {
+                    type: 'line',
+                    data: {
+                        labels: response.labels, // Menggunakan label yang sama untuk kedua dataset
+                        datasets: [
+                            {
+                                label: 'Berat Rata-rata Laki-laki',
+                                data: response.weightL, // Data berat rata-rata laki-laki
+                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                borderWidth: 1,
+                                fill: false
+                            },
+                            {
+                                label: 'Berat Rata-rata Perempuan',
+                                data: response.weightP, // Data berat rata-rata perempuan
+                                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                borderColor: 'rgba(255, 99, 132, 1)',
+                                borderWidth: 1,
+                                fill: false
+                            }
+                        ]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
             }
         });
     });

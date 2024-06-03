@@ -82,19 +82,21 @@ class AdminController extends Controller
     {
         $data = HasilPemeriksaanModel::select(
             'hasil_pemeriksaan.pemeriksaan_id',
+            DB::raw('AVG(hasil_pemeriksaan.tinggi_badan) as tinggi_rata_laki'),
             DB::raw('AVG(hasil_pemeriksaan.berat_badan) as berat_rata_laki')
         )
         ->join('anggota_keluarga', 'anggota_keluarga.nik', '=', 'hasil_pemeriksaan.nik')
-        ->where('anggota_keluarga.jk', 'L')
+        ->where('anggota_keluarga.jk', 'L')->where('hasil_pemeriksaan.status','=','Selesai')
         ->groupBy('hasil_pemeriksaan.pemeriksaan_id')
         ->get();
 
         $data2 = HasilPemeriksaanModel::select(
             'hasil_pemeriksaan.pemeriksaan_id',
+            DB::raw('AVG(hasil_pemeriksaan.tinggi_badan) as tinggi_rata_perempuan'),
             DB::raw('AVG(hasil_pemeriksaan.berat_badan) as berat_rata_perempuan')
         )
         ->join('anggota_keluarga', 'anggota_keluarga.nik', '=', 'hasil_pemeriksaan.nik')
-        ->where('anggota_keluarga.jk', 'P')
+        ->where('anggota_keluarga.jk', 'P')->where('hasil_pemeriksaan.status','=','Selesai')
         ->groupBy('hasil_pemeriksaan.pemeriksaan_id')
         ->get();
 
@@ -106,16 +108,18 @@ class AdminController extends Controller
 
     // Pisahkan hasil_id dan tinggi_badan ke dalam dua array terpisah
     $labels = $data->pluck('pemeriksaan_id');
-    $heightData = $data->pluck('berat_rata_laki');
+    $heightData = $data->pluck('tinggi_rata_laki');
+    $heightData2 = $data2->pluck('tinggi_rata_perempuan');
     
-    $labels2 = $data2->pluck('pemeriksaan_id');
-    $heightData2 = $data2->pluck('berat_rata_perempuan');
+    $weight = $data2->pluck('berat_rata_laki');
+    $weight2 = $data2->pluck('berat_rata_perempuan');
     // Kirimkan data dalam format JSON
     return response()->json([
     'labels' => $labels,
     'data' => $heightData,
-    'labels2' => $labels2,
     'data2' => $heightData2,
+    'weightL' => $weight,
+    'weightP' => $weight2,
     ]);
     }
 }

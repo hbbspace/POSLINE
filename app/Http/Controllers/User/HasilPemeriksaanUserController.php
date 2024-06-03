@@ -38,14 +38,12 @@ class HasilPemeriksaanUserController extends Controller
             $no_kk = $nokk_user->no_kk;
     
             $hasil_pemeriksaan = HasilPemeriksaanModel::select(
-                'hasil_pemeriksaan.hasil_id', 'admin.admin_id', 
-                'pemeriksaan.pemeriksaan_id', 'hasil_pemeriksaan.catatan', 'anggota_keluarga.nama', 
-                'admin.nama_admin', 'pemeriksaan.tanggal', 'anggota_keluarga.no_kk'
+                'pemeriksaan.tanggal'
             )
             ->join('anggota_keluarga', 'hasil_pemeriksaan.nik', '=', 'anggota_keluarga.nik')
-            ->join('admin', 'hasil_pemeriksaan.admin_id', '=', 'admin.admin_id')
             ->join('pemeriksaan', 'hasil_pemeriksaan.pemeriksaan_id', '=', 'pemeriksaan.pemeriksaan_id')
             ->where('anggota_keluarga.no_kk', '=', $no_kk)->where('hasil_pemeriksaan.status','=','Selesai')
+            ->distinct()
             ->get();
     
         return view('user.dataPemeriksaanBalitaUser.index', [
@@ -163,7 +161,7 @@ class HasilPemeriksaanUserController extends Controller
             // Mengambil data pemeriksaan balita berdasarkan no_kk
             $data = DB::table('hasil_pemeriksaan')
             ->join('anggota_keluarga', 'hasil_pemeriksaan.nik', '=', 'anggota_keluarga.nik')
-            ->select('hasil_pemeriksaan.pemeriksaan_id', 'anggota_keluarga.nama', 'hasil_pemeriksaan.tinggi_badan', DB::raw('AVG(hasil_pemeriksaan.berat_badan) as avg_berat'))
+            ->select('hasil_pemeriksaan.pemeriksaan_id', 'anggota_keluarga.nama', 'hasil_pemeriksaan.tinggi_badan', DB::raw('AVG(hasil_pemeriksaan.tinggi_badan) as avg_berat'))
             ->where('anggota_keluarga.no_kk', $no_kk)
             ->groupBy('hasil_pemeriksaan.pemeriksaan_id', 'anggota_keluarga.nama', 'hasil_pemeriksaan.tinggi_badan')
             ->orderBy('hasil_pemeriksaan.pemeriksaan_id')
@@ -175,8 +173,6 @@ class HasilPemeriksaanUserController extends Controller
             $chartData[$item->nama]['labels'][] = $item->pemeriksaan_id;
             $chartData[$item->nama]['data'][] = $item->avg_berat;
         }
-        
-    
             // Kirimkan data dalam format JSON
             return response()->json($chartData);
         }else{
