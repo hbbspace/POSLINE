@@ -145,7 +145,7 @@ class HasilPemeriksaanUserController extends Controller
             // Mengambil data pemeriksaan balita berdasarkan no_kk
             $query = DB::table('hasil_pemeriksaan')
                 ->join('anggota_keluarga', 'hasil_pemeriksaan.nik', '=', 'anggota_keluarga.nik')
-                ->select('hasil_pemeriksaan.pemeriksaan_id', 'anggota_keluarga.nama', 'hasil_pemeriksaan.tinggi_badan', DB::raw('AVG(hasil_pemeriksaan.berat_badan) as avg_berat'))
+                ->select('hasil_pemeriksaan.pemeriksaan_id', 'anggota_keluarga.nama', 'hasil_pemeriksaan.tinggi_badan')
                 ->where('anggota_keluarga.no_kk', $no_kk)
                 ->groupBy('hasil_pemeriksaan.pemeriksaan_id', 'anggota_keluarga.nama', 'hasil_pemeriksaan.tinggi_badan')
                 ->orderBy('hasil_pemeriksaan.pemeriksaan_id');
@@ -160,7 +160,7 @@ class HasilPemeriksaanUserController extends Controller
             $chartData = [];
             foreach ($data as $item) {
                 $chartData[$item->nama]['labels'][] = $item->pemeriksaan_id;
-                $chartData[$item->nama]['data'][] = $item->avg_berat;
+                $chartData[$item->nama]['data'][] = $item->tinggi_badan;
             }
 
             // Kirimkan data dalam format JSON

@@ -300,19 +300,19 @@ public function update(Request $request, string $id)
             for ($j = 0; $j < $n; $j++) {
                 switch ($j) {
                     case 0:
-                        $normalisasi[$i][$j] = (($nilai[$i][$j] - min($nilaiC1)) / (max($nilaiC1) - min($nilaiC1)));
+                        $normalisasi[$i][$j] = $this->safeDivide(($nilai[$i][$j] - min($nilaiC1)),(max($nilaiC1) - min($nilaiC1)));
                       break;
                     case 1:
-                        $normalisasi[$i][$j] = (($nilai[$i][$j] - min($nilaiC2)) / (max($nilaiC2) - min($nilaiC2)));
+                        $normalisasi[$i][$j] = $this->safeDivide(($nilai[$i][$j] - min($nilaiC2)),(max($nilaiC2) - min($nilaiC2)));
                       break;
                     case 2:
-                        $normalisasi[$i][$j] = (($nilai[$i][$j] - min($nilaiC3)) / (max($nilaiC3) - min($nilaiC3)));
+                        $normalisasi[$i][$j] = $this->safeDivide(($nilai[$i][$j] - min($nilaiC3)),(max($nilaiC3) - min($nilaiC3)));
                       break;
                     case 3:
-                        $normalisasi[$i][$j] = (($nilai[$i][$j] - min($nilaiC4)) / (max($nilaiC4) - min($nilaiC4)));
+                        $normalisasi[$i][$j] = $this->safeDivide(($nilai[$i][$j] - min($nilaiC4)),(max($nilaiC4) - min($nilaiC4)));
                       break;
                     case 4:
-                        $normalisasi[$i][$j] = (($nilai[$i][$j] - min($nilaiC5)) / (max($nilaiC5) - min($nilaiC5)));
+                        $normalisasi[$i][$j] = $this->safeDivide(($nilai[$i][$j] - min($nilaiC5)),(max($nilaiC5) - min($nilaiC5)));
                       break;
                   }
             }
@@ -390,7 +390,22 @@ public function update(Request $request, string $id)
         ];
 
         $activeMenu = 'jadwal';
+        // dd($nilai);
 
-        return view('petugas.jadwal.ranking', ['breadcrumb' => $breadcrumb, 'page' => $page, 'rankingBalita' => $rankingBalita, 'activeMenu' => $activeMenu]);
+        return view('petugas.jadwal.ranking', [
+            'breadcrumb' => $breadcrumb, 
+            'page' => $page, 
+            'rankingBalita' => $rankingBalita,
+            'kriteria' => $kriteria,
+            'nilai' => $nilai, 
+            'normalisasi' => $normalisasi, 
+            'utility' => $utility, 
+            'activeMenu' => $activeMenu
+        ]);
+    }
+
+    public function safeDivide($numerator, $denominator)
+    {
+    return $denominator != 0 ? $numerator / $denominator : 0;
     }
 }
