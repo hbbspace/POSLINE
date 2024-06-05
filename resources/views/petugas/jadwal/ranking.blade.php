@@ -152,7 +152,7 @@
                     for ($j = 0; $j < $n; $j++) {
                         echo "<td>" . $utility[$i][$j] . "</td>";
                     }
-                    echo "<td>" . $totalNilai[$i] . "</td>";
+                    echo "<td class='total'>" . $totalNilai[$i] . "</td>";
                     echo "</tr>";
                     $i++;
                 }
@@ -196,7 +196,11 @@
 @endsection
 
 @push('css')
-    <!-- Tempatkan CSS kustom di sini jika diperlukan -->
+<style>
+    .total {
+        background-color: rgb(118, 247, 126); /* Or any color you prefer */
+    }
+</style>
 @endpush
 
 @push('js')
@@ -212,8 +216,6 @@
             "responsive": true
         });
     });
-</script>
-<script>
     $(document).ready(function() {
         $('#table_normalisasi').DataTable({
             "paging": true,
@@ -225,8 +227,6 @@
             "responsive": true
         });
     });
-</script>
-<script>
     $(document).ready(function() {
         $('#table_utility').DataTable({
             "paging": true,
@@ -238,8 +238,6 @@
             "responsive": true
         });
     });
-</script>
-<script>
     $(document).ready(function() {
         $('#table_ranking').DataTable({
             "paging": true,
