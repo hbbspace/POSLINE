@@ -78,7 +78,7 @@ public function update(Request $request, string $id)
         'tinggi_badan' => 'required|numeric|min:1', 
         'berat_badan' => 'required|numeric|min:1', 
         'lingkar_kepala' => 'required|numeric|min:1', 
-        'riwayat_penyakit' => 'required|in:Tidak ada,Ringan,Berat', // Menyesuaikan dengan opsi yang diberikan sebelumnya
+        'gangguan_kesehatan' => 'required|in:Tidak ada,Ringan,Sedang,Berat', // Menyesuaikan dengan opsi yang diberikan sebelumnya
         'catatan' => 'nullable|string', // Mengubah menjadi nullable agar catatan bisa bernilai null atau kosong
         'admin_id' => 'required|min:1',
         // 'status' => 'required|in:Periksa', // Jika status adalah string
@@ -89,7 +89,7 @@ public function update(Request $request, string $id)
         'tinggi_badan' => $request->tinggi_badan,
         'berat_badan' => $request->berat_badan,
         'lingkar_kepala' => $request->lingkar_kepala,
-        'riwayat_penyakit' => $request->riwayat_penyakit,
+        'gangguan_kesehatan' => $request->gangguan_kesehatan,
         'catatan' => $request->catatan,
         'admin_id' => $request->admin_id,
         'status' => 'Selesai',

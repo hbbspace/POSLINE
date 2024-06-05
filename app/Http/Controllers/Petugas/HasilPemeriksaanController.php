@@ -154,7 +154,7 @@ class HasilPemeriksaanController extends Controller
             'tinggi_badan' => 'required|numeric|min:1', 
             'berat_badan' => 'required|numeric|min:1', 
             'lingkar_badan' => 'required|numeric|min:1', 
-            'riwayat_penyakit' => 'required|in:Tidak ada,Ringan,Berat', // Menyesuaikan dengan opsi yang diberikan sebelumnya
+            'gangguan_kesehatan' => 'required|in:Tidak ada,Ringan,Sedang,Berat', // Menyesuaikan dengan opsi yang diberikan sebelumnya
             'catatan' => 'nullable|string'
         ]);
 
@@ -162,7 +162,7 @@ class HasilPemeriksaanController extends Controller
             'tinggi_badan' => $request->tinggi_badan,
             'berat_badan' => $request->berat_badan,
             'lingkar_badan' => $request->lingkar_badan,
-            'riwayat_penyakit' => $request->riwayat_penyakit,
+            'gangguan_kesehatan' => $request->gangguan_kesehatan,
             'catatan' => $request->catatan,
         ]);
 

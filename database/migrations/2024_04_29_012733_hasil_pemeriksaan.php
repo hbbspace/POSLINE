@@ -20,7 +20,7 @@ return new class extends Migration
             $table->float('tinggi_badan', 3, 2)->nullable(); // Diisi oleh Petugas
             $table->float('berat_badan', 3, 2)->nullable(); // Diisi oleh Petugas
             $table->float('lingkar_badan', 3, 2)->nullable(); // Diisi oleh Petugas
-            $table->enum('riwayat_penyakit', ['Tidak ada', 'Ringan', 'Berat'])->nullable(); // Diisi oleh Petugas
+            $table->enum('gangguan_kesehatan', ['Tidak ada', 'Ringan', 'Sedang', 'Berat'])->nullable(); // Diisi oleh Petugas
             $table->enum('malnutrisi', ['Rendah', 'Sedang', 'Tinggi'])->nullable();
             $table->enum('stunting', ['Rendah', 'Sedang', 'Tinggi','Tidak'])->nullable();
             $table->enum('status', ['Terdaftar','Selesai']);

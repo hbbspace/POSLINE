@@ -79,7 +79,7 @@ public function update(Request $request, string $id)
         'tinggi_badan' => 'required|numeric|min:1', 
         'berat_badan' => 'required|numeric|min:1', 
         'lingkar_badan' => 'required|numeric|min:1', 
-        'riwayat_penyakit' => 'required|in:Tidak ada,Ringan,Berat', // Menyesuaikan dengan opsi yang diberikan sebelumnya
+        'gangguan_kesehatan' => 'required|in:Tidak ada,Ringan,Sedang,Berat', // Menyesuaikan dengan opsi yang diberikan sebelumnya
         'catatan' => 'nullable|string', // Mengubah menjadi nullable agar catatan bisa bernilai null atau kosong
         'admin_id' => 'required|min:1',
         // 'status' => 'required|in:Periksa', // Jika status adalah string
@@ -90,7 +90,7 @@ public function update(Request $request, string $id)
         'tinggi_badan' => $request->tinggi_badan,
         'berat_badan' => $request->berat_badan,
         'lingkar_badan' => $request->lingkar_badan,
-        'riwayat_penyakit' => $request->riwayat_penyakit,
+        'gangguan_kesehatan' => $request->gangguan_kesehatan,
         'catatan' => $request->catatan,
         'admin_id' => $request->admin_id,
         'status' => 'Selesai',
@@ -205,7 +205,7 @@ public function update(Request $request, string $id)
             'malnutrisi' => 0.1,
             'kondisi_stunting' => 0.3,
             'kondisi_ekonomi' => 0.3,
-            'riwayat_penyakit' => 0.2,
+            'gangguan_kesehatan' => 0.2,
         ];
 
         // Mendapatkan seluruh data dengan status "Selesai" dan pemeriksaan_id tertentu
@@ -213,7 +213,7 @@ public function update(Request $request, string $id)
             'hasil_pemeriksaan.hasil_id',
             'keluarga.jam_kerja',
             'keluarga.pendapatan',
-            'hasil_pemeriksaan.riwayat_penyakit',
+            'hasil_pemeriksaan.gangguan_kesehatan',
             'hasil_pemeriksaan.malnutrisi',
             'hasil_pemeriksaan.stunting'
         )
@@ -278,13 +278,15 @@ public function update(Request $request, string $id)
             }
             $j++;
 
-            $riwayat_penyakit = $pemeriksaan[$i]->riwayat_penyakit;
-            if ($riwayat_penyakit == 'Tidak ada') {
+            $gangguan_kesehatan = $pemeriksaan[$i]->gangguan_kesehatan;
+            if ($gangguan_kesehatan == 'Tidak ada') {
                 $nilai[$i][$j] = 1;
-            } elseif ($riwayat_penyakit == 'Ringan') {
+            } elseif ($gangguan_kesehatan == 'Ringan') {
                 $nilai[$i][$j] = 2;
-            } else {
+            } elseif ($gangguan_kesehatan == 'Sedang') {
                 $nilai[$i][$j] = 3;
+            } else {
+                $nilai[$i][$j] = 4;
             }
         }
 
@@ -334,7 +336,7 @@ public function update(Request $request, string $id)
                         $utility[$i][$j] = ($normalisasi[$i][$j] * $kriteria['kondisi_ekonomi']);
                       break;
                     case 4:
-                        $utility[$i][$j] = ($normalisasi[$i][$j] * $kriteria['riwayat_penyakit']);
+                        $utility[$i][$j] = ($normalisasi[$i][$j] * $kriteria['gangguan_kesehatan']);
                       break;
                   }
             }
@@ -365,7 +367,7 @@ public function update(Request $request, string $id)
             'anggota_keluarga.nama',
             //'anggota_keluarga.nama as nama_orang_tua',
             'hasil_pemeriksaan.usia',
-            'hasil_pemeriksaan.riwayat_penyakit',
+            'hasil_pemeriksaan.gangguan_kesehatan',
             'hasil_pemeriksaan.malnutrisi',
             'hasil_pemeriksaan.stunting',
             'keluarga.jam_kerja',
@@ -400,6 +402,7 @@ public function update(Request $request, string $id)
             'nilai' => $nilai, 
             'normalisasi' => $normalisasi, 
             'utility' => $utility, 
+            'totalNilai' => $total_nilai,
             'activeMenu' => $activeMenu
         ]);
     }

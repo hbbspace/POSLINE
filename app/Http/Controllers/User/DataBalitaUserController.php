@@ -122,8 +122,8 @@ class DataBalitaUserController extends Controller
         //         'hasil_pemeriksaan.hasil_id', 'admin.admin_id', 
         //         'pemeriksaan.pemeriksaan_id', 'hasil_pemeriksaan.catatan', 'anggota_keluarga.nama', 
         //         'admin.nama_admin', 'pemeriksaan.tanggal', 'anggota_keluarga.nik', 'pemeriksaan.agenda', 
-        //         'hasil_pemeriksaan.riwayat_penyakit','hasil_pemeriksaan.berat_badan','hasil_pemeriksaan.tinggi_badan'
-        //         ,'hasil_pemeriksaan.riwayat_penyakit'
+        //         'hasil_pemeriksaan.gangguan_kesehatan','hasil_pemeriksaan.berat_badan','hasil_pemeriksaan.tinggi_badan'
+        //         ,'hasil_pemeriksaan.gangguan_kesehatan'
         //     )
             
         //     ->join('anggota_keluarga', 'hasil_pemeriksaan.nik', '=', 'anggota_keluarga.nik')
