@@ -311,19 +311,19 @@ public function calculate(string $id)
             for ($j = 0; $j < $n; $j++) {
                 switch ($j) {
                     case 0:
-                        $normalisasi[$i][$j] = $this->safeDivide(($nilai[$i][$j] - min($nilaiC1)),(max($nilaiC1) - min($nilaiC1)));
+                        $normalisasi[$i][$j] = number_format($this->safeDivide(($nilai[$i][$j] - min($nilaiC1)),(max($nilaiC1) - min($nilaiC1))), 3);
                       break;
                     case 1:
-                        $normalisasi[$i][$j] = $this->safeDivide(($nilai[$i][$j] - min($nilaiC2)),(max($nilaiC2) - min($nilaiC2)));
+                        $normalisasi[$i][$j] = number_format($this->safeDivide(($nilai[$i][$j] - min($nilaiC2)),(max($nilaiC2) - min($nilaiC2))), 3);
                       break;
                     case 2:
-                        $normalisasi[$i][$j] = $this->safeDivide(($nilai[$i][$j] - min($nilaiC3)),(max($nilaiC3) - min($nilaiC3)));
+                        $normalisasi[$i][$j] = number_format($this->safeDivide(($nilai[$i][$j] - min($nilaiC3)),(max($nilaiC3) - min($nilaiC3))), 3);
                       break;
                     case 3:
-                        $normalisasi[$i][$j] = $this->safeDivide(($nilai[$i][$j] - min($nilaiC4)),(max($nilaiC4) - min($nilaiC4)));
+                        $normalisasi[$i][$j] = number_format($this->safeDivide(($nilai[$i][$j] - min($nilaiC4)),(max($nilaiC4) - min($nilaiC4))), 3);
                       break;
                     case 4:
-                        $normalisasi[$i][$j] = $this->safeDivide(($nilai[$i][$j] - min($nilaiC5)),(max($nilaiC5) - min($nilaiC5)));
+                        $normalisasi[$i][$j] = number_format($this->safeDivide(($nilai[$i][$j] - min($nilaiC5)),(max($nilaiC5) - min($nilaiC5))), 3);
                       break;
                   }
             }
@@ -333,19 +333,19 @@ public function calculate(string $id)
             for ($j = 0; $j < $n; $j++) {
                 switch ($j) {
                     case 0:
-                        $utility[$i][$j] = ($normalisasi[$i][$j] * $kriteria['jam_kerja']);
+                        $utility[$i][$j] = number_format(($normalisasi[$i][$j] * $kriteria['jam_kerja']), 3);
                       break;
                     case 1:
-                        $utility[$i][$j] = ($normalisasi[$i][$j] * $kriteria['malnutrisi']);
+                        $utility[$i][$j] = number_format(($normalisasi[$i][$j] * $kriteria['malnutrisi']), 3);
                       break;
                     case 2:
-                        $utility[$i][$j] = ($normalisasi[$i][$j] * $kriteria['kondisi_stunting']);
+                        $utility[$i][$j] = number_format(($normalisasi[$i][$j] * $kriteria['kondisi_stunting']), 3);
                       break;
                     case 3:
-                        $utility[$i][$j] = ($normalisasi[$i][$j] * $kriteria['kondisi_ekonomi']);
+                        $utility[$i][$j] = number_format(($normalisasi[$i][$j] * $kriteria['kondisi_ekonomi']), 3);
                       break;
                     case 4:
-                        $utility[$i][$j] = ($normalisasi[$i][$j] * $kriteria['gangguan_kesehatan']);
+                        $utility[$i][$j] = number_format(($normalisasi[$i][$j] * $kriteria['gangguan_kesehatan']), 3);
                       break;
                   }
             }
