@@ -22,18 +22,18 @@
             outline-color: #098DB3;
         }
         .light-grey-bg {
-            background-color: #f5f5f5; /* Warna light grey */
+            background-color: #fffff; /* Warna light grey */
         }
     </style>
 </head>
 <body class="h-full">
     <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-        <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+        <div class="mt-6 sm:mx-auto sm:w-full sm:max-w-sm border-2 custom-border p-6 light-grey-bg shadow-2xl">       
+             <div class="sm:mx-auto sm:w-full sm:max-w-sm">
             <img class="mx-auto h-40 w-43" src="{{ url('img/logo.png') }}" alt="Your Company">
             <h2 class="mt-1 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Login</h2>
         </div>
 
-        <div class="mt-6 sm:mx-auto sm:w-full sm:max-w-sm border-2 custom-border p-6 light-grey-bg">
             <form class="space-y-6" action="{{ route('proses_login') }}" method="POST">
                 @csrf
                 

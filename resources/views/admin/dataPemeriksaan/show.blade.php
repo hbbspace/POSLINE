@@ -57,8 +57,8 @@
                     <td>{{ $hasil_pemeriksaan->lingkar_badan }} Cm</td>
                 </tr>
                 <tr>
-                    <th>Riwayat Pemyakit</th>
-                    <td>{{ $hasil_pemeriksaan->riwayat_penyakit }}</td>
+                    <th>Gangguan Kesehatan</th>
+                    <td>{{ $hasil_pemeriksaan->gangguan_kesehatan }}</td>
                 </tr>
                 <tr>
                     <th>Malnutrisi</th>
@@ -67,6 +67,9 @@
                 <tr>
                     <th>Stunting</th>
                     <td>{{ $hasil_pemeriksaan->stunting }}</td>
+                </tr>                <tr>
+                    <th>Catatan</th>
+                    <td>{{ $hasil_pemeriksaan->catatan }}</td>
                 </tr>
             </table>
         @endif

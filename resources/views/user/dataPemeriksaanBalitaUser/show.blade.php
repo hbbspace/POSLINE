@@ -6,7 +6,13 @@
 <div class="card card-outline card-info">
     <div class="card-header">
         <h3 class="card-title">{{ $page->title }}</h3>
-        <div class="card-tools"></div>
+
+        <div class="card-tools">
+            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#infoPenyakitModal">
+                <h5>Info Penyakit</h5>
+              
+            </button>
+        </div> 
     </div>
     <div class="card-body">
         @if(empty($hasil_pemeriksaan))
@@ -23,6 +29,10 @@
                 <tr>
                     <th>Nama Balita</th>
                     <td>{{ $hasil_pemeriksaan->nama }}</td>
+                </tr>
+                <tr>
+                    <th>Usia</th>
+                    <td>{{ $hasil_pemeriksaan->usia }} Bulan</td>
                 </tr>
                 <tr>
                     <th>Nama Petugas</th>
@@ -49,8 +59,12 @@
                     <td>{{ $hasil_pemeriksaan->lingkar_badan }} Cm</td>
                 </tr>
                 <tr>
-                    <th>Riwayat Penyakit</th>
-                    <td>{{ $hasil_pemeriksaan->riwayat_penyakit }}</td>
+                    <th>Gangguan Keehatan</th>
+                    <td>{{ $hasil_pemeriksaan->gangguan_kesehatan }}</td>
+                </tr>
+                <tr>
+                    <th>Catatan</th>
+                    <td>{{ $hasil_pemeriksaan->catatan }}</td>
                 </tr>
             </table>
         @endif
@@ -60,7 +74,61 @@
     </div>
 </div>
 </div>
-@endsection
+<!-- Modal -->
+<div class="modal fade" id="infoPenyakitModal" tabindex="-1" role="dialog" aria-labelledby="infoPenyakitModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="infoPenyakitModalLabel">Informasi Penyakit Umum pada Balita</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <ul>
+            <li><strong style="color: green;">Penyakit Ringan:</strong></li>
+            <ul>
+              <li>Batuk dan Pilek</li>
+              <li>Diare Ringan</li>
+              <li>Demam Ringan</li>
+              <li>Ruam Kulit</li>
+              <li>Infeksi Telinga Ringan</li>
+              <li>Konjungtivitis (Mata Merah)</li>
+              <li>Stomatitis</li>
+              <li>Cacingan</li>
+            </ul>
+            <li><strong style="color: orange;">Penyakit Sedang:</strong></li>
+            <ul>
+              <li>Asma Sedang</li>
+              <li>Diare dengan Dehidrasi Ringan</li>
+              <li>Demam Tinggi tanpa Komplikasi</li>
+              <li>Infeksi Telinga Sedang</li>
+              <li>Bronkitis</li>
+              <li>Infeksi Saluran Kemih (ISK)</li>
+              <li>Gastroenteritis Sedang</li>
+            </ul>
+            <li><strong style="color: red;">Penyakit Berat:</strong></li>
+            <ul>
+              <li>Pneumonia</li>
+              <li>Diare Berat dengan Dehidrasi</li>
+              <li>Demam Berdarah Dengue</li>
+              <li>Meningitis</li>
+              <li>Sepsis</li>
+              <li>Malaria Berat</li>
+              <li>Tuberkulosis (TB)</li>
+              <li>Kekurangan Gizi Berat</li>
+              <li>Leukemia</li>
+              <li>Congenital Heart Disease</li>
+            </ul>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  @endsection
 
 @push('css')
 @endpush

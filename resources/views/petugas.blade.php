@@ -6,65 +6,71 @@
 
 @section('content')
 <div class="table-responsive" style="max-height: 550px; overflow-y: auto;">
-
-<div class="container col-lg-12">
-    <div class="card card-info">
-        <div class="card-header">
-            <h3>Dashboard</h3>
-        </div>
-        <div class="card-body">
-            <div class="container-fluid">
-                <!-- Small boxes (Stat box) -->
-                <div class="row">
-                    <div class="col-lg-6 col-6">
-                        <!-- small box -->
-                        <div class="small-box bg-success">
-                            <div class="inner">
-                                <h3>Total Pemeriksaan</h3>
-                                <p>{{ $total_pemeriksaan }} Pemeriksaan yang telah anda lakukan</p>
+    <div class="container col-lg-12">
+        <div class="card card-info">
+            <div class="card-header bg-info text-white">
+                <h3 class="card-title">Dashboard</h3>
+            </div>
+            <div class="card-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-6 col-6">
+                            <div class="small-box bg-light shadow-sm">
+                                <div class="inner">
+                                    <h3 class="text-info">Total Pemeriksaan</h3>
+                                    <p>{{ $total_pemeriksaan }} Pemeriksaan yang telah anda lakukan</p>
+                                </div>
+                                <div class="icon text-info">
+                                    <i class="ion ion-trophy"></i>
+                                </div>
+                                <a href="{{ url('/petugas/historyPemeriksaan') }}" class="small-box-footer text-info">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
-                            <div class="icon">
-                                <i class="ion ion-trophy"></i>
-                            </div>
-                            <a href="{{ url('/petugas/historyPemeriksaan') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
-                    </div>
-                    <div class="col-lg-6 col-6">
-                        <!-- small box -->
-                        <div class="small-box bg-info">
-                            <div class="inner">
-                                <h3>Jadwal yang telah dilaksanakan</h3>
-                                <p>{{ $total_jadwal }} jadwal Pemeriksaan telah dilaksanakan</p>
+                        <div class="col-lg-6 col-6">
+                            <div class="small-box bg-light shadow-sm">
+                                <div class="inner">
+                                    <h3 class="text-info">Jadwal yang telah dilaksanakan</h3>
+                                    <p>{{ $total_jadwal }} jadwal Pemeriksaan telah dilaksanakan</p>
+                                </div>
+                                <div class="icon text-info">
+                                    <i class="ion ion-trophy"></i>
+                                </div>
+                                <a class="small-box-footer text-info">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
-                            <div class="icon">
-                                <i class="ion ion-trophy"></i>
-                            </div>
-                            <a class="small-box-footer">
-                                <i class="fas fa-arrow-circle-right"></i>
-                            </a>
                         </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="card card-info">
-                            <div class="card-header">
-                                <h3>Perbandingan Berat Balita</h3>
-                            </div>
-                            <div class="card-body">
-                                <div style="width: 100%; max-width: 600px; margin: 0 auto;">
-                                    <canvas id="beratChart" width="400" height="200"></canvas>
+                        <div class="col-lg-4">
+                            <div class="card card-info">
+                                <div class="card-header bg-info text-white">
+                                    <h3 class="card-title">Perbandingan Berat Balita</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-container">
+                                        <canvas id="beratChart" width="400" height="423"></canvas>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-lg-6">
-                        <div class="card card-info">
-                            <div class="card-header">
-                                <h3>Perbandingan Tinggi Balita</h3>
+                        <div class="col-lg-4">
+                            <div class="card card-info">
+                                <div class="card-header bg-info text-white">
+                                    <h3 class="card-title">Perbandingan Tinggi Balita</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-container">
+                                        <canvas id="tinggiChart" width="400" height="423"></canvas>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="card-body">
-                                <div style="width: 100%; max-width: 600px; margin: 0 auto;">
-                                    <canvas id="tinggiChart" width="400" height="200"></canvas>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="card card-info">
+                                <div class="card-header bg-info text-white">
+                                    <h3 class="card-title">Perbandingan Balita Stunting dan Tidak Stunting</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-container">
+                                        <canvas id="stuntingChart" width="400" height="200"></canvas>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -73,61 +79,59 @@
             </div>
         </div>
     </div>
-</div>
-
-<div class="container col-lg-12 mt-4">
-    <div class="card card-info">
-        <div class="card-header">
-            <a href="{{ url('/petugas/jadwal')}}">
-                <h3>Jadwal Terbaru</h3>
-            </a>
-        </div>
-        <div class="card-body">
-            <section class="content">
-                <table class="table table-bordered table-striped table-hover table-sm" id="table_jadwal">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Pemeriksaan ID</th>
-                            <th>Agenda</th>
-                            <th>Tanggal</th>
-                            <th>Tempat</th>
-                        </tr>
-                    </thead>
-                </table>
-            </section>
+    <div class="container col-lg-12 mt-4">
+        <div class="card card-info">
+            <div class="card-header bg-info text-white">
+                <a href="{{ url('/petugas/jadwal') }}" class="text-white">
+                    <h3 class="card-title">Jadwal Terbaru</h3>
+                </a>
+            </div>
+            <div class="card-body">
+                <section class="content">
+                    <table class="table table-bordered table-striped table-hover table-sm" id="table_jadwal">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>No</th>
+                                <th>Pemeriksaan ID</th>
+                                <th>Agenda</th>
+                                <th>Tanggal</th>
+                                <th>Tempat</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </section>
+            </div>
         </div>
     </div>
-</div>
-<div class="container col-lg-12">
-    <div class="card card-info">
-        <div class="card-header">
-            <h3>Perbandingan Seluruh Pemeriksaan</h3>
-        </div>
-        <div class="card-body">
-            <div class="container-fluid">
-                <!-- Small boxes (Stat box) -->
-                <div class="row">
-                    <div class="col-lg-6 mt-3">
-                        <div class="card card-info">
-                            <div class="card-header">
-                                <h3>Perbandingan Tinggi Balita</h3>
-                            </div>
-                            <div class="card-body">
-                                <div style="width: 100%; max-width: 600px; margin: 0 auto;">
-                                    <canvas id="heightChart" width="400" height="200"></canvas>
+    <div class="container col-lg-12">
+        <div class="card card-info">
+            <div class="card-header bg-info text-white">
+                <h3 class="card-title">Perbandingan Seluruh Pemeriksaan</h3>
+            </div>
+            <div class="card-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-6 mt-3">
+                            <div class="card card-info">
+                                <div class="card-header bg-info text-white">
+                                    <h3 class="card-title">Perbandingan Tinggi Balita</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div style="width: 100%; max-width: 600px; margin: 0 auto;">
+                                        <canvas id="heightChart" width="400" height="200"></canvas>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-6 mt-3">
-                        <div class="card card-info">
-                            <div class="card-header">
-                                <h3>Perbandingan Berat Balita</h3>
-                            </div>
-                            <div class="card-body">
-                                <div style="width: 100%; max-width: 600px; margin: 0 auto;">
-                                    <canvas id="weightChart" width="400" height="200"></canvas>
+                        <div class="col-lg-6 mt-3">
+                            <div class="card card-info">
+                                <div class="card-header bg-info text-white">
+                                    <h3 class="card-title">Perbandingan Berat Balita</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div style="width: 100%; max-width: 600px; margin: 0 auto;">
+                                        <canvas id="weightChart" width="400" height="200"></canvas>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -136,7 +140,6 @@
             </div>
         </div>
     </div>
-</div>
 </div>
 @endsection
 
@@ -199,7 +202,6 @@
 </script>
 @endpush
 
-
 @push('js')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
@@ -257,21 +259,50 @@
     });
 </script>
 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var ctx = document.getElementById('stuntingChart').getContext('2d');
+        var tinggiChart = new Chart(ctx, {
+            type: 'pie', // 'Pie' diganti menjadi 'pie' (kecil)
+            data: {
+                labels: ['Tidak Stunting', 'Rendah', 'Sedang', 'Tinggi'],
+                datasets: [{
+                    data: [{{ $tidakStunting->first()->stunting ?? 0 }}, 
+                           {{ $stuntingRendah->first()->stunting ?? 0 }}, 
+                           {{ $stuntingSedang->first()->stunting ?? 0 }},
+                           {{ $stuntingTinggi->first()->stunting ?? 0 }}],
+                    backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56', '#4BC0C0'], // Ditambahkan warna untuk semua kategori
+                    borderColor: ['#36A2EB', '#FF6384', '#FFCE56', '#4BC0C0'], // Ditambahkan warna untuk semua kategori
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'bottom' // Posisi legenda diubah menjadi 'bottom'
+                    }
+                }
+            }
+        });
+    });
+</script>
+<script>
     $(document).ready(function() {
         $.ajax({
             url: "{{ route('admin.chart.data') }}",
             method: 'GET',
             success: function(response) {
-                // Grafik Tinggi Balita
                 var ctxHeight = document.getElementById('heightChart').getContext('2d');
                 var heightChart = new Chart(ctxHeight, {
                     type: 'line',
                     data: {
-                        labels: response.labels, // Menggunakan label yang sama untuk kedua dataset
+                        labels: response.labels, 
                         datasets: [
                             {
                                 label: 'Tinggi Rata-rata Laki-laki',
-                                data: response.data, // Data tinggi rata-rata laki-laki
+                                data: response.data, 
                                 backgroundColor: 'rgba(54, 162, 235, 0.2)',
                                 borderColor: 'rgba(54, 162, 235, 1)',
                                 borderWidth: 1,
@@ -279,7 +310,7 @@
                             },
                             {
                                 label: 'Tinggi Rata-rata Perempuan',
-                                data: response.data2, // Data tinggi rata-rata perempuan
+                                data: response.data2, 
                                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
                                 borderColor: 'rgba(255, 99, 132, 1)',
                                 borderWidth: 1,
@@ -296,16 +327,15 @@
                     }
                 });
 
-                // Grafik Berat Balita
                 var ctxWeight = document.getElementById('weightChart').getContext('2d');
                 var weightChart = new Chart(ctxWeight, {
                     type: 'line',
                     data: {
-                        labels: response.labels, // Menggunakan label yang sama untuk kedua dataset
+                        labels: response.labels,
                         datasets: [
                             {
                                 label: 'Berat Rata-rata Laki-laki',
-                                data: response.weightL, // Data berat rata-rata laki-laki
+                                data: response.weightL,
                                 backgroundColor: 'rgba(54, 162, 235, 0.2)',
                                 borderColor: 'rgba(54, 162, 235, 1)',
                                 borderWidth: 1,
@@ -313,7 +343,7 @@
                             },
                             {
                                 label: 'Berat Rata-rata Perempuan',
-                                data: response.weightP, // Data berat rata-rata perempuan
+                                data: response.weightP,
                                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
                                 borderColor: 'rgba(255, 99, 132, 1)',
                                 borderWidth: 1,

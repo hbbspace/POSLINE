@@ -53,6 +53,29 @@ class AdminController extends Controller
             ->where('hasil_pemeriksaan.pemeriksaan_id', $maxPemeriksaanId)
             ->value('tinggi_rata_perempuan');
 
+        $stuntingRendah = HasilPemeriksaanModel::select(DB::raw('COUNT(hasil_pemeriksaan.stunting) as stunting'))
+        ->where('hasil_pemeriksaan.stunting', '=', 'Rendah')
+        ->where('hasil_pemeriksaan.pemeriksaan_id', $maxPemeriksaanId)
+        ->where('hasil_pemeriksaan.status','=','Selesai')->get();
+
+        $stuntingSedang = HasilPemeriksaanModel::select(DB::raw('COUNT(hasil_pemeriksaan.stunting) as stunting'))
+        ->where('hasil_pemeriksaan.stunting', '=', 'Sedang')
+        ->where('hasil_pemeriksaan.pemeriksaan_id', $maxPemeriksaanId)
+        ->where('hasil_pemeriksaan.status','=','Selesai')->get();
+
+        $stuntingTinggi =HasilPemeriksaanModel::select(DB::raw('COUNT(hasil_pemeriksaan.stunting) as stunting'))
+        ->where('hasil_pemeriksaan.stunting', '=', 'Tinggi')
+        ->where('hasil_pemeriksaan.pemeriksaan_id', $maxPemeriksaanId)
+        ->where('hasil_pemeriksaan.status','=','Selesai')->get();
+        
+        $tidakStunting = HasilPemeriksaanModel::select(DB::raw('COUNT(hasil_pemeriksaan.stunting) as stunting'))
+        ->where('hasil_pemeriksaan.stunting', '=', 'Tidak')
+        ->where('hasil_pemeriksaan.pemeriksaan_id', $maxPemeriksaanId)
+        ->where('hasil_pemeriksaan.status','=','Selesai')->get();
+    
+    // dd($tidakStunting);
+
+        // dd($stuntingSedang);
                 // session()->flush();
         $breadcrumb = (object) [
             'title' => 'Selamat Datang ' . Auth::guard('admin')->user()->nama_admin,
@@ -71,6 +94,10 @@ class AdminController extends Controller
         'beratRataPerempuan'=>$beratRataPerempuan,
         'tinggiRataLaki'=>$tinggiRataLaki,
         'tinggiRataPerempuan'=>$tinggiRataPerempuan,
+        'stuntingRendah'=>$stuntingRendah,
+        'stuntingSedang'=>$stuntingSedang,
+        'stuntingTinggi'=>$stuntingTinggi,
+        'tidakStunting'=>$tidakStunting,
         'jadwalTerlaksana'=>$jadwalTerlaksana]);
         }else{
             return redirect('/login')->with('error', 'Session Anda sudah habis, silahkan login kembali');
@@ -111,7 +138,7 @@ class AdminController extends Controller
     $heightData = $data->pluck('tinggi_rata_laki');
     $heightData2 = $data2->pluck('tinggi_rata_perempuan');
     
-    $weight = $data2->pluck('berat_rata_laki');
+    $weight = $data->pluck('berat_rata_laki');
     $weight2 = $data2->pluck('berat_rata_perempuan');
     // Kirimkan data dalam format JSON
     return response()->json([

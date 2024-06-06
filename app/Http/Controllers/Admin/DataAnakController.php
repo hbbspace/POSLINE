@@ -73,7 +73,7 @@ class DataAnakController extends Controller
         ]);
 
         //create hasil pemeriksaan baru bagi balita yang baru terdaftar terhadap pemeriksaan posyandu yang belum dilaksanakan
-        $pemeriksaan = PemeriksaanModel::select('pemeriksaan_id')->where('tanggal', '<', now())->get();
+        $pemeriksaan = PemeriksaanModel::select('pemeriksaan_id')->where('tanggal', '>=', now())->get();
 
         foreach($pemeriksaan as $pemeriksaans){
             HasilPemeriksaanModel::create([

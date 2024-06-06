@@ -403,7 +403,7 @@ public function calculate(string $id)
         $activeMenu = 'jadwal';
         // dd($nilai);
 
-        return view('petugas.jadwal.ranking', [
+        return view('admin.jadwal.ranking', [
             'breadcrumb' => $breadcrumb, 
             'page' => $page, 
             'rankingBalita' => $rankingBalita,

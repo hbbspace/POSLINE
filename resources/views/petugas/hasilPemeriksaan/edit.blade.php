@@ -32,20 +32,24 @@
                             <input type="number" class="form-control" id="lingkar_badan" name="lingkar_badan" step="0.01" value="{{ $hasil_pemeriksaan->lingkar_badan }}">
                         </div>
                         <div class="form-group">
-                            <label for="riwayat_penyakit">Riwayat Penyakit</label>
+                            <label for="gangguan_penyakit">Riwayat Penyakit</label>
+                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#infoPenyakitModal">
+                                ?
+                            </button>
                             <div>
                                 @php
                                     $options = [
                                         'Tidak ada' => 'Tidak ada',
                                         'Ringan' => 'Ringan',
+                                        'Sedang' => 'Sedang',
                                         'Berat' => 'Berat'
                                     ];
                                 @endphp
 
                                 @foreach ($options as $value => $label)
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="riwayat_penyakit" id="riwayat_penyakit_{{ $value }}" value="{{ $value }}" {{ $hasil_pemeriksaan->riwayat_penyakit == $value ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="riwayat_penyakit_{{ $value }}">{{ $label }}</label>
+                                        <input class="form-check-input" type="radio" name="gangguan_penyakit" id="gangguan_penyakit_{{ $value }}" value="{{ $value }}" {{ $hasil_pemeriksaan->gangguan_penyakit == $value ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="gangguan_penyakit_{{ $value }}">{{ $label }}</label>
                                     </div>
                                 @endforeach
                             </div>
@@ -65,4 +69,58 @@
         </div>
     </div>
 </div>
-@endsection
+<!-- Modal -->
+<div class="modal fade" id="infoPenyakitModal" tabindex="-1" role="dialog" aria-labelledby="infoPenyakitModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="infoPenyakitModalLabel">Informasi Penyakit Umum pada Balita</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <ul>
+            <li><strong style="color: green;">Penyakit Ringan:</strong></li>
+            <ul>
+              <li>Batuk dan Pilek</li>
+              <li>Diare Ringan</li>
+              <li>Demam Ringan</li>
+              <li>Ruam Kulit</li>
+              <li>Infeksi Telinga Ringan</li>
+              <li>Konjungtivitis (Mata Merah)</li>
+              <li>Stomatitis</li>
+              <li>Cacingan</li>
+            </ul>
+            <li><strong style="color: orange;">Penyakit Sedang:</strong></li>
+            <ul>
+              <li>Asma Sedang</li>
+              <li>Diare dengan Dehidrasi Ringan</li>
+              <li>Demam Tinggi tanpa Komplikasi</li>
+              <li>Infeksi Telinga Sedang</li>
+              <li>Bronkitis</li>
+              <li>Infeksi Saluran Kemih (ISK)</li>
+              <li>Gastroenteritis Sedang</li>
+            </ul>
+            <li><strong style="color: red;">Penyakit Berat:</strong></li>
+            <ul>
+              <li>Pneumonia</li>
+              <li>Diare Berat dengan Dehidrasi</li>
+              <li>Demam Berdarah Dengue</li>
+              <li>Meningitis</li>
+              <li>Sepsis</li>
+              <li>Malaria Berat</li>
+              <li>Tuberkulosis (TB)</li>
+              <li>Kekurangan Gizi Berat</li>
+              <li>Leukemia</li>
+              <li>Congenital Heart Disease</li>
+            </ul>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  @endsection

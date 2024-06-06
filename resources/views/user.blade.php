@@ -10,7 +10,7 @@
             <div class="card-body">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-6 col-6">
+                        {{-- <div class="col-lg-6 col-6">
                             <div class="small-box bg-success">
                                 <div class="inner">
                                     <h3>Balita</h3>
@@ -33,7 +33,31 @@
                                 </div>
                                 <a href="{{ url('/user/dataPemeriksaanBalita') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
+                        </div> --}}
+                        <div class="col-lg-6 col-6">
+                            <div class="small-box bg-light shadow-sm">
+                                <div class="inner">
+                                    <h3 class="text-info">Balita</h3>
+                                    <p>{{ $jumlahAnak }} Jumlah Balita Anda Yang Terdaftar</p>
+                                </div>
+                                <div class="icon text-info">
+                                    <i class="ion ion-trophy"></i>
+                                </div>
+                                <a href="{{ url('/user/dataBalitaUser') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
                         </div>
+                    <div class="col-lg-6 col-6">
+                        <div class="small-box bg-light shadow-sm">
+                            <div class="inner">
+                                <h3 class="text-info">Toal Pemeriksaan</h3>
+                                <p>{{ $hasil_pemeriksaan }}Pemeriksaan telah dilakukan</p>
+                            </div>
+                            <div class="icon text-info">
+                                <i class="ion ion-trophy"></i>
+                            </div>
+                            <a href="{{ url('/user/dataPemeriksaanBalita') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
                     </div>
                 </div>
             </div>

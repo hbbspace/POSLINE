@@ -36,6 +36,10 @@
                                 <td>{{ $pemeriksaan->agenda }}</td>
                             </tr>
                             <tr>
+                                <th>Usia</th>
+                                <td>{{ $pemeriksaan->usia }} Bulan</td>
+                            </tr>
+                            <tr>
                                 <th>Tanggal Pemeriksaan</th>
                                 <td>{{ $pemeriksaan->tanggal }}</td>
                             </tr>
@@ -52,8 +56,12 @@
                                 <td>{{ $pemeriksaan->lingkar_badan }} Cm</td>
                             </tr>
                             <tr>
-                                <th>Riwayat Penyakit</th>
-                                <td>{{ $pemeriksaan->riwayat_penyakit }}</td>
+                                <th>Gangguan Kesehatan</th>
+                                <td>{{ $pemeriksaan->gangguan_kesehatan }}</td>
+                            </tr>
+                            <tr>
+                                <th>Catatan</th>
+                                <td>{{ $hasil_pemeriksaan->catatan }}</td>
                             </tr>
                         </table>
                         <a href="{{ url('petugas/historyPemeriksaan/' . $pemeriksaan->hasil_id . '/edit') }}" class="btn btn-warning btn-sm mx-2">Edit Pemeriksaan</a>

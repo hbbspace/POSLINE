@@ -53,6 +53,26 @@ class PetugasController extends Controller
                 ->where('anggota_keluarga.jk', 'P')
                 ->where('hasil_pemeriksaan.pemeriksaan_id', $maxPemeriksaanId)
                 ->value('tinggi_rata_perempuan');
+
+            $stuntingRendah = HasilPemeriksaanModel::select(DB::raw('COUNT(hasil_pemeriksaan.stunting) as stunting'))
+            ->where('hasil_pemeriksaan.stunting', '=', 'Rendah')
+            ->where('hasil_pemeriksaan.pemeriksaan_id', $maxPemeriksaanId)
+            ->where('hasil_pemeriksaan.status','=','Selesai')->get();
+    
+            $stuntingSedang = HasilPemeriksaanModel::select(DB::raw('COUNT(hasil_pemeriksaan.stunting) as stunting'))
+            ->where('hasil_pemeriksaan.stunting', '=', 'Sedang')
+            ->where('hasil_pemeriksaan.pemeriksaan_id', $maxPemeriksaanId)
+            ->where('hasil_pemeriksaan.status','=','Selesai')->get();
+    
+            $stuntingTinggi =HasilPemeriksaanModel::select(DB::raw('COUNT(hasil_pemeriksaan.stunting) as stunting'))
+            ->where('hasil_pemeriksaan.stunting', '=', 'Tinggi')
+            ->where('hasil_pemeriksaan.pemeriksaan_id', $maxPemeriksaanId)
+            ->where('hasil_pemeriksaan.status','=','Selesai')->get();
+            
+            $tidakStunting = HasilPemeriksaanModel::select(DB::raw('COUNT(hasil_pemeriksaan.stunting) as stunting'))
+            ->where('hasil_pemeriksaan.stunting', '=', 'Tidak')
+            ->where('hasil_pemeriksaan.pemeriksaan_id', $maxPemeriksaanId)
+            ->where('hasil_pemeriksaan.status','=','Selesai')->get();
         
             // session()->flush();
             $breadcrumb = (object) [
@@ -69,6 +89,10 @@ class PetugasController extends Controller
             'beratRataPerempuan'=>$beratRataPerempuan,
             'tinggiRataLaki'=>$tinggiRataLaki,
             'tinggiRataPerempuan'=>$tinggiRataPerempuan,
+            'stuntingRendah'=>$stuntingRendah,
+            'stuntingSedang'=>$stuntingSedang,
+            'stuntingTinggi'=>$stuntingTinggi,
+            'tidakStunting'=>$tidakStunting,
             'total_jadwal'=>$total_jadwal]);
         } else {
             return redirect('/login')->with('error', 'Session Anda sudah habis, silahkan login kembali');
