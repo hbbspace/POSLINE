@@ -358,9 +358,12 @@ public function update(Request $request, string $id)
             return $b['nilai'] <=> $a['nilai'];
         });
 
+        $i = 0;
         foreach ($nilai_dan_id as $rank => $item) {
+            $total_nilai[$i] = $item['nilai'];
             HasilPemeriksaanModel::where('hasil_id', $item['hasil_id'])
                 ->update(['ranking' => $rank + 1]);
+        $i++;
         }
 
         $rankingBalita = HasilPemeriksaanModel::select(
