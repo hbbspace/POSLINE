@@ -70,7 +70,7 @@
             <section class="section about" id="article" aria-level="about">
                 <div class="container">
                     <div class="about-banner img-holder" style="--width: 600; --height: 700;">
-                        <img src="img/abt-banner.jpg" width="600px" height="700px" loading="lazy" alt="" class="img-cover">
+                        <img src="img/imunisasi.jpg" width="600px" height="700px" loading="lazy" alt="" class="img-cover">
                     </div>
 
                     <div class="about-content">
@@ -89,8 +89,8 @@
                         <a href="#" class="btn btn-primary">Learn More</a>
                     </div>
 
-                    <div class="about-banner img-holder" style="--width: 600; --height: 700;">
-                        <img src="img/abt-banner.jpg" width="300px" height="400px" loading="lazy" alt="" class="img-cover">
+                    <div class="about-banner img-holder" style="--width: 600; --height: 350;">
+                        <img src="img/gizi.jpg" width="800px" height="400px" loading="lazy" alt="" class="img-cover">
                     </div>
 
                 </div>
@@ -99,7 +99,7 @@
             <section class="section about" id="article" aria-level="about">
                 <div class="container">
                     <div class="about-banner img-holder" style="--width: 600; --height: 700;">
-                        <img src="img/abt-banner.jpg" width="600px" height="700px" loading="lazy" alt="" class="img-cover">
+                        <img src="img/stimulasi.jpg" width="600px" height="700px" loading="lazy" alt="" class="img-cover">
                     </div>
 
                     <div class="about-content">
