@@ -16,10 +16,6 @@
                     @foreach($hasil_pemeriksaan as $pemeriksaan)
                         <table class="table table-bordered table-striped table-hover table-sm mb-4">
                             <tr>
-                                <th>ID Hasil Pemeriksaan</th>
-                                <td>{{ $pemeriksaan->hasil_id }}</td>
-                            </tr>
-                            <tr>
                                 <th>ID Pemeriksaan</th>
                                 <td>{{ $pemeriksaan->pemeriksaan_id }}</td>
                             </tr>
@@ -52,16 +48,20 @@
                                 <td>{{ $pemeriksaan->berat_badan }} Kg</td>
                             </tr>
                             <tr>
-                                <th>Lingkar Badan</th>
-                                <td>{{ $pemeriksaan->lingkar_badan }} Cm</td>
+                                <th>Lingkar Kepala</th>
+                                <td>{{ $pemeriksaan->lingkar_kepala }} Cm</td>
                             </tr>
                             <tr>
                                 <th>Gangguan Kesehatan</th>
                                 <td>{{ $pemeriksaan->gangguan_kesehatan }}</td>
                             </tr>
                             <tr>
+                                <th>Nafsu Makan</th>
+                                <td>{{ $pemeriksaan->nafsu_makan }}</td>
+                            </tr>
+                            <tr>
                                 <th>Catatan</th>
-                                <td>{{ $hasil_pemeriksaan->catatan }}</td>
+                                <td>{{ $pemeriksaan->catatan }}</td>
                             </tr>
                         </table>
                         <a href="{{ url('petugas/historyPemeriksaan/' . $pemeriksaan->hasil_id . '/edit') }}" class="btn btn-warning btn-sm mx-2">Edit Pemeriksaan</a>

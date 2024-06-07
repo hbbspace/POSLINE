@@ -30,13 +30,13 @@
                         <input type="number" class="form-control" id="berat_badan" name="berat_badan" step="0.01" required>
                     </div>
                     <div class="form-group">
-                        <label for="lingkar_badan">Lingkar Badan</label>
+                        <label for="lingkar_kepala">Lingkar Kepala</label>
                         <small style="color: red">Gunakan tanda "." (titik) sebagai nilai koma jika terdapat bilangan desimal</small>
-                        <input type="number" class="form-control" id="lingkar_badan" name="lingkar_badan" step="0.01" required>
+                        <input type="number" class="form-control" id="lingkar_kepala" name="lingkar_kepala" step="0.01" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="gangguan_kesehatan">Nilai Kesehatan</label>
+                        <label for="gangguan_kesehatan">Gangguan Kesehatan</label>
                         <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#infoPenyakitModal">
                             ?
                         </button>
@@ -52,19 +52,34 @@
                     
                             @foreach ($options as $value => $label)
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="gangguan_kesehatan" id="gangguan_kesehatan" value="{{ $value }}" required>
-                                    <label class="form-check-label" for="gangguan_kesehatan">{{ $label }}</label>
+                                    <input class="form-check-input" type="radio" name="gangguan_kesehatan" id="gangguan_kesehatan_{{ $value }}" value="{{ $value }}" required>
+                                    <label class="form-check-label" for="gangguan_kesehatan_{{ $value }}">{{ $label }}</label>
                                 </div>
                             @endforeach
+                        </div>
+                    </div>
+
+                    <!-- Tambahan Radio Button -->
+                    <div class="form-group">
+                        <label>Nafsu Makan Balita</label>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="nafsu_makan" id="nafsu_makan" value="Baik" required>
+                                <label class="form-check-label" for="nafsu_makan">Baik</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="nafsu_makan" id="nafsu_makan" value="Kurang" required>
+                                <label class="form-check-label" for="nafsu_makan">Kurang</label>
+                            </div>
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label for="catatan">Catatan</label>
-                        <input type="text" class="form-control" id="catatan" name="catatan">
+                        <input type="text" class="form-control" id="catatan" name="catatan" placeholder="Isilah penyakit yang diderita balita">
                     </div>
-                    <input type="hidden" id="admin_id" name="admin_id" value="{{ Auth::guard('admin')->user()->admin_id }}">                   
-                    <input type="hidden" id="usia" name="usia" value="{{ $umur->first()->umur }}">                   
+                    <input type="hidden" id="admin_id" name="admin_id" value="{{ Auth::guard('admin')->user()->admin_id }}">
+                    <input type="hidden" id="usia" name="usia" value="{{ $umur->first()->umur }}">
                 </div>
 
                 <div class="card-footer">
@@ -74,7 +89,6 @@
         </div>
     </div>
 </div>
-
 
 <!-- Modal -->
 <div class="modal fade" id="infoPenyakitModal" tabindex="-1" role="dialog" aria-labelledby="infoPenyakitModalLabel" aria-hidden="true">
@@ -94,20 +108,16 @@
               <li>Diare Ringan</li>
               <li>Demam Ringan</li>
               <li>Ruam Kulit</li>
-              <li>Infeksi Telinga Ringan</li>
-              <li>Konjungtivitis (Mata Merah)</li>
-              <li>Stomatitis</li>
               <li>Cacingan</li>
             </ul>
             <li><strong style="color: orange;">Penyakit Sedang:</strong></li>
             <ul>
               <li>Asma Sedang</li>
               <li>Diare dengan Dehidrasi Ringan</li>
-              <li>Demam Tinggi tanpa Komplikasi</li>
-              <li>Infeksi Telinga Sedang</li>
+              <li>Demam Tinggi </li>
+              <li>Batuk atau Pilek Berkepanjangan </li>
               <li>Bronkitis</li>
               <li>Infeksi Saluran Kemih (ISK)</li>
-              <li>Gastroenteritis Sedang</li>
             </ul>
             <li><strong style="color: red;">Penyakit Berat:</strong></li>
             <ul>
@@ -115,13 +125,11 @@
               <li>Diare Berat dengan Dehidrasi</li>
               <li>Demam Berdarah Dengue</li>
               <li>Meningitis</li>
-              <li>Sepsis</li>
+              <li>Sinusitis</li>
               <li>Malaria Berat</li>
               <li>Tuberkulosis (TB)</li>
               <li>Kekurangan Gizi Berat</li>
-              <li>Leukemia</li>
-              <li>Congenital Heart Disease</li>
-            </ul>
+             </ul>
           </ul>
         </div>
         <div class="modal-footer">
@@ -131,4 +139,3 @@
     </div>
   </div>
 @endsection
-

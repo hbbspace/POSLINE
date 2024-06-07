@@ -17,8 +17,8 @@
         @else
             <table class="table table-bordered table-striped table-hover table-sm">
                 <tr>
-                    <th>ID</th>
-                    <td>{{ $hasil_pemeriksaan->hasil_id }}</td>
+                    <th>Pemeriksaan ID</th>
+                    <td>{{ $hasil_pemeriksaan->pemeriksaan_id }}</td>
                 </tr>
                 <tr>
                     <th>NIK</th>
@@ -37,10 +37,6 @@
                     <td>{{ $hasil_pemeriksaan->nama_admin }}</td>
                 </tr>
                 <tr>
-                    <th>Pemeriksaan ID</th>
-                    <td>{{ $hasil_pemeriksaan->pemeriksaan_id }}</td>
-                </tr>
-                <tr>
                     <th>Tanggal Pemeriksaan</th>
                     <td>{{ $hasil_pemeriksaan->tanggal }}</td>
                 </tr>
@@ -54,20 +50,22 @@
                 </tr>
                 <tr>
                     <th>Lingkar Kepala</th>
-                    <td>{{ $hasil_pemeriksaan->lingkar_badan }} Cm</td>
+                    <td>{{ $hasil_pemeriksaan->lingkar_kepala }} Cm</td>
                 </tr>
                 <tr>
                     <th>Gangguan Kesehatan</th>
                     <td>{{ $hasil_pemeriksaan->gangguan_kesehatan }}</td>
                 </tr>
-                <tr>
-                    <th>Malnutrisi</th>
-                    <td>{{ $hasil_pemeriksaan->malnutrisi }}</td>
-                </tr>
+
                 <tr>
                     <th>Stunting</th>
                     <td>{{ $hasil_pemeriksaan->stunting }}</td>
-                </tr>                <tr>
+                </tr>
+                <tr>
+                    <th>Nafsu Makan</th>
+                    <td>{{ $hasil_pemeriksaan->nafsu_makan }}</td>
+                </tr>                
+                <tr>
                     <th>Catatan</th>
                     <td>{{ $hasil_pemeriksaan->catatan }}</td>
                 </tr>

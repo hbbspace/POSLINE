@@ -180,22 +180,26 @@ class HasilPemeriksaanController extends Controller
         $request->validate([
             'tinggi_badan' => 'required|numeric|min:1', 
             'berat_badan' => 'required|numeric|min:1', 
-            'lingkar_badan' => 'required|numeric|min:1', 
+            'lingkar_kepala' => 'required|numeric|min:1', 
             'gangguan_kesehatan' => 'required|in:Tidak ada,Ringan,Sedang,Berat', // Menyesuaikan dengan opsi yang diberikan sebelumnya
-            'catatan' => 'nullable|string'
+            'catatan' => 'nullable|string',
+            'nafsu_makan'=>'required|in:Baik,Kurang' 
+
         ]);
 
         HasilPemeriksaanModel::find($id)->update([
             'tinggi_badan' => $request->tinggi_badan,
             'berat_badan' => $request->berat_badan,
-            'lingkar_badan' => $request->lingkar_badan,
+            'lingkar_kepala' => $request->lingkar_kepala,
             'gangguan_kesehatan' => $request->gangguan_kesehatan,
             'catatan' => $request->catatan,
+            'nafsu_makan'=>$request->nafsu_makan
+
         ]);
 
 
         $hasil_pemeriksaan = HasilPemeriksaanModel::select('keluarga.jam_kerja', 'keluarga.pendapatan', 'anggota_keluarga.jk', 'hasil_pemeriksaan.berat_badan',
-        'hasil_pemeriksaan.tinggi_badan','hasil_pemeriksaan.lingkar_badan','hasil_pemeriksaan.usia', 'hasil_pemeriksaan.berat_badan')
+        'hasil_pemeriksaan.tinggi_badan','hasil_pemeriksaan.lingkar_kepala','hasil_pemeriksaan.usia', 'hasil_pemeriksaan.berat_badan')
         ->join('anggota_keluarga', 'anggota_keluarga.nik', '=', 'hasil_pemeriksaan.nik')
         ->join('keluarga', 'keluarga.no_kk', '=', 'anggota_keluarga.no_kk')
         ->where('hasil_pemeriksaan.hasil_id', $id)
