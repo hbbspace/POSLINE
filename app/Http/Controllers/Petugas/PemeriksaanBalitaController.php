@@ -204,7 +204,7 @@ public function update(Request $request, string $id)
         // Mendefinisikan bobot kriteria
         $kriteria = [
             'jam_kerja' => 0.1,
-            'malnutrisi' => 0.1,
+            'nafsu_makan' => 0.1,
             'kondisi_stunting' => 0.3,
             'kondisi_ekonomi' => 0.3,
             'gangguan_kesehatan' => 0.2,
@@ -216,7 +216,7 @@ public function update(Request $request, string $id)
             'keluarga.jam_kerja',
             'keluarga.pendapatan',
             'hasil_pemeriksaan.gangguan_kesehatan',
-            'hasil_pemeriksaan.malnutrisi',
+            'hasil_pemeriksaan.nafsu_makan',
             'hasil_pemeriksaan.stunting'
         )
         ->join('anggota_keluarga', 'anggota_keluarga.nik', '=', 'hasil_pemeriksaan.nik')
@@ -246,13 +246,11 @@ public function update(Request $request, string $id)
             }
             $j++;
 
-            $malnutrisi = $pemeriksaan[$i]->malnutrisi;
-            if ($malnutrisi == 'Rendah') {
+            $nafsu_makan = $pemeriksaan[$i]->nafsu_makan;
+            if ($nafsu_makan == 'Baik') {
                 $nilai[$i][$j] = 1;
-            } elseif ($malnutrisi == 'Sedang') {
-                $nilai[$i][$j] = 2;
             } else {
-                $nilai[$i][$j] = 3;
+                $nilai[$i][$j] = 2;
             }
             $j++;
 
@@ -329,7 +327,7 @@ public function update(Request $request, string $id)
                         $utility[$i][$j] = number_format(($normalisasi[$i][$j] * $kriteria['jam_kerja']), 3);
                       break;
                     case 1:
-                        $utility[$i][$j] = number_format(($normalisasi[$i][$j] * $kriteria['malnutrisi']), 3);
+                        $utility[$i][$j] = number_format(($normalisasi[$i][$j] * $kriteria['nafsu_makan']), 3);
                       break;
                     case 2:
                         $utility[$i][$j] = number_format(($normalisasi[$i][$j] * $kriteria['kondisi_stunting']), 3);
@@ -373,7 +371,7 @@ public function update(Request $request, string $id)
             //'anggota_keluarga.nama as nama_orang_tua',
             'hasil_pemeriksaan.usia',
             'hasil_pemeriksaan.gangguan_kesehatan',
-            'hasil_pemeriksaan.malnutrisi',
+            'hasil_pemeriksaan.nafsu_makan',
             'hasil_pemeriksaan.stunting',
             'keluarga.jam_kerja',
             'keluarga.pendapatan',

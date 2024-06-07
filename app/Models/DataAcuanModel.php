@@ -19,7 +19,7 @@ class DataAcuanModel extends Model
         'BB_P',
         'TB_L',
         'TB_P',
-        'LB_L',
-        'LB_P'
+        'LK_L',
+        'LK_P'
     ];
 }
