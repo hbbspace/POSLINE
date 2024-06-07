@@ -101,12 +101,13 @@ class HasilPemeriksaanSeeder extends Seeder
                             if ($tinggi_badan >= $acuan->TB_P) {
                                 $nilaiTB = 0;
                             } else {
-                                $nilaiTB = 1;
+                                $nilaiTB = 2;
                             }
                             if ($berat_badan >= $acuan->TB_P) {
                                 $nilaiBB = 0;
                             } else {
                                 $nilaiBB = 0.5;
+                           
                             }
                             if ($lingkar_kepala >= $acuan->LK_P) {
                                 $nilaiLK = 0;
@@ -122,26 +123,26 @@ class HasilPemeriksaanSeeder extends Seeder
                             if ($tinggi_badan >= $acuan->TB_L) {
                                 $nilaiTB = 0;
                             } else {
-                                $nilaiTB = 1;
+                                $nilaiTB = 2;
                             }
                             if ($berat_badan >= $acuan->TB_L) {
                                 $nilaiBB = 0;
                             } else {
-                                $nilaiBB = 1;
+                                $nilaiBB = 0.5;
                             }
                             if ($lingkar_kepala >= $acuan->LK_L) {
                                 $nilaiLK = 0;
                             } else {
-                                $nilaiLK = 1; 
+                                $nilaiLK = 1;
                             }
                             $nilaiStunting = $nilaiTB + $nilaiBB + $nilaiLK;
                         }
                         
-                        if ($nilaiStunting == 0) {
+                        if ($nilaiStunting <= 1) {
                             $stunting = 'Tidak';
-                        } else if ($nilaiStunting == 1) {
-                            $stunting = 'Rendah';
                         } else if ($nilaiStunting == 2) {
+                            $stunting = 'Rendah';
+                        } else if ($nilaiStunting == 2.5) {
                             $stunting = 'Sedang';
                         } else {
                             $stunting = 'Tinggi';
