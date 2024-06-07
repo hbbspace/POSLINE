@@ -33,7 +33,7 @@
                     <th>Nama Balita</th>
                     <th>Usia (Bulan)</th>
                     <th>Jam Kerja Ortu</th>
-                    <th>Malnutrisi</th>
+                    <th>Nafsu Makan</th>
                     <th>Stunting</th>
                     <th>Pendapatan Ortu</th>
                     <th>Gangguan Kesehatan</th>
@@ -96,7 +96,7 @@
                     <th>Nama Balita</th>
                     <th>Usia (Bulan)</th>
                     <th>Jam Kerja Ortu</th>
-                    <th>Malnutrisi</th>
+                    <th>Nafsu Makan</th>
                     <th>Stunting</th>
                     <th>Pendapatan Ortu</th>
                     <th>Gangguan Kesehatan</th>
@@ -132,7 +132,7 @@
                     <th>Nama Balita</th>
                     <th>Usia (Bulan)</th>
                     <th>Jam Kerja Ortu</th>
-                    <th>Malnutrisi</th>
+                    <th>Nafsu Makan</th>
                     <th>Stunting</th>
                     <th>Pendapatan Ortu</th>
                     <th>Gangguan Kesehatan</th>
@@ -168,7 +168,7 @@
                     <th>Nama Balita</th>
                     <th>Usia (Bulan)</th>
                     <th>Jam Kerja Ortu</th>
-                    <th>Malnutrisi</th>
+                    <th>Nafsu Makan</th>
                     <th>Stunting</th>
                     <th>Pendapatan Ortu</th>
                     <th>Gangguan Kesehatan</th>
@@ -182,7 +182,7 @@
                     <td>{{ $balita->nama }}</td>
                     <td>{{ $balita->usia }}</td>
                     <td>{{ $balita->jam_kerja }}</td>
-                    <td>{{ $balita->malnutrisi }}</td>
+                    <td>{{ $balita->nafsu_makan }}</td>
                     <td>{{ $balita->stunting }}</td>
                     <td>{{ $balita->pendapatan }}</td>
                     <td>{{ $balita->gangguan_kesehatan }}</td>

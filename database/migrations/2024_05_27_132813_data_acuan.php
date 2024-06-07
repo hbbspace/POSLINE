@@ -21,9 +21,9 @@ return new class extends Migration
             // $table->float('TB-L_max', 3);
             $table->float('BB_P', 3);
             // $table->float('TB-P_max', 3);
-            $table->float('LB_L', 3);
+            $table->float('LK_L', 3);
             // $table->float('LK-L_max', 3);
-            $table->float('LB_P', 3);
+            $table->float('LK_P', 3);
             // $table->float('LK-P_max', 3);
             // Tambahkan kolom lain sesuai kebutuhan
         });
