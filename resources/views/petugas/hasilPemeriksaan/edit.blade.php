@@ -58,12 +58,12 @@
                         <label>Nafsu Makan Balita</label>
                         <div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="nafsu_makan" id="nafsu_makan_baik" value="Baik" {{ $hasil_pemeriksaan->nafsu_makan == 'Baik' ? 'checked' : '' }} required>
-                                <label class="form-check-label" for="nafsu_makan_baik">Baik</label>
+                                <input class="form-check-input" type="radio" name="nafsu_makan" id="nafsu_makan" value="Baik" {{ $hasil_pemeriksaan->nafsu_makan == 'Baik' ? 'checked' : '' }} required>
+                                <label class="form-check-label" for="nafsu_makan">Baik</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="nafsu_makan" id="nafsu_makan_kurang" value="Kurang" {{ $hasil_pemeriksaan->nafsu_makan == 'Kurang' ? 'checked' : '' }} required>
-                                <label class="form-check-label" for="nafsu_makan_kurang">Kurang</label>
+                                <input class="form-check-input" type="radio" name="nafsu_makan" id="nafsu_makan" value="Kurang" {{ $hasil_pemeriksaan->nafsu_makan == 'Kurang' ? 'checked' : '' }} required>
+                                <label class="form-check-label" for="nafsu_makan">Kurang</label>
                             </div>
                         </div>
                     </div>
@@ -74,7 +74,7 @@
                     {{-- <input type="hidden" id="admin_id" name="admin_id" value="{{ Auth::guard('admin')->user()->admin_id }}"> --}}
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">Simpan</button>
-                        <a href="{{ url('admin/dataPemeriksaan') }}" class="btn btn-secondary ml-2">Kembali</a>
+                        <a href="{{ url('petugas/historyPemeriksaan') }}" class="btn btn-secondary ml-2">Kembali</a>
                     </div> 
                 </div>
                 
@@ -101,34 +101,28 @@
                         <li>Diare Ringan</li>
                         <li>Demam Ringan</li>
                         <li>Ruam Kulit</li>
-                        <li>Infeksi Telinga Ringan</li>
-                        <li>Konjungtivitis (Mata Merah)</li>
-                        <li>Stomatitis</li>
                         <li>Cacingan</li>
-                    </ul>
-                    <li><strong style="color: orange;">Penyakit Sedang:</strong></li>
-                    <ul>
+                      </ul>
+                      <li><strong style="color: orange;">Penyakit Sedang:</strong></li>
+                      <ul>
                         <li>Asma Sedang</li>
                         <li>Diare dengan Dehidrasi Ringan</li>
-                        <li>Demam Tinggi tanpa Komplikasi</li>
-                        <li>Infeksi Telinga Sedang</li>
+                        <li>Demam Tinggi </li>
+                        <li>Batuk atau Pilek Berkepanjangan </li>
                         <li>Bronkitis</li>
                         <li>Infeksi Saluran Kemih (ISK)</li>
-                        <li>Gastroenteritis Sedang</li>
-                    </ul>
-                    <li><strong style="color: red;">Penyakit Berat:</strong></li>
-                    <ul>
+                      </ul>
+                      <li><strong style="color: red;">Penyakit Berat:</strong></li>
+                      <ul>
                         <li>Pneumonia</li>
                         <li>Diare Berat dengan Dehidrasi</li>
                         <li>Demam Berdarah Dengue</li>
                         <li>Meningitis</li>
-                        <li>Sepsis</li>
+                        <li>Sinusitis</li>
                         <li>Malaria Berat</li>
                         <li>Tuberkulosis (TB)</li>
                         <li>Kekurangan Gizi Berat</li>
-                        <li>Leukemia</li>
-                        <li>Congenital Heart Disease</li>
-                    </ul>
+                       </ul>
                 </ul>
             </div>
             <div class="modal-footer">

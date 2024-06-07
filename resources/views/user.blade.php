@@ -49,8 +49,8 @@
                     <div class="col-lg-6 col-6">
                         <div class="small-box bg-light shadow-sm">
                             <div class="inner">
-                                <h3 class="text-info">Toal Pemeriksaan</h3>
-                                <p>{{ $hasil_pemeriksaan }}Pemeriksaan telah dilakukan</p>
+                                <h3 class="text-info">Total Pemeriksaan</h3>
+                                <p>{{ $hasil_pemeriksaan }} Pemeriksaan telah dilakukan</p>
                             </div>
                             <div class="icon text-info">
                                 <i class="ion ion-trophy"></i>

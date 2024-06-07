@@ -155,9 +155,7 @@ class HasilPemeriksaanController extends Controller
             'berat_badan' => 'required|numeric|min:1', 
             'lingkar_kepala' => 'required|numeric|min:1', 
             'gangguan_kesehatan' => 'required|in:Tidak ada,Ringan,Sedang,Berat', // Menyesuaikan dengan opsi yang diberikan sebelumnya
-            'catatan' => 'nullable|string',
-            'nafsu_makan'=>'required|in:Baik,Kurang' 
-
+            'catatan' => 'nullable|string'
         ]);
 
         HasilPemeriksaanModel::find($id)->update([
@@ -166,9 +164,7 @@ class HasilPemeriksaanController extends Controller
             'lingkar_kepala' => $request->lingkar_kepala,
             'gangguan_kesehatan' => $request->gangguan_kesehatan,
             'catatan' => $request->catatan,
-            'nafsu_makan'=>$request->nafsu_makan
-
-            
+            'nafsu_makan' => $request->nafsu_makan
         ]);
 
 
@@ -184,57 +180,60 @@ class HasilPemeriksaanController extends Controller
         $jk=$firstResult->jk;
         $usia=$firstResult->usia;
 
-        $acuan=DataAcuanModel::all()->where('usia',$usia);
-        $acuanFirst = $acuan->first();
+        $acuan=DataAcuanModel::all()->where('usia',$usia)->first();
+        // $acuan = $acuan->first();
         if($jk=='L'){
-            $Malnutrisi=($firstResult->berat_badan-$acuanFirst->BB_L)+($firstResult->lingkar_badan-$acuanFirst->LB_L);
-
-            if($Malnutrisi >= 0){
-                $nilaiMalnutrisi = 'Rendah';
-            }else if($Malnutrisi >= -3){
-                $nilaiMalnutrisi = 'Sedang';
-            }else{
-                $nilaiMalnutrisi = 'Tinggi';
+            if ($firstResult->tinggi_badan >= $acuan->TB_L) {
+                $nilaiTB = 0;
+            } else {
+                $nilaiTB = 2;
             }
-
-            if($firstResult->tinggi_badan >= $acuanFirst->TB_L){
-                $nilaiStunting = 'Tidak';
-            }else if($firstResult->tinggi_badan >= $acuanFirst->TB_L - 2){
-                $nilaiStunting = 'Rendah';
-            }else if($firstResult->tinggi_badan >= $acuanFirst->TB_L - 5){
-                $nilaiStunting = 'Sedang';
-            }else{
-                $nilaiStunting = 'Tinggi';
+            if ($firstResult->berat_badan >= $acuan->TB_L) {
+                $nilaiBB = 0;
+            } else {
+                $nilaiBB = 0.5;
             }
+            if ($firstResult->lingkar_kepala >= $acuan->LK_L) {
+                $nilaiLK = 0;
+            } else {
+                $nilaiLK = 0.5;
+            }
+            $nilaiStunting = $nilaiTB + $nilaiBB + $nilaiLK;
 
         }else if($jk=='P'){
-            $Malnutrisi=($firstResult->berat_badan-$acuanFirst->BB_P)+($firstResult->lingkar_badan-$acuanFirst->LB_P);
-
-            if($Malnutrisi >= 0){
-                $nilaiMalnutrisi = 'Rendah';
-            }else if($Malnutrisi >= -3){
-                $nilaiMalnutrisi = 'Sedang';
-            }else{
-                $nilaiMalnutrisi = 'Tinggi';
+            if ($firstResult->tinggi_badan >= $acuan->TB_P) {
+                $nilaiTB = 0;
+            } else {
+                $nilaiTB = 2;
             }
-
-            if($firstResult->tinggi_badan >= $acuanFirst->TB_P){
-                $nilaiStunting = 'Tidak';
-            }else if($firstResult->tinggi_badan >= $acuanFirst->TB_P - 2){
-                $nilaiStunting = 'Rendah';
-            }else if($firstResult->tinggi_badan >= $acuanFirst->TB_P - 5){
-                $nilaiStunting = 'Sedang';
-            }else{
-                $nilaiStunting = 'Tinggi';
+            if ($firstResult->berat_badan >= $acuan->TB_P) {
+                $nilaiBB = 0;
+            } else {
+                $nilaiBB = 0.5;
             }
+            if ($firstResult->lingkar_kepala >= $acuan->LK_P) {
+                $nilaiLK = 0;
+            } else {
+                $nilaiLK = 0.5;
+            }
+            $nilaiStunting = $nilaiTB + $nilaiBB + $nilaiLK;
+        }
+
+        if ($nilaiStunting <= 1) {
+            $stunting = 'Tidak';
+        } else if ($nilaiStunting == 2) {
+            $stunting = 'Rendah';
+        } else if ($nilaiStunting == 2.5) {
+            $stunting = 'Sedang';
+        } else {
+            $stunting = 'Tinggi';
         }
 
         HasilPemeriksaanModel::find($id)->update([
-            'malnutrisi' => $nilaiMalnutrisi,
-            'stunting' => $nilaiStunting,
+            'stunting' => $stunting,
         ]);
 
-        return redirect('petugas/historyPemeriksaan')->with('success', 'Data Pemeriksaan Balita berhasil diubah');
+        return redirect('petugas/historyPemeriksaan/'. $id)->with('success', 'Data Pemeriksaan Balita berhasil diubah');
     }
 
     public function edit(String $hasil_id)

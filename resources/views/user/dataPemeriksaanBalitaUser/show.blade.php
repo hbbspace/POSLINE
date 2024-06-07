@@ -55,8 +55,12 @@
                     <td>{{ $hasil_pemeriksaan->berat_badan }} Kg</td>
                 </tr>
                 <tr>
-                    <th>Lingkar Badan</th>
-                    <td>{{ $hasil_pemeriksaan->lingkar_badan }} Cm</td>
+                    <th>Lingkar Kepala</th>
+                    <td>{{ $hasil_pemeriksaan->lingkar_kepala }} Cm</td>
+                </tr>
+                <tr>
+                    <th>Nafsu Makan</th>
+                    <td>{{ $hasil_pemeriksaan->nafsu_makan }}</td>
                 </tr>
                 <tr>
                     <th>Gangguan Keehatan</th>
@@ -92,20 +96,16 @@
               <li>Diare Ringan</li>
               <li>Demam Ringan</li>
               <li>Ruam Kulit</li>
-              <li>Infeksi Telinga Ringan</li>
-              <li>Konjungtivitis (Mata Merah)</li>
-              <li>Stomatitis</li>
               <li>Cacingan</li>
             </ul>
             <li><strong style="color: orange;">Penyakit Sedang:</strong></li>
             <ul>
               <li>Asma Sedang</li>
               <li>Diare dengan Dehidrasi Ringan</li>
-              <li>Demam Tinggi tanpa Komplikasi</li>
-              <li>Infeksi Telinga Sedang</li>
+              <li>Demam Tinggi </li>
+              <li>Batuk atau Pilek Berkepanjangan </li>
               <li>Bronkitis</li>
               <li>Infeksi Saluran Kemih (ISK)</li>
-              <li>Gastroenteritis Sedang</li>
             </ul>
             <li><strong style="color: red;">Penyakit Berat:</strong></li>
             <ul>
@@ -113,13 +113,11 @@
               <li>Diare Berat dengan Dehidrasi</li>
               <li>Demam Berdarah Dengue</li>
               <li>Meningitis</li>
-              <li>Sepsis</li>
+              <li>Sinusitis</li>
               <li>Malaria Berat</li>
               <li>Tuberkulosis (TB)</li>
               <li>Kekurangan Gizi Berat</li>
-              <li>Leukemia</li>
-              <li>Congenital Heart Disease</li>
-            </ul>
+             </ul>
           </ul>
         </div>
         <div class="modal-footer">
