@@ -145,9 +145,8 @@ class HasilPemeriksaanUserController extends Controller
             // Mengambil data pemeriksaan balita berdasarkan no_kk
             $query = DB::table('hasil_pemeriksaan')
                 ->join('anggota_keluarga', 'hasil_pemeriksaan.nik', '=', 'anggota_keluarga.nik')
-                ->select('hasil_pemeriksaan.pemeriksaan_id', 'anggota_keluarga.nama', 'hasil_pemeriksaan.tinggi_badan')
+                ->select('hasil_pemeriksaan.pemeriksaan_id', 'anggota_keluarga.nama', 'hasil_pemeriksaan.tinggi_badan','hasil_pemeriksaan.berat_badan')
                 ->where('anggota_keluarga.no_kk', $no_kk)
-                ->groupBy('hasil_pemeriksaan.pemeriksaan_id', 'anggota_keluarga.nama', 'hasil_pemeriksaan.tinggi_badan')
                 ->orderBy('hasil_pemeriksaan.pemeriksaan_id');
 
             if ($request->has('nama_balita')) {
@@ -161,6 +160,7 @@ class HasilPemeriksaanUserController extends Controller
             foreach ($data as $item) {
                 $chartData[$item->nama]['labels'][] = $item->pemeriksaan_id;
                 $chartData[$item->nama]['data'][] = $item->tinggi_badan;
+                $chartData[$item->nama]['berat'][] = $item->berat_badan;
             }
 
             // Kirimkan data dalam format JSON
@@ -171,7 +171,7 @@ class HasilPemeriksaanUserController extends Controller
     }
     public function getBalitaNames()
     {
-        if (Auth::guard('user')->check()) {
+        if (Auth::guard('user')->check()) { 
             $user_id = Auth::guard('user')->user()->user_id;
 
             // Mengambil data no_kk dari user
@@ -183,7 +183,7 @@ class HasilPemeriksaanUserController extends Controller
 
             // Mengambil daftar nama balita berdasarkan no_kk
             $balitaNames = DB::table('anggota_keluarga')
-                ->where('anggota_keluarga.no_kk', $no_kk)->where('status','anak')
+                ->where('anggota_keluarga.no_kk', $no_kk)->where('status','anak')->distinct()
                 ->pluck('nama');
 
             return response()->json($balitaNames);

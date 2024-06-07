@@ -106,12 +106,12 @@ class HasilPemeriksaanSeeder extends Seeder
                             if ($berat_badan >= $acuan->TB_P) {
                                 $nilaiBB = 0;
                             } else {
-                                $nilaiBB = 1;
+                                $nilaiBB = 0.5;
                             }
                             if ($lingkar_kepala >= $acuan->LK_P) {
                                 $nilaiLK = 0;
                             } else {
-                                $nilaiLK = 1;
+                                $nilaiLK = 0.5;
                             }
                             $nilaiStunting = $nilaiTB + $nilaiBB + $nilaiLK;
                         } else if ($jk == 'L') {
@@ -132,7 +132,7 @@ class HasilPemeriksaanSeeder extends Seeder
                             if ($lingkar_kepala >= $acuan->LK_L) {
                                 $nilaiLK = 0;
                             } else {
-                                $nilaiLK = 1;
+                                $nilaiLK = 1; 
                             }
                             $nilaiStunting = $nilaiTB + $nilaiBB + $nilaiLK;
                         }
