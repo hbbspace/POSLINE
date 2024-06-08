@@ -22,7 +22,7 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="nik">NIK</label>
-                            <input type="text" class="form-control" id="nik" name="nik" maxlength="16" value="{{ $anggota_keluarga->nik }}" readonly>
+                            <input type="text" class="form-control" id="nik" name="nik" maxlength="16" value="{{ $anggota_keluarga->nik }}" >
                         </div>
                         <div class="form-group">
                             <label for="nama">Nama</label>
@@ -60,12 +60,12 @@
                             </select>
                         </div>
                         
-                    </div>
-
                     <div class="d-flex justify-content-center mt-2">
                         <button type="submit" class="btn btn-primary mx-2" >Simpan Perubahan</button>
                         <a href="{{ url('admin/dataIbu') }}" class="btn btn-secondary mx-2" >Kembali</a>
                     </div>  
+                    </div>
+
             </form>
         </div>
     </div>

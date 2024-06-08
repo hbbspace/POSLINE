@@ -130,6 +130,7 @@ class AnggotaKeluargaController extends Controller
             'tanggal_lahir' => 'required|date',
             'jk' => 'required|in:L,P',
             'status' => 'required|in:ibu,anak',
+            'nik' => 'required|string|min:3', // 'unique' tidak diperlukan karena kita melakukan pemeriksaan manual
             'no_kk' => 'required|string|min:3'
         ]);
     
@@ -138,12 +139,16 @@ class AnggotaKeluargaController extends Controller
         if (!$anggota_keluarga) {
             return redirect('admin/dataIbu')->with('error', 'Data Orang Tua tidak ditemukan');
         }
-    
+        $existingMember = AnggotaKeluargaModel::where('nik', $request->nik)->first();
+        if ($existingMember) {
+            return redirect('admin/dataIbu/')->with('error', 'Tidak dapat mengganti NIK, karena NIK sudah dipakai');
+        }
         // Update anggota keluarga
         $anggota_keluarga->update([
             'nama' => $request->nama,
             'tanggal_lahir' => $request->tanggal_lahir,
             'jk' => $request->jk,
+            'nik'=>$request->nik,
             'status' => $request->status,
         ]);
     

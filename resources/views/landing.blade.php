@@ -28,13 +28,10 @@
                         <a href="#" class="navbar-link" data-nav-link>Home</a>
                     </li>
                     <li>
-                        <a href="#" class="navbar-link" data-nav-link>About Us</a>
+                        <a href="#service" class="navbar-link" data-nav-link>Service </a>
                     </li>
                     <li>
                         <a href="#article" class="navbar-link" data-nav-link>Artikel</a>
-                    </li>
-                    <li>
-                        <a href="#contact" class="navbar-link" data-nav-link>Contact</a>
                     </li>
                 </ul>
             </nav>
@@ -112,8 +109,8 @@
             <!--========== SECTION ==========-->
             <section class="section service" id="service" aria-label="service">
                 <div class="container">
-                    <h2 class="section-title">How It Works</h2>
-                    <p class="section-text">A great platform to buy, sell and rent your properties without any agent or commisions</p>
+                    <h2 class="section-title">Benefit yang POSLINE berikan</h2>
+                    <p class="section-text">Dengan berkembangnya teknologi, POSLINE menyediakan layanan pemeriksaan Posyandu berbasis website</p>
                     <ul class="service-list">
                         <li>
                             <div class="service-card">
@@ -122,11 +119,11 @@
                                 </div>
                                 <h3 class="h3 card-title">Aksesibilitas yang Lebih Baik</h3>
                                 <p class="card-text">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga suscipit neque nemo voluptatibus! Quas quis delectus sunt incidunt numquam.
+                                    POSLINE memungkinkan orang tua untuk mengakses informasi dan layanan Posyandu dengan mudah dari rumah. Ini membantu mengurangi perjalanan yang tidak perlu dan membuat layanan kesehatan lebih mudah diakses.
                                 </p>
                             </div>
                         </li>
-
+            
                         <li>
                             <div class="service-card">
                                 <div class="card-icon">
@@ -134,28 +131,29 @@
                                 </div>
                                 <h3 class="h3 card-title">Fleksibilitas Waktu</h3>
                                 <p class="card-text">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga suscipit neque nemo voluptatibus! Quas quis delectus sunt incidunt numquam.
+                                    Dengan POSLINE, orang tua dapat memeriksa jadwal dan membuat janji temu sesuai dengan waktu yang paling nyaman bagi mereka. Ini memungkinkan manajemen waktu yang lebih baik dan mengurangi waktu tunggu di Posyandu.
                                 </p>
                             </div>
                         </li>
-
+            
                         <li>
                             <div class="service-card">
                                 <div class="card-icon">
                                     <ion-icon name="watch-outline"></ion-icon>
                                 </div>
-                                <h3 class="h3 card-title">Pemantauan Kesehatan yang Terintegrasi </h3>
+                                <h3 class="h3 card-title">Pemantauan Kesehatan yang Terintegrasi</h3>
                                 <p class="card-text">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga suscipit neque nemo voluptatibus! Quas quis delectus sunt incidunt numquam.
+                                    POSLINE menawarkan pemantauan kesehatan anak yang terintegrasi, memungkinkan orang tua untuk melihat riwayat pemeriksaan, grafik pertumbuhan, dan rekomendasi kesehatan secara online. Ini membantu memastikan anak mendapatkan perawatan yang tepat waktu dan sesuai.
                                 </p>
                             </div>
                         </li>
                     </ul>
                 </div>
             </section>
+            
 
             <!--========= CONTACT =========-->
-            <section class="section contact" id="contact" aria-label="contact">
+            {{-- <section class="section contact" id="contact" aria-label="contact">
                 <div class="container">
                     <h2 class="h2 section-title">Ada Pertanyaan ? </h2>
                     <button class="btn btn-primary">
@@ -163,7 +161,7 @@
                         <span class="span"><a href="mailto:codemyhobby9@gmail.com">Contact us</a></span>
                     </button>
                 </div>
-            </section>
+            </section> --}}
 
             <!--======= FOOTER ========-->
             <footer class="footer">
@@ -192,12 +190,6 @@
                                     <ion-icon name="chevron-forward"></ion-icon>
                                     <span class="span">Services</span>
                                  </a>
-                            </li>
-                            <li>
-                                <a href="#contact" class="footer-link">
-                                    <ion-icon name="chevron-forward"></ion-icon>
-                                    <span class="span">Contact us</span>
-                                </a>
                             </li>
 
                             <li>

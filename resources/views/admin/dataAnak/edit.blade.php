@@ -42,7 +42,6 @@
                         <div class="mb-3">
                             <label for="status">Status</label>
                             <select class="form-control" id="status" name="status">
-                                <option value="ibu" {{ $anggota_keluarga->status == 'ibu' ? 'selected' : '' }}>Ibu</option>
                                 <option value="anak" {{ $anggota_keluarga->status == 'anak' ? 'selected' : '' }}>Anak</option>
                             </select>
                         </div>
