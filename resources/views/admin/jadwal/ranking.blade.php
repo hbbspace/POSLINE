@@ -67,13 +67,21 @@
                 if($nilai != null) {
                     // Menampilkan nilai minimum dan maksimum setiap kolom
                     echo "<tr>";
+                    echo "<td colspan='3'>Bobot</td>";
+                        echo "<td>" . $kriteria['jam_kerja'] . "</td>";
+                        echo "<td>" . $kriteria['nafsu_makan'] . "</td>";
+                        echo "<td>" . $kriteria['kondisi_stunting'] . "</td>";
+                        echo "<td>" . $kriteria['kondisi_ekonomi'] . "</td>";
+                        echo "<td>" . $kriteria['gangguan_kesehatan'] . "</td>";
+                    echo "</tr>";
+
+                    echo "<tr>";
                     echo "<td colspan='3'>Min</td>";
                         echo "<td>" . min($nilaiC1) . "</td>";
                         echo "<td>" . min($nilaiC2) . "</td>";
                         echo "<td>" . min($nilaiC3) . "</td>";
                         echo "<td>" . min($nilaiC4) . "</td>";
                         echo "<td>" . min($nilaiC5) . "</td>";
-                    echo "</tr>";
 
                     echo "<tr>";
                     echo "<td colspan='3'>Max</td>";
@@ -82,8 +90,8 @@
                         echo "<td>" . max($nilaiC3) . "</td>";
                         echo "<td>" . max($nilaiC4) . "</td>";
                         echo "<td>" . max($nilaiC5) . "</td>";
+                    echo "</tr>";
                 }
-                echo "</tr>";
                 ?>
             </tbody>
         </table>

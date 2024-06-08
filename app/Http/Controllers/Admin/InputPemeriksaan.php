@@ -363,19 +363,26 @@ public function calculate(string $id)
 
         $nilai_dan_id = [];
         for ($i = 0; $i < $n2; $i++) {
-            $nilai_dan_id[] = ['hasil_id' => $pemeriksaan[$i]->hasil_id, 'nilai' => $total_nilai[$i]];
+            $nilai_dan_id[] = ['hasil_id' => $pemeriksaan[$i]->hasil_id, 
+                                '0' => $nilai[$i][0], '1' => $nilai[$i][1], '2' => $nilai[$i][2], '3' => $nilai[$i][3], '4' => $nilai[$i][4],
+                                '5' => $normalisasi[$i][0], '6' => $normalisasi[$i][1], '7' => $normalisasi[$i][2], '8' => $normalisasi[$i][3], '9' => $normalisasi[$i][4],
+                                '10' => $utility[$i][0], '11' => $utility[$i][1], '12' => $utility[$i][2], '13' => $utility[$i][3], '14' => $utility[$i][4],
+                                'nilai' => $total_nilai[$i]];
         }
 
         usort($nilai_dan_id, function ($a, $b) {
             return $b['nilai'] <=> $a['nilai'];
         });
 
-        $i = 0;
         foreach ($nilai_dan_id as $rank => $item) {
-            $total_nilai[$i] = $item['nilai'];
+            $total_nilai[$rank] = $item['nilai'];
+            for ($j = 0; $j < $n; $j++) {
+                $nilai[$rank][$j] = $item[$j];
+                $normalisasi[$rank][$j] = $item[$j + 5];
+                $utility[$rank][$j] = $item[$j + 10];
+            }
             HasilPemeriksaanModel::where('hasil_id', $item['hasil_id'])
                 ->update(['ranking' => $rank + 1]);
-        $i++;
         }
 
         $rankingBalita = HasilPemeriksaanModel::select(
