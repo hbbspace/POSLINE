@@ -2,12 +2,8 @@
 
 @section('content')
 <div class="table-responsive" style="max-height: 550px; overflow-y: auto;">
-
     <div class="container">
-        <div class="card card-info">
-            <div class="card-header">
-                <h3 class="card-title">Edit Data Admin</h3>
-            </div>            
+        
             @if(session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <span class="">{{ session('success') }}</span>
@@ -25,6 +21,10 @@
                 </button>
             </div>
         @endif
+        <div class="card card-info">
+            <div class="card-header">
+                <h3 class="card-title">Edit Data Admin</h3>
+            </div>            
                     <div class="card-body">
                         <form action="{{ url('admin/dataAdmin', $admin->admin_id) }}" method="POST">
                             @csrf

@@ -194,6 +194,7 @@
             </div>
         </div>
     </div>
+    {{-- <iframe width="100%" height="450" src="https://lookerstudio.google.com/embed/reporting/3069df7d-77b9-46d0-819b-9af50e1721ad/page/i5b2D" frameborder="0" style="border:0" allowfullscreen sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe> --}}
 </div>
 @endsection
 @push('css')
