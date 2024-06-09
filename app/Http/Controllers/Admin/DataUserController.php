@@ -11,7 +11,7 @@ use Yajra\DataTables\Facades\DataTables;
 
 class DataUserController extends Controller
 {
-    public function index()
+    public function index() 
     {
         $breadcrumb = (object) [
             'title' => 'Daftar Data User',
@@ -24,7 +24,8 @@ class DataUserController extends Controller
 
         $activeMenu = 'dataUser';
 
-        $user = UserModel::all();
+        $user = UserModel::select('user_id','anggota_keluarga.nik', 'password', 'username','anggota_keluarga.nama')
+        ->join('anggota_keluarga', 'user.nik','=','anggota_keluarga.nik')->get();        
         return view('admin.dataUser.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'user' => $user, 'activeMenu' => $activeMenu]);
     }
 
@@ -168,10 +169,11 @@ class DataUserController extends Controller
 
     public function list(Request $request)
     {
-        $users = UserModel::select('user_id','nik', 'password', 'username')->with('anggota_keluarga'); // Mengambil kolom yang dibutuhkan
+        $users = UserModel::select('user_id','anggota_keluarga.nik', 'password', 'username','anggota_keluarga.nama')
+        ->join('anggota_keluarga', 'user.nik','=','anggota_keluarga.nik'); // Mengambil kolom yang dibutuhkan
 
-        if ($request->user_id) {
-            $users->where('user_id', $request->user_id);
+        if ($request->nama) {
+            $users->where('nama', $request->nama);
         }
 
         return DataTables::of($users)

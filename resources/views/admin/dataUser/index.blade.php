@@ -33,13 +33,13 @@
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Filter :</label>
                     <div class="col-3">
-                        <select class="form-control" id="user_id" name="user_id" required>
+                        <select class="form-control" id="nama" name="nama" required>
                             <option value="">- Semua -</option>
                             @foreach($user as $item)
-                                <option value="{{ $item->user_id }}">{{ $item->user_id }}</option>
+                                <option value="{{ $item->nama }}">{{ $item->nama }}</option>
                             @endforeach
                         </select>
-                        <small class="form-text text-muted">user ID</small>
+                        <small class="form-text text-muted">Nama</small>
                     </div>
                 </div>
             </div>
@@ -48,7 +48,7 @@
             <table class="table table-bordered table-striped table-hover table-sm" id="table_user">
                 <thead>
                     <tr>
-                        <th>User ID</th>
+                        <th>Nama</th>
                         <th>NIK</th>
                         <th>Username</th>
                         <th>Aksi</th>
@@ -72,12 +72,12 @@
                 "dataType": "json",
                 "type": "POST",
                 "data": function (d) {
-                    d.user_id = $('#user_id').val();
+                    d.nama = $('#nama').val();
                 }
             },
             columns: [
                 {
-                    data: "user_id",
+                    data: "nama",
                     className: "",
                     orderable: true,
                     searchable: true
@@ -102,7 +102,7 @@
                 }
             ]
         });
-        $('#user_id').on('change', function() {
+        $('#nama').on('change', function() {
             dataTable.ajax.reload();
         });
     });
