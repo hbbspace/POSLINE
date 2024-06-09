@@ -63,12 +63,19 @@ class KeluargaController extends Controller
 
         ]);
 
-        KeluargaModel::create([
-            'no_kk' => $request->no_kk,
-            'alamat' => $request->alamat,
-            'pendapatan'=>$request->pendapatan,
-            'jam_kerja'=>$request->jam_kerja
-        ]);
+        $existingMember = KeluargaModel::where('no_kk', $request->no_kk)->first();
+        if ($existingMember) {
+            return redirect('admin/dataKeluarga/')->with('error', 'Tidak dapat menambahkan Nomor KK, karena Nomor KK sudah dipakai');
+        }
+
+            KeluargaModel::create([
+                'no_kk' => $request->no_kk,
+                'alamat' => $request->alamat,
+                'pendapatan'=>$request->pendapatan,
+                'jam_kerja'=>$request->jam_kerja
+            ]);
+        
+
 
         return redirect('admin/dataKeluarga')->with('success', 'Data keluarga berhasil disimpan');
     }
@@ -135,6 +142,10 @@ class KeluargaController extends Controller
 
         if (!$keluarga) {
             return redirect('admin/dataKeluarga')->with('error', 'Data keluarga tidak ditemukan');
+        }
+        $existingMember = KeluargaModel::where('no_kk', $request->no_kk)->first();
+        if ($existingMember) {
+            return redirect('admin/dataKeluarga/')->with('error', 'Tidak dapat mengubah Nomor KK, karena Nomor KK sudah dipakai');
         }
 
         $keluarga->no_kk = $request->no_kk;
