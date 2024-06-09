@@ -35,7 +35,7 @@
                                 <div class="icon text-info">
                                     <i class="ion ion-trophy"></i>
                                 </div>
-                                <a class="small-box-footer text-info">More info <i class="fas fa-arrow-circle-right"></i></a>
+                                <a href="{{ url('/petugas/jadwal') }}" class="small-box-footer text-info">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                         <div class="col-lg-4">

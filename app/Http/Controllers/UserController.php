@@ -34,6 +34,7 @@ class UserController extends Controller
         )
         ->join('anggota_keluarga', 'anggota_keluarga.nik', '=', 'hasil_pemeriksaan.nik')
         ->where('anggota_keluarga.no_kk', '=', $no_kk)
+        ->where('hasil_pemeriksaan.status', '=', 'Selesai')
         ->count();
 
         $breadcrumb = (object) [
