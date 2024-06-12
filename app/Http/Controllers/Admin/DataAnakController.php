@@ -140,13 +140,14 @@ class DataAnakController extends Controller
         $request->validate([
             'nama' => 'required|string',
             'tanggal_lahir' => 'required|date',
-            'nik' => 'required|string|min:3', // 'unique' tidak diperlukan karena kita melakukan pemeriksaan manual
+            // 'nik' => 'required|string|min:3', // 'unique' tidak diperlukan karena kita melakukan pemeriksaan manual
             'jk' => 'required|in:L,P',
             'status' => 'required|in:anak',
             'no_kk' => 'required|string|min:3'
         ]);
     
         $anggota_keluarga = AnggotaKeluargaModel::find( $id);
+        // $hasil_pemeriksaan=HasilPemeriksaanModel::find($id)->get();
     
         if (!$anggota_keluarga) {
             return redirect('admin/dataAnak')->with('error', 'Data Anak tidak ditemukan');
@@ -155,12 +156,14 @@ class DataAnakController extends Controller
         if ($existingMember) {
             return redirect('admin/dataAnak/')->with('error', 'Tidak dapat mengganti NIK, karena NIK sudah dipakai');
         }
-        $anggota_keluarga->tanggal_lahir = $request->tanggal_lahir;
-        $anggota_keluarga->no_kk = $request->no_kk;
-        $anggota_keluarga->jk = $request->jk;
-        $anggota_keluarga->nik = $request->nik;
-        $anggota_keluarga->nama = $request->nama;
-        $anggota_keluarga->status = $request->status;
+        $anggota_keluarga->update([
+            'nama' => $request->nama,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'jk' => $request->jk,
+            'no_kk' => $request->no_kk,
+            // 'nik'=>$request->nik,
+            'status' => $request->status,
+        ]);
 
         $anggota_keluarga->save();
 

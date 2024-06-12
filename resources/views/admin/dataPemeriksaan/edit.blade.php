@@ -32,7 +32,7 @@
                         <input type="number" class="form-control" id="lingkar_kepala" name="lingkar_kepala" step="0.01" value="{{ $hasil_pemeriksaan->lingkar_kepala }}">
                     </div>
                     <div class="form-group">
-                        <label for="gangguan_kesehatan">Riwayat Penyakit</label>
+                        <label for="gangguan_kesehatan">Gangguan Kesehatan</label>
                         <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#infoPenyakitModal">
                             ?
                         </button>

@@ -22,7 +22,7 @@ class HasilPemeriksaanModel extends Model
         'tinggi_badan',
         'berat_badan',
         'lingkar_kepala',
-        'riwayat_penyakit',
+        'gangguan_kesehatan',
         'nafsu_makan',
         'stunting',
         'status',

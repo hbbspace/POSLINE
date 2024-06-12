@@ -140,19 +140,30 @@ class KeluargaController extends Controller
 
         $keluarga = KeluargaModel::find( $no_kk);
 
+        $anggota_keluarga=AnggotaKeluargaModel::where('no_kk',$no_kk)->get();
+
         if (!$keluarga) {
             return redirect('admin/dataKeluarga')->with('error', 'Data keluarga tidak ditemukan');
         }
         $existingMember = KeluargaModel::where('no_kk', $request->no_kk)->first();
-        if ($existingMember) {
+        if ($existingMember && $no_kk != $request->no_kk) {
             return redirect('admin/dataKeluarga/')->with('error', 'Tidak dapat mengubah Nomor KK, karena Nomor KK sudah dipakai');
         }
 
-        $keluarga->no_kk = $request->no_kk;
-        $keluarga->alamat = $request->alamat;
-        $keluarga->pendapatan = $request->pendapatan;
-        $keluarga->jam_kerja = $request->jam_kerja;
-        $keluarga->save();
+        $keluarga->update([
+            'no_kk' => $request->no_kk,
+            'alamat' => $request->alamat,
+            'pendapatan' => $request->pendapatan,
+            // 'nik'=>$request->nik,
+            'jam_kerja' => $request->jam_kerja,
+        ]);
+            // foreach ($anggota_keluarga as $anggota_keluargas){
+            //     $anggota_keluargas->update([
+            //         'no_kk' => $request->no_kk
+            //     ]);
+            // }
+        
+
 
         return redirect('admin/dataKeluarga')->with('success', 'Data keluarga berhasil diubah');
     }

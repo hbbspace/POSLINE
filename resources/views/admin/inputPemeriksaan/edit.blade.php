@@ -52,8 +52,8 @@
                     
                             @foreach ($options as $value => $label)
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="gangguan_kesehatan" id="gangguan_kesehatan_{{ $value }}" value="{{ $value }}" required>
-                                    <label class="form-check-label" for="gangguan_kesehatan_{{ $value }}">{{ $label }}</label>
+                                    <input class="form-check-input" type="radio" name="gangguan_kesehatan" id="gangguan_kesehatan" value="{{ $value }}" required>
+                                    <label class="form-check-label" for="gangguan_kesehatan">{{ $label }}</label>
                                 </div>
                             @endforeach
                         </div>

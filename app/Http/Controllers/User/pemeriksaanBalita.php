@@ -81,7 +81,6 @@ public function update(Request $request, string $id)
         'gangguan_kesehatan' => 'required|in:Tidak ada,Ringan,Sedang,Berat', // Menyesuaikan dengan opsi yang diberikan sebelumnya
         'catatan' => 'nullable|string', // Mengubah menjadi nullable agar catatan bisa bernilai null atau kosong
         'admin_id' => 'required|min:1',
-        // 'status' => 'required|in:Periksa', // Jika status adalah string
         'usia' => 'required|numeric|min:1' 
     ]);
 

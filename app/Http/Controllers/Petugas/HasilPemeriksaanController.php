@@ -155,7 +155,8 @@ class HasilPemeriksaanController extends Controller
             'berat_badan' => 'required|numeric|min:1', 
             'lingkar_kepala' => 'required|numeric|min:1', 
             'gangguan_kesehatan' => 'required|in:Tidak ada,Ringan,Sedang,Berat', // Menyesuaikan dengan opsi yang diberikan sebelumnya
-            'catatan' => 'nullable|string'
+            'catatan' => 'nullable|string',
+            'nafsu_makan'=>'required|in:Baik,Kurang' 
         ]);
 
         HasilPemeriksaanModel::find($id)->update([

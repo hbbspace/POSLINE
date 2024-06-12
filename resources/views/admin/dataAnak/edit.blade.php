@@ -22,7 +22,7 @@
                     <div class="card-body">
                         <div class="mb-3">
                             <label for="nik">NIK</label>
-                            <input type="text" class="form-control" id="nik" name="nik"maxlength="16" value="{{ $anggota_keluarga->nik }}">
+                            <input type="text" class="form-control" id="nik" name="nik"maxlength="16" value="{{ $anggota_keluarga->nik }}" disabled>
                         </div>
                         <div class="mb-3">
                             <label for="nama">Nama</label>
