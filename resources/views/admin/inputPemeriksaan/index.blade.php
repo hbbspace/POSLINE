@@ -29,22 +29,22 @@
     @endif
     
     
-        {{-- <div class="row">
+        <div class="row">
             <div class="col-md-12">
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Filter :</label>
                     <div class="col-3">
-                        <select class="form-control" id="pemeriksaan_id" name="pemeriksaan_id" required>
+                        <select class="form-control" id="tanggal" name="tanggal" required>
                             <option value="">- Semua -</option>
                             @foreach($hasil_pemeriksaan as $item)
-                                <option value="{{ $item->pemeriksaan_id }}">{{ $item->pemeriksaan_id }}</option>
+                                <option value="{{ $item->tanggal }}">{{ $item->tanggal }}</option>
                             @endforeach
                         </select>
-                        <small class="form-text text-muted">Id Hasil Pemeriksaan</small>
+                        <small class="form-text text-muted">Tanggal</small>
                     </div>
                 </div>
             </div>
-        </div> --}}
+        </div>
         <table class="table table-bordered table-striped table-hover table-sm" id="table_balita">
             <thead>
                 <tr>
@@ -77,7 +77,7 @@
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
                 data: function (d) {
-                    d.hasil_id = $('#hasil_id').val();
+                    d.tanggal = $('#tanggal').val();
                 }
             },
             columns: [
@@ -98,7 +98,7 @@
                 { data: "action", orderable: false, searchable: false }
             ]
         });
-        $('#hasil_id').on('change', function() {
+        $('#tanggal').on('change', function() {
             dataBalita.ajax.reload();
         });
     });
