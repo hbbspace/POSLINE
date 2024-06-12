@@ -48,6 +48,7 @@ public function index()
 
 public function list(Request $request)
 {
+
     $hasil_pemeriksaan = HasilPemeriksaanModel::select(
         'hasil_pemeriksaan.hasil_id', 'hasil_pemeriksaan.admin_id', 
         'pemeriksaan.pemeriksaan_id', 'anggota_keluarga.nama', 
@@ -171,6 +172,8 @@ public function update(Request $request, string $id)
 
     public function edit(String $hasil_id)
     {
+
+
         $umur = HasilPemeriksaanModel::select(
             DB::raw('TIMESTAMPDIFF(MONTH, anggota_keluarga.tanggal_lahir, CURDATE()) as umur')                
         )
