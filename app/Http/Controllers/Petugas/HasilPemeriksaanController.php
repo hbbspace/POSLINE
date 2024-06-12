@@ -189,7 +189,7 @@ class HasilPemeriksaanController extends Controller
             } else {
                 $nilaiTB = 2;
             }
-            if ($firstResult->berat_badan >= $acuan->TB_L) {
+            if ($firstResult->berat_badan >= $acuan->BB_L) {
                 $nilaiBB = 0;
             } else {
                 $nilaiBB = 0.5;
@@ -207,7 +207,7 @@ class HasilPemeriksaanController extends Controller
             } else {
                 $nilaiTB = 2;
             }
-            if ($firstResult->berat_badan >= $acuan->TB_P) {
+            if ($firstResult->berat_badan >= $acuan->BB_P) {
                 $nilaiBB = 0;
             } else {
                 $nilaiBB = 0.5;

@@ -213,6 +213,18 @@ public function calculate(string $id)
             'gangguan_kesehatan' => 0.2,
         ];
 
+        // Update menghilangkan ranking
+        $pemeriksaan = HasilPemeriksaanModel::select(
+            'hasil_pemeriksaan.hasil_id'
+        )
+        ->where('hasil_pemeriksaan.stunting', '=', 'Tidak')
+        ->get();
+
+        foreach ($pemeriksaan as $rank => $item) {
+            HasilPemeriksaanModel::where('hasil_id', $item['hasil_id'])
+                ->update(['ranking' => null]);
+        }
+
         // Mendapatkan seluruh data dengan status "Selesai" dan pemeriksaan_id tertentu
         $pemeriksaan = HasilPemeriksaanModel::select(
             'hasil_pemeriksaan.hasil_id',

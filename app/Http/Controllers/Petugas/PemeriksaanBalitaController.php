@@ -120,7 +120,7 @@ public function update(Request $request, string $id)
             } else {
                 $nilaiTB = 2;
             }
-            if ($firstResult->berat_badan >= $acuan->TB_L) {
+            if ($firstResult->berat_badan >= $acuan->BB_L) {
                 $nilaiBB = 0;
             } else {
                 $nilaiBB = 0.5;
@@ -138,7 +138,7 @@ public function update(Request $request, string $id)
             } else {
                 $nilaiTB = 2;
             }
-            if ($firstResult->berat_badan >= $acuan->TB_P) {
+            if ($firstResult->berat_badan >= $acuan->BB_P) {
                 $nilaiBB = 0;
             } else {
                 $nilaiBB = 0.5;
@@ -214,6 +214,18 @@ public function update(Request $request, string $id)
             'kondisi_ekonomi' => 0.3,
             'gangguan_kesehatan' => 0.2,
         ];
+
+        // Update menghilangkan ranking
+        $pemeriksaan = HasilPemeriksaanModel::select(
+            'hasil_pemeriksaan.hasil_id'
+        )
+        ->where('hasil_pemeriksaan.stunting', '=', 'Tidak')
+        ->get();
+
+        foreach ($pemeriksaan as $rank => $item) {
+            HasilPemeriksaanModel::where('hasil_id', $item['hasil_id'])
+                ->update(['ranking' => null]);
+        }
 
         // Mendapatkan seluruh data dengan status "Selesai" dan pemeriksaan_id tertentu
         $pemeriksaan = HasilPemeriksaanModel::select(

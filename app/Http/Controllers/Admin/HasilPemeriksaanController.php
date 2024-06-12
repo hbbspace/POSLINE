@@ -92,9 +92,9 @@ class HasilPemeriksaanController extends Controller
         ->addColumn('aksi', function ($hasil_pemeriksaan) { // menambahkan kolom aksi
             $btn = '<a href="' . url('admin/dataPemeriksaan/' . $hasil_pemeriksaan->hasil_id) . '" class="btn btn-info btn-sm">Detail</a> ';
             $btn .= '<a href="' . url('admin/dataPemeriksaan/' . $hasil_pemeriksaan->hasil_id . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
-            $btn .= '<form class="d-inline-block" method="POST" action="' . url('admin/dataPemeriksaan/' . $hasil_pemeriksaan->hasil_id) . '">'
-                . csrf_field() . method_field('DELETE') .
-                '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
+            // $btn .= '<form class="d-inline-block" method="POST" action="' . url('admin/dataPemeriksaan/' . $hasil_pemeriksaan->hasil_id) . '">'
+            //     . csrf_field() . method_field('DELETE') .
+            //     '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
             return $btn;
         })
         ->rawColumns(['aksi'])
@@ -218,7 +218,7 @@ class HasilPemeriksaanController extends Controller
             } else {
                 $nilaiTB = 2;
             }
-            if ($firstResult->berat_badan >= $acuan->TB_L) {
+            if ($firstResult->berat_badan >= $acuan->BB_L) {
                 $nilaiBB = 0;
             } else {
                 $nilaiBB = 0.5;
@@ -236,7 +236,7 @@ class HasilPemeriksaanController extends Controller
             } else {
                 $nilaiTB = 2;
             }
-            if ($firstResult->berat_badan >= $acuan->TB_P) {
+            if ($firstResult->berat_badan >= $acuan->BB_P) {
                 $nilaiBB = 0;
             } else {
                 $nilaiBB = 0.5;
