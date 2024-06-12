@@ -155,7 +155,9 @@ class HasilPemeriksaanController extends Controller
             'berat_badan' => 'required|numeric|min:1', 
             'lingkar_kepala' => 'required|numeric|min:1', 
             'gangguan_kesehatan' => 'required|in:Tidak ada,Ringan,Sedang,Berat', // Menyesuaikan dengan opsi yang diberikan sebelumnya
-            'catatan' => 'nullable|string'
+            'catatan' => 'nullable|string',
+            'nafsu_makan' => 'required'
+
         ]);
 
         HasilPemeriksaanModel::find($id)->update([
@@ -233,7 +235,7 @@ class HasilPemeriksaanController extends Controller
             'stunting' => $stunting,
         ]);
 
-        return redirect('petugas/historyPemeriksaan/'. $id)->with('success', 'Data Pemeriksaan Balita berhasil diubah');
+        return redirect('petugas/historyPemeriksaan')->with('success', 'Data Pemeriksaan Balita berhasil diubah');
     }
 
     public function edit(String $hasil_id)
