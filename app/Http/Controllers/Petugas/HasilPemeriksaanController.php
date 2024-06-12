@@ -234,7 +234,7 @@ class HasilPemeriksaanController extends Controller
             'stunting' => $stunting,
         ]);
 
-        return redirect('petugas/historyPemeriksaan/'. $id)->with('success', 'Data Pemeriksaan Balita berhasil diubah');
+        return redirect('petugas/historyPemeriksaan')->with('success', 'Data Pemeriksaan Balita berhasil diubah');
     }
 
     public function edit(String $hasil_id)
