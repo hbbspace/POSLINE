@@ -129,8 +129,7 @@ class DataUserController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'nik' => 'required|string|min:3',
-            'password' => 'nullable|min:3',
+            'password' => 'string|min:3',
             'username' => 'required|string|max:50',
         ]);
     
@@ -139,7 +138,6 @@ class DataUserController extends Controller
             return redirect('admin/dataUser')->with('error', 'Data User tidak ditemukan');
         }
     
-        $user->nik = $request->nik;
         $user->username = $request->username;
     
         if ($request->filled('password')) {

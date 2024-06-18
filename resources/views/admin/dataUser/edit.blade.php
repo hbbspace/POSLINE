@@ -30,8 +30,8 @@
                             </select>    --}}
                         </div>
                         <div class="form-group">
-                            <label for="usename">Username</label>
-                            <input type="text" class="form-control" id="usename" name="usename" value="{{ $user->username }}">
+                            <label for="username">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" value="{{ $user->username }}">
                         </div>
 
                         <div class="form-group">
