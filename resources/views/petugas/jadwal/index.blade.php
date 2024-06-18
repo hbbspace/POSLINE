@@ -49,7 +49,7 @@
                     <th>Tanggal</th>
                     <th>Tempat</th>
                 <th>Keterangan</th>
-                <th>Rangking</th>
+                <th>Penentuan Bantuan</th>
                     </tr>
             </thead>
         </table>

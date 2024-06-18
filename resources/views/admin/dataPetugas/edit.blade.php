@@ -52,7 +52,7 @@
                     <div class="mb-3">
                         <label for="level" class="form-label">Level</label>
                         <select name="level" id="level" class="form-control" required>
-                            <option value="1" {{ $admin->level == '1' ? 'selected' : '' }}>Super Admin</option>
+                            {{-- <option value="1" {{ $admin->level == '1' ? 'selected' : '' }}>Super Admin</option> --}}
                             <option value="2" {{ $admin->level == '2' ? 'selected' : '' }}>Admin</option>
                         </select>
                     </div>

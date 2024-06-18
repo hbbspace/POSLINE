@@ -47,12 +47,12 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Pemeriksaan ID</th>
+                    <th>ID</th>
                     <th>agenda</th>
                     <th>Tanggal</th>
                     <th>Tempat</th>
                     <th>Aksi</th>
-                    <th>Rangking</th>
+                    <th>Penentuan Bantuan</th>
                 </tr>
             </thead>
         </table>
