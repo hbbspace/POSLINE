@@ -240,17 +240,16 @@ class HasilPemeriksaanController extends Controller
     public function edit(String $hasil_id)
     {
 
-        $hasil_pemeriksaan = HasilPemeriksaanModel::select('keluarga.jam_kerja', 'keluarga.pendapatan', 'anggota_keluarga.jk', 'hasil_pemeriksaan.berat_badan',
-        'hasil_pemeriksaan.tinggi_badan','hasil_pemeriksaan.lingkar_badan','hasil_pemeriksaan.usia', 'hasil_pemeriksaan.berat_badan')
-        ->join('anggota_keluarga', 'anggota_keluarga.nik', '=', 'hasil_pemeriksaan.nik')
-        ->join('keluarga', 'keluarga.no_kk', '=', 'anggota_keluarga.no_kk')
-        ->where('hasil_pemeriksaan.hasil_id', $hasil_id)
-        ->get(); 
+        // $hasil_pemeriksaan = HasilPemeriksaanModel::select('keluarga.jam_kerja', 'keluarga.pendapatan', 'anggota_keluarga.jk', 'hasil_pemeriksaan.berat_badan',
+        // 'hasil_pemeriksaan.tinggi_badan','hasil_pemeriksaan.lingkar_badan','hasil_pemeriksaan.usia', 'hasil_pemeriksaan.berat_badan')
+        // ->join('anggota_keluarga', 'anggota_keluarga.nik', '=', 'hasil_pemeriksaan.nik')
+        // ->join('keluarga', 'keluarga.no_kk', '=', 'anggota_keluarga.no_kk')
+        // ->where('hasil_pemeriksaan.hasil_id', $hasil_id)
+
     
         // $jk=$hasil_pemeriksaan->jk;
         // $usia=$hasil_pemeriksaan->usia;
 
-        dd($hasil_pemeriksaan->jk);
         $hasil_pemeriksaan = HasilPemeriksaanModel::find($hasil_id);
 
         $breadcrumb = (object) [

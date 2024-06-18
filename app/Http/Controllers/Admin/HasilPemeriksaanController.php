@@ -92,9 +92,9 @@ class HasilPemeriksaanController extends Controller
         ->addColumn('aksi', function ($hasil_pemeriksaan) { // menambahkan kolom aksi
             $btn = '<a href="' . url('admin/dataPemeriksaan/' . $hasil_pemeriksaan->hasil_id) . '" class="btn btn-info btn-sm">Detail</a> ';
             $btn .= '<a href="' . url('admin/dataPemeriksaan/' . $hasil_pemeriksaan->hasil_id . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
-            // $btn .= '<form class="d-inline-block" method="POST" action="' . url('admin/dataPemeriksaan/' . $hasil_pemeriksaan->hasil_id) . '">'
-            //     . csrf_field() . method_field('DELETE') .
-            //     '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
+            $btn .= '<form class="d-inline-block" method="POST" action="' . url('admin/dataPemeriksaan/' . $hasil_pemeriksaan->hasil_id) . '">'
+                . csrf_field() . method_field('DELETE') .
+                '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
             return $btn;
         })
         ->rawColumns(['aksi'])
@@ -156,23 +156,27 @@ class HasilPemeriksaanController extends Controller
 
 
     
-    // public function destroy(String $hasil_id)
-    // {
-    //     $check = HasilPemeriksaanModel::find($hasil_id);
+    public function destroy(String $hasil_id)
+    {
+        $check = HasilPemeriksaanModel::find($hasil_id);
 
-    //     // Untuk mengecek apakah data user dengan id yang dimaksud ada atau tidak
-    //     if (!$check) {
-    //         return redirect('admin/hasilPemeriksaan')->with('error', 'Data Admin tidak ditemukan');
-    //     }
+        // Untuk mengecek apakah data user dengan id yang dimaksud ada atau tidak
+        if (!$check) {
+            return redirect('admin/dataPemeriksaan')->with('error', 'Data pemeriksaan tidak ditemukan');
+        }else{
+            HasilPemeriksaanModel::where('hasil_id', $hasil_id)->delete();
+            return redirect('admin/dataPemeriksaan')->with('success', 'Data Pemeriksaan telah dihapus');
 
-    //     try {
-    //         HasilPemeriksaanModel::destroy($hasil_id);
-    //         return redirect('admin/hasilPemeriksaan')->with('success', 'Data Admin berhasil dihapus');
-    //     } catch (\Illuminate\Database\QueryException $e) {
-    //         // Jika terjadi error ketika menghapus data, redirect kembali ke halaman dengan membawa pesan error
-    //         return redirect('admin/hasilPemeriksaan')->with('error', 'Data Admin gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
-    //     }
-    // }
+        }
+
+        // try {
+        //     HasilPemeriksaanModel::destroy($hasil_id);
+        //     return redirect('admin/hasilPemeriksaan')->with('success', 'Data Admin berhasil dihapus');
+        // } catch (\Illuminate\Database\QueryException $e) {
+        //     // Jika terjadi error ketika menghapus data, redirect kembali ke halaman dengan membawa pesan error
+        //     return redirect('admin/hasilPemeriksaan')->with('error', 'Data Admin gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+        // }
+    }
 
     public function update(Request $request, String $id)
     {
