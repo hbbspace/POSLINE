@@ -50,7 +50,7 @@
                 <div class="form-group">
                     <label for="jk">Jenis Kelamin:</label>
                     <select class="form-control" id="jk" name="jk" required>
-                        <option value="L">Laki-laki</option>
+                        {{-- <option value="L">Laki-laki</option> --}}
                         <option value="P">Perempuan</option>
                     </select>
                 </div>

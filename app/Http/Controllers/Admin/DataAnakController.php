@@ -27,7 +27,7 @@ class DataAnakController extends Controller
 
         $activeMenu = 'dataAnak';
 
-        $anggota_keluarga = AnggotaKeluargaModel::all();
+        $anggota_keluarga = AnggotaKeluargaModel::where('status', 'anak')->get();
         return view('admin.dataAnak.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'anggota_keluarga' => $anggota_keluarga, 'activeMenu' => $activeMenu]);
     }
 

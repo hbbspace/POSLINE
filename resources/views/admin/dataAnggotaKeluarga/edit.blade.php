@@ -35,7 +35,7 @@
                         <div class="form-group">
                             <label for="jk">Jenis Kelamin</label>
                             <select class="form-control" id="jk" name="jk">
-                                <option value="L" {{ $anggota_keluarga->jk == 'L' ? 'selected' : '' }}>Laki-laki</option>
+                                {{-- <option value="L" {{ $anggota_keluarga->jk == 'L' ? 'selected' : '' }}>Laki-laki</option> --}}
                                 <option value="P" {{ $anggota_keluarga->jk == 'P' ? 'selected' : '' }}>Perempuan</option>
                             </select>
                         </div>
@@ -43,7 +43,7 @@
                             <label for="status">Status</label>
                             <select class="form-control" id="status" name="status">
                                 <option value="ibu" {{ $anggota_keluarga->status == 'ibu' ? 'selected' : '' }}>Ibu</option>
-                                <option value="anak" {{ $anggota_keluarga->status == 'anak' ? 'selected' : '' }}>Anak</option>
+                                {{-- <option value="anak" {{ $anggota_keluarga->status == 'anak' ? 'selected' : '' }}>Anak</option> --}}
                             </select>
                         </div>
                         {{-- <div class="form-group">
