@@ -179,10 +179,10 @@ class DataUserController extends Controller
         return DataTables::of($users)
             ->addColumn('action', function ($users) { // Menambahkan kolom 'action'
                 return '<a href="' . url('admin/dataUser/' .$users->user_id) . '" class="btn btn-info btn-sm">Detail</a> ' .
-                    '<a href="' . url('admin/dataUser/' .$users->user_id . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ' .
-                    '<form class="d-inline-block" method="POST" action="' . url('admin/dataUser/' .$users->user_id) . '">' .
-                    csrf_field() . method_field('DELETE') .
-                    '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
+                    '<a href="' . url('admin/dataUser/' .$users->user_id . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
+                    // '<form class="d-inline-block" method="POST" action="' . url('admin/dataUser/' .$users->user_id) . '">' .
+                    // csrf_field() . method_field('DELETE') .
+                    // '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
             })
             ->rawColumns(['action']) // memberitahu bahwa kolom aksi adalah html
             ->make(true);
